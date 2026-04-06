@@ -68,11 +68,9 @@ const EmailService = {
       config.publicKey &&
       config.serviceId &&
       config.templateId &&
-      config.templateIdClientReply &&
       !config.publicKey.startsWith('YOUR_') &&
       !config.serviceId.startsWith('YOUR_') &&
-      !config.templateId.startsWith('YOUR_') &&
-      !config.templateIdClientReply.startsWith('YOUR_')
+      !config.templateId.startsWith('YOUR_')
     );
   },
 
@@ -116,7 +114,7 @@ const EmailService = {
     const runtimeFileConfig = await this.loadRuntimeConfigFile();
     const config = this.getConfig(runtimeFileConfig);
     if (!this.hasValidConfig(config)) {
-      throw new Error('EmailJS is not configured. Set publicKey, serviceId, templateId, and templateIdClientReply in js/api.js, window.SECURIDE_EMAILJS_CONFIG, or emailjs-config.json.');
+      throw new Error('EmailJS is not configured. Set publicKey, serviceId, and templateId in Render environment variables.');
     }
 
     const emailjs = await this.ensureScriptLoaded();
@@ -136,11 +134,17 @@ const EmailService = {
         submittedAt: new Date().toISOString()
       };
 
-      // Send both admin notification and client auto-reply in parallel
-      await Promise.all([
-        window.emailjs.send(config.serviceId, config.templateId, emailData),
-        window.emailjs.send(config.serviceId, config.templateIdClientReply, emailData)
-      ]);
+      // Send admin notification first. This is the critical delivery path.
+      await window.emailjs.send(config.serviceId, config.templateId, emailData);
+
+      // Client auto-reply is optional and should not block successful submissions.
+      if (config.templateIdClientReply && !config.templateIdClientReply.startsWith('YOUR_')) {
+        try {
+          await window.emailjs.send(config.serviceId, config.templateIdClientReply, emailData);
+        } catch (replyError) {
+          console.warn('Client auto-reply failed, but admin notification succeeded:', replyError);
+        }
+      }
 
       return {
         success: true,
