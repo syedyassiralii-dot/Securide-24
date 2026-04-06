@@ -11,3 +11,5 @@ services:
         sync: false
       - key: EMAILJS_TEMPLATE_ID
         sync: false
+      - key: EMAILJS_TEMPLATE_ID_CLIENT_REPLY
+        sync: false

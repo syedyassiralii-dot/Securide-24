@@ -3,7 +3,8 @@
 const EMAILJS_CONFIG = {
   publicKey: 'YOUR_EMAILJS_PUBLIC_KEY',
   serviceId: 'YOUR_EMAILJS_SERVICE_ID',
-  templateId: 'YOUR_EMAILJS_TEMPLATE_ID'
+  templateId: 'YOUR_EMAILJS_TEMPLATE_ID',
+  templateIdClientReply: 'YOUR_EMAILJS_TEMPLATE_ID_CLIENT_REPLY'
 };
 
 const EmailService = {
@@ -37,7 +38,8 @@ const EmailService = {
         this.runtimeConfig = {
           publicKey: json.publicKey || '',
           serviceId: json.serviceId || '',
-          templateId: json.templateId || ''
+          templateId: json.templateId || '',
+          templateIdClientReply: json.templateIdClientReply || ''
         };
 
         return this.runtimeConfig;
@@ -55,7 +57,8 @@ const EmailService = {
 
     return {
       publicKey: runtimeConfig.publicKey || fileConfig.publicKey || EMAILJS_CONFIG.publicKey,
-      serviceId: runtimeConfig.serviceId || fileConfig.serviceId || EMAILJS_CONFIG.serviceId,
+      serviceId: runtimeConfig.serviceId || fileConfig.serviceId || EMAILJS_CONFIG.serviceId,,
+      templateIdClientReply: runtimeConfig.templateIdClientReply || fileConfig.templateIdClientReply || EMAILJS_CONFIG.templateIdClientReply
       templateId: runtimeConfig.templateId || fileConfig.templateId || EMAILJS_CONFIG.templateId
     };
   },
@@ -64,9 +67,11 @@ const EmailService = {
     return (
       config.publicKey &&
       config.serviceId &&
-      config.templateId &&
+      config.templateIdClientReply &&
       !config.publicKey.startsWith('YOUR_') &&
       !config.serviceId.startsWith('YOUR_') &&
+      !config.templateId.startsWith('YOUR_') &&
+      !config.templateIdClientReplystartsWith('YOUR_') &&
       !config.templateId.startsWith('YOUR_')
     );
   },
@@ -124,10 +129,16 @@ const EmailService = {
     const config = this.getConfig(runtimeFileConfig);
 
     try {
-      await this.init();
-
-      await window.emailjs.send(config.serviceId, config.templateId, {
+      const emailData = {
         ...formData,
+        submittedAt: new Date().toISOString()
+      };
+
+      // Send both admin notification and client auto-reply in parallel
+      await Promise.all([
+        window.emailjs.send(config.serviceId, config.templateId, emailData),
+        window.emailjs.send(config.serviceId, config.templateIdClientReply, emailData)
+      ] ...formData,
         submittedAt: new Date().toISOString()
       });
 

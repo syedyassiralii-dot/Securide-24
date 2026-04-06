@@ -25,7 +25,8 @@ In the service settings, add:
 
 - `EMAILJS_PUBLIC_KEY`
 - `EMAILJS_SERVICE_ID`
-- `EMAILJS_TEMPLATE_ID`
+- `EMAILJS_TEMPLATE_ID` (admin notification template)
+- `EMAILJS_TEMPLATE_ID_CLIENT_REPLY` (client auto-reply template)
 
 Then trigger a redeploy.
 
@@ -43,15 +44,25 @@ Create `emailjs-config.json` in project root:
 {
   "publicKey": "YOUR_EMAILJS_PUBLIC_KEY",
   "serviceId": "YOUR_EMAILJS_SERVICE_ID",
-  "templateId": "YOUR_EMAILJS_TEMPLATE_ID"
+  "templateId": "YOUR_EMAILJS_TEMPLATE_ID",
+  "templateIdClientReply": "YOUR_EMAILJS_TEMPLATE_ID_CLIENT_REPLY"
 }
 ```
 
 Then serve locally and submit the contact form.
+## 7) Email templates and IDs
 
-## 7) Template field names
+Your form now sends TWO emails on submission:
 
-The contact form sends:
+1. **Admin Notification** → your mailbox (social@securide24.com)
+   - Template ID: `EMAILJS_TEMPLATE_ID`
+   - Contains all form data
+   
+2. **Client Auto Reply** → sender's email ({{email}})
+   - Template ID: `EMAILJS_TEMPLATE_ID_CLIENT_REPLY`
+   - Acknowledgment message
+
+Both templates use these form field names:
 
 - `firstName`
 - `lastName`
@@ -63,4 +74,12 @@ The contact form sends:
 - `message`
 - `submittedAt`
 
+## 8) Submission flow
+
+When a user submits the contact form:
+
+1. js/api.js sends form data to EmailJS
+2. EmailJS sends Admin Notification to your mailbox
+3. EmailJS sends Client Auto Reply to client's email
+4. Both happen in parallel for fast response
 Map these fields inside your EmailJS template.
