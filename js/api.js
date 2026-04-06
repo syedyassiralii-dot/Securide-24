@@ -57,9 +57,9 @@ const EmailService = {
 
     return {
       publicKey: runtimeConfig.publicKey || fileConfig.publicKey || EMAILJS_CONFIG.publicKey,
-      serviceId: runtimeConfig.serviceId || fileConfig.serviceId || EMAILJS_CONFIG.serviceId,,
+      serviceId: runtimeConfig.serviceId || fileConfig.serviceId || EMAILJS_CONFIG.serviceId,
+      templateId: runtimeConfig.templateId || fileConfig.templateId || EMAILJS_CONFIG.templateId,
       templateIdClientReply: runtimeConfig.templateIdClientReply || fileConfig.templateIdClientReply || EMAILJS_CONFIG.templateIdClientReply
-      templateId: runtimeConfig.templateId || fileConfig.templateId || EMAILJS_CONFIG.templateId
     };
   },
 
@@ -67,12 +67,12 @@ const EmailService = {
     return (
       config.publicKey &&
       config.serviceId &&
+      config.templateId &&
       config.templateIdClientReply &&
       !config.publicKey.startsWith('YOUR_') &&
       !config.serviceId.startsWith('YOUR_') &&
       !config.templateId.startsWith('YOUR_') &&
-      !config.templateIdClientReplystartsWith('YOUR_') &&
-      !config.templateId.startsWith('YOUR_')
+      !config.templateIdClientReply.startsWith('YOUR_')
     );
   },
 
@@ -116,7 +116,7 @@ const EmailService = {
     const runtimeFileConfig = await this.loadRuntimeConfigFile();
     const config = this.getConfig(runtimeFileConfig);
     if (!this.hasValidConfig(config)) {
-      throw new Error('EmailJS is not configured. Set publicKey, serviceId, and templateId in js/api.js, window.SECURIDE_EMAILJS_CONFIG, or emailjs-config.json.');
+      throw new Error('EmailJS is not configured. Set publicKey, serviceId, templateId, and templateIdClientReply in js/api.js, window.SECURIDE_EMAILJS_CONFIG, or emailjs-config.json.');
     }
 
     const emailjs = await this.ensureScriptLoaded();
@@ -129,6 +129,8 @@ const EmailService = {
     const config = this.getConfig(runtimeFileConfig);
 
     try {
+      await this.init();
+
       const emailData = {
         ...formData,
         submittedAt: new Date().toISOString()
@@ -138,9 +140,7 @@ const EmailService = {
       await Promise.all([
         window.emailjs.send(config.serviceId, config.templateId, emailData),
         window.emailjs.send(config.serviceId, config.templateIdClientReply, emailData)
-      ] ...formData,
-        submittedAt: new Date().toISOString()
-      });
+      ]);
 
       return {
         success: true,
