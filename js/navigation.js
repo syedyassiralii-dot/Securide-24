@@ -13,6 +13,7 @@ const Navigation = {
   googleTranslateReady: false,
   googleTranslatePendingLang: null,
   translationReloadKey: 'securide_translation_reload_lang',
+  translationGuardTimer: null,
   i18nPhrases: {
     solutions: 'Solutions',
     capabilities: 'Capabilities',
@@ -805,6 +806,33 @@ const Navigation = {
     }
   },
 
+  startTranslationGuard(lang) {
+    if (this.translationGuardTimer) {
+      clearInterval(this.translationGuardTimer);
+      this.translationGuardTimer = null;
+    }
+
+    if (lang === this.defaultLanguage) {
+      return;
+    }
+
+    const target = this.getGoogleTargetLang(lang);
+    let attempts = 0;
+    const maxAttempts = 16;
+
+    // Re-apply translation for a short period so late-rendered UI text is also translated.
+    this.translationGuardTimer = setInterval(() => {
+      attempts += 1;
+      this.setGoogleTranslateCookie(lang);
+      this.setGoogleTranslateComboValue(target);
+
+      if (attempts >= maxAttempts) {
+        clearInterval(this.translationGuardTimer);
+        this.translationGuardTimer = null;
+      }
+    }, 500);
+  },
+
   applyGoogleTranslateLanguage(lang) {
     const target = this.getGoogleTargetLang(lang);
 
@@ -1007,25 +1035,6 @@ const Navigation = {
       return;
     }
 
-    Utils.qsa('[data-i18n-key]').forEach((element) => {
-      const key = element.dataset.i18nKey;
-      if (!key) {
-        return;
-      }
-
-      const translated = this.translateByKey(key, lang);
-      if (!translated) {
-        return;
-      }
-
-      if (element.classList.contains('search-input')) {
-        element.setAttribute('placeholder', translated);
-        return;
-      }
-
-      this.setElementText(element, translated);
-    });
-
     const iconLabel = this.languageLabel[lang] || 'EN';
     Utils.qsa('.menu-language-icon').forEach((icon) => {
       icon.textContent = iconLabel;
@@ -1038,7 +1047,29 @@ const Navigation = {
     document.documentElement.lang = lang === 'zh' ? 'zh' : lang;
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
 
+    if (lang === this.defaultLanguage) {
+      Utils.qsa('[data-i18n-key]').forEach((element) => {
+        const key = element.dataset.i18nKey;
+        if (!key) {
+          return;
+        }
+
+        const translated = this.translateByKey(key, lang);
+        if (!translated) {
+          return;
+        }
+
+        if (element.classList.contains('search-input')) {
+          element.setAttribute('placeholder', translated);
+          return;
+        }
+
+        this.setElementText(element, translated);
+      });
+    }
+
     this.applyGoogleTranslateLanguage(lang);
+    this.startTranslationGuard(lang);
     this.saveLanguage(lang);
   },
 
