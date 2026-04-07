@@ -74,6 +74,37 @@ const EmailService = {
     );
   },
 
+  isSmtpTimeoutError(error) {
+    const status = error && typeof error.status !== 'undefined' ? String(error.status) : '';
+    const text = (error && (error.text || error.message) ? String(error.text || error.message) : '').toLowerCase();
+    return status === '412' && text.includes('smtp') && text.includes('timeout');
+  },
+
+  delay(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  },
+
+  async sendWithRetry(serviceId, templateId, payload, retryCount = 1) {
+    let lastError = null;
+
+    for (let attempt = 0; attempt <= retryCount; attempt += 1) {
+      try {
+        return await window.emailjs.send(serviceId, templateId, payload);
+      } catch (error) {
+        lastError = error;
+
+        const canRetry = this.isSmtpTimeoutError(error) && attempt < retryCount;
+        if (!canRetry) {
+          throw error;
+        }
+
+        await this.delay(1200);
+      }
+    }
+
+    throw lastError || new Error('Email delivery failed.');
+  },
+
   formatEmailJsError(error) {
     const messageParts = [];
 
@@ -96,6 +127,10 @@ const EmailService = {
 
     if (lowered.includes('non-browser environments is currently disabled')) {
       return 'EmailJS browser security is active. Submit from the website in a browser and ensure your domain is listed in EmailJS Allowed Origins.';
+    }
+
+    if (lowered.includes('smtp') && lowered.includes('connection timeout')) {
+      return 'Mail server timeout at SMTP provider. Please retry in 1-2 minutes. If it repeats, SMTP credentials/host limits on the mail provider need checking.';
     }
 
     if (rawMessage) {
@@ -166,12 +201,12 @@ const EmailService = {
       };
 
       // Send admin notification first. This is the critical delivery path.
-      await window.emailjs.send(config.serviceId, config.templateId, emailData);
+      await this.sendWithRetry(config.serviceId, config.templateId, emailData, 1);
 
       // Client auto-reply is optional and should not block successful submissions.
       if (config.templateIdClientReply && !config.templateIdClientReply.startsWith('YOUR_')) {
         try {
-          await window.emailjs.send(config.serviceId, config.templateIdClientReply, emailData);
+          await this.sendWithRetry(config.serviceId, config.templateIdClientReply, emailData, 1);
         } catch (replyError) {
           console.warn('Client auto-reply failed, but admin notification succeeded:', replyError);
         }
