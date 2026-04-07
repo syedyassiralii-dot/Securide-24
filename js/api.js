@@ -3,8 +3,8 @@
 const EMAILJS_CONFIG = {
   publicKey: 'YOUR_EMAILJS_PUBLIC_KEY',
   serviceId: 'YOUR_EMAILJS_SERVICE_ID',
-  templateId: 'YOUR_EMAILJS_TEMPLATE_ID',
-  templateIdClientReply: 'YOUR_EMAILJS_TEMPLATE_ID_CLIENT_REPLY'
+  templateId: 'template_v0k1t2f',
+  templateIdClientReply: 'template_52exo67'
 };
 
 const EmailService = {
