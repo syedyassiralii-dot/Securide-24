@@ -748,7 +748,7 @@
 }
 
 .alert-cta::after {
-  content: 'â†’';
+  content: '\2192';
   display: inline-flex;
   align-items: center;
   justify-content: center;
