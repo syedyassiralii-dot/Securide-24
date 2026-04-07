@@ -438,6 +438,22 @@
   padding-left: clamp(28px, 4vw, 64px);
 }
 
+[dir="rtl"] .menu-content {
+  gap: clamp(24px, 3vw, 48px);
+}
+
+[dir="rtl"] .menu-left {
+  border-right: none;
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
+  padding-right: 0;
+  padding-left: clamp(24px, 4vw, 52px);
+}
+
+[dir="rtl"] .menu-right {
+  padding-left: 0;
+  padding-right: clamp(28px, 4vw, 64px);
+}
+
 .menu-main-list {
   display: flex;
   flex-direction: column;
