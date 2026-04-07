@@ -74,6 +74,37 @@ const EmailService = {
     );
   },
 
+  formatEmailJsError(error) {
+    const messageParts = [];
+
+    if (error && typeof error.status !== 'undefined') {
+      messageParts.push(`status ${error.status}`);
+    }
+
+    if (error && error.text) {
+      messageParts.push(error.text);
+    } else if (error && error.message) {
+      messageParts.push(error.message);
+    }
+
+    const rawMessage = messageParts.join(' - ').trim();
+    const lowered = rawMessage.toLowerCase();
+
+    if (lowered.includes('origin') && lowered.includes('not allowed')) {
+      return 'Email service rejected this domain. Add https://www.securide24.com and https://securide24.com in EmailJS Account -> Security -> Allowed Origins.';
+    }
+
+    if (lowered.includes('non-browser environments is currently disabled')) {
+      return 'EmailJS browser security is active. Submit from the website in a browser and ensure your domain is listed in EmailJS Allowed Origins.';
+    }
+
+    if (rawMessage) {
+      return rawMessage;
+    }
+
+    return 'Unable to submit your request right now. Please try again.';
+  },
+
   ensureScriptLoaded() {
     if (typeof window === 'undefined') {
       return Promise.reject(new Error('EmailJS requires a browser environment.'));
@@ -154,7 +185,7 @@ const EmailService = {
       console.error('EmailJS submission failed:', error);
       return {
         success: false,
-        message: error && error.message ? error.message : 'Unable to submit your request right now. Please try again.'
+        message: this.formatEmailJsError(error)
       };
     }
   }
