@@ -4461,7 +4461,7 @@
     transform: translate(-50%, -50%) translateZ(0) scale(1.005);
     transform-origin: center center;
     object-fit: cover;
-    object-position: center center;
+    object-position: center 38%;
     opacity: 0.9;
     z-index: 1;
   }
@@ -4574,7 +4574,7 @@
     transform: translate(-50%, -50%) translateZ(0) scale(1.01);
     transform-origin: center center;
     object-fit: cover;
-    object-position: center center;
+    object-position: center 35%;
     opacity: 0.92;
     z-index: 1;
   }
