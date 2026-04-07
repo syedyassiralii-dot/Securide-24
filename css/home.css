@@ -16,28 +16,16 @@
   top: 50%;
   left: 50%;
   width: 100%;
-  height: auto;
-  max-height: 100%;
+  height: 100%;
   transform: translate(-50%, -50%);
-  object-fit: contain;
+  object-fit: cover;
   object-position: center center;
   z-index: 1;
   opacity: 0.92;
 }
 
 .hero-video-backdrop {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center center;
-  filter: blur(10px) saturate(0.95);
-  transform: scale(1.06);
-  opacity: 0.5;
-  z-index: 0;
+  display: none;
 }
 
 .hero-overlay {
@@ -4470,11 +4458,10 @@
     top: 50%;
     left: 50%;
     width: 100%;
-    height: auto;
-    max-height: 100%;
+    height: 100%;
     transform: translate(-50%, -50%) translateZ(0) scale(1.005);
     transform-origin: center center;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center center;
     opacity: 0.9;
     z-index: 1;
@@ -4584,11 +4571,10 @@
     top: 50%;
     left: 50%;
     width: 100%;
-    height: auto;
-    max-height: 100%;
+    height: 100%;
     transform: translate(-50%, -50%) translateZ(0) scale(1.01);
     transform-origin: center center;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center center;
     opacity: 0.92;
     z-index: 1;
