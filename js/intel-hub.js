@@ -278,6 +278,104 @@
     return true;
   }
 
+  function buildShareUrl(pageType, activeKey) {
+    const base = `${window.location.origin}${window.location.pathname}${window.location.search}`;
+    if (pageType === 'case-studies' && activeKey) {
+      return `${base}#${encodeURIComponent(activeKey)}`;
+    }
+    return base;
+  }
+
+  function updateShareTargets(pageType) {
+    const titleEl = document.getElementById('intelTitle');
+    const shareCard = document.querySelector('.intel-share-card');
+    if (!titleEl || !shareCard) {
+      return;
+    }
+
+    const activeButton = document.querySelector('.intel-sidebar-left .intel-item.is-active[data-intel-key]');
+    const activeKey = activeButton ? activeButton.getAttribute('data-intel-key') : '';
+    const shareUrl = buildShareUrl(pageType, activeKey);
+    const shareTitle = titleEl.textContent.trim();
+
+    const encodedUrl = encodeURIComponent(shareUrl);
+    const encodedTitle = encodeURIComponent(shareTitle);
+
+    const copyLink = shareCard.querySelector('.share-link');
+    if (copyLink) {
+      copyLink.setAttribute('href', shareUrl);
+      copyLink.dataset.shareUrl = shareUrl;
+    }
+
+    shareCard.querySelectorAll('.share-social-icon').forEach((iconLink) => {
+      const label = (iconLink.getAttribute('aria-label') || '').toLowerCase();
+
+      if (label === 'facebook') {
+        iconLink.href = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+        iconLink.target = '_blank';
+        iconLink.rel = 'noopener noreferrer';
+      } else if (label === 'twitter' || label === 'x (twitter)' || label === 'x') {
+        iconLink.href = `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`;
+        iconLink.target = '_blank';
+        iconLink.rel = 'noopener noreferrer';
+      } else if (label === 'linkedin') {
+        iconLink.href = `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`;
+        iconLink.target = '_blank';
+        iconLink.rel = 'noopener noreferrer';
+      } else if (label === 'email') {
+        iconLink.href = `mailto:?subject=${encodedTitle}&body=${encodeURIComponent(`${shareTitle}\n\n${shareUrl}`)}`;
+        iconLink.removeAttribute('target');
+      } else if (label === 'instagram') {
+        iconLink.href = shareUrl;
+        iconLink.dataset.shareUrl = shareUrl;
+      }
+    });
+  }
+
+  function setupShareHandlers(pageType) {
+    const shareCard = document.querySelector('.intel-share-card');
+    if (!shareCard) {
+      return;
+    }
+
+    const copyLink = shareCard.querySelector('.share-link');
+    if (copyLink) {
+      copyLink.addEventListener('click', async (event) => {
+        event.preventDefault();
+        const url = copyLink.dataset.shareUrl || buildShareUrl(pageType, '');
+
+        try {
+          await navigator.clipboard.writeText(url);
+          const original = copyLink.textContent;
+          copyLink.textContent = 'Link Copied';
+          setTimeout(() => {
+            copyLink.textContent = original;
+          }, 1400);
+        } catch (error) {
+          window.prompt('Copy this link:', url);
+        }
+      });
+    }
+
+    shareCard.querySelectorAll('.share-social-icon').forEach((iconLink) => {
+      const label = (iconLink.getAttribute('aria-label') || '').toLowerCase();
+      if (label !== 'instagram') {
+        return;
+      }
+
+      iconLink.addEventListener('click', async (event) => {
+        event.preventDefault();
+        const url = iconLink.dataset.shareUrl || window.location.href;
+        try {
+          await navigator.clipboard.writeText(url);
+          window.open('https://www.instagram.com/', '_blank', 'noopener,noreferrer');
+        } catch (error) {
+          window.prompt('Copy this link and paste on Instagram:', url);
+        }
+      });
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     const section = document.querySelector('[data-intel-page]');
     if (!section) {
@@ -303,23 +401,32 @@
 
     if (initialKey) {
       applyContentByKey(pageType, initialKey, buttons, pageContent, pageAuthors, false);
+      updateShareTargets(pageType);
 
       if (hashKey && pageType === 'case-studies') {
         section.scrollIntoView({ block: 'start' });
       }
     }
 
+    setupShareHandlers(pageType);
+
     buttons.forEach((button) => {
       button.addEventListener('click', () => {
         const contentKey = button.getAttribute('data-intel-key');
-        applyContentByKey(pageType, contentKey, buttons, pageContent, pageAuthors, shouldSyncHash);
+        const changed = applyContentByKey(pageType, contentKey, buttons, pageContent, pageAuthors, shouldSyncHash);
+        if (changed) {
+          updateShareTargets(pageType);
+        }
       });
     });
 
     window.addEventListener('hashchange', () => {
       const nextKey = window.location.hash ? decodeURIComponent(window.location.hash.slice(1)) : '';
       if (nextKey && pageContent[nextKey]) {
-        applyContentByKey(pageType, nextKey, buttons, pageContent, pageAuthors, false);
+        const changed = applyContentByKey(pageType, nextKey, buttons, pageContent, pageAuthors, false);
+        if (changed) {
+          updateShareTargets(pageType);
+        }
       }
     });
   });
