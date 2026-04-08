@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.securide24.com/sitemap.xml
