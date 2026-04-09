@@ -10,7 +10,7 @@ const ISO_N = {
   124:'CA',140:'CF',144:'LK',152:'CL',156:'CN',170:'CO',178:'CG',180:'CD',
   188:'CR',191:'HR',192:'CU',196:'CY',203:'CZ',204:'BJ',208:'DK',214:'DO',
   218:'EC',222:'SV',231:'ET',246:'FI',250:'FR',266:'GA',276:'DE',
-  288:'GH',300:'GR',320:'GT',324:'GN',332:'HT',340:'HN',348:'HU',356:'IN',
+  288:'GH',300:'GR',304:'GL',320:'GT',324:'GN',332:'HT',340:'HN',348:'HU',356:'IN',
   360:'ID',364:'IR',368:'IQ',372:'IE',376:'IL',380:'IT',388:'JM',392:'JP',
   398:'KZ',400:'JO',404:'KE',408:'KP',410:'KR',414:'KW',418:'LA',422:'LB',
   430:'LR',434:'LY',450:'MG',454:'MW',458:'MY',466:'ML',478:'MR',484:'MX',
@@ -33,7 +33,7 @@ const ISO_NAMES = {
   180:'DR Congo',188:'Costa Rica',191:'Croatia',192:'Cuba',196:'Cyprus',
   203:'Czech Republic',204:'Benin',208:'Denmark',214:'Dominican Republic',
   218:'Ecuador',222:'El Salvador',231:'Ethiopia',246:'Finland',250:'France',
-  266:'Gabon',276:'Germany',288:'Ghana',300:'Greece',320:'Guatemala',
+  266:'Gabon',276:'Germany',288:'Ghana',300:'Greece',304:'Greenland',320:'Guatemala',
   324:'Guinea',332:'Haiti',340:'Honduras',348:'Hungary',356:'India',
   360:'Indonesia',364:'Iran',368:'Iraq',372:'Ireland',376:'Israel',
   380:'Italy',388:'Jamaica',392:'Japan',398:'Kazakhstan',400:'Jordan',
@@ -54,86 +54,123 @@ const ISO_NAMES = {
   268:'Georgia',702:'Singapore',703:'Slovakia',705:'Slovenia',
 };
 
+// Risk type labels and color scale (matching the 1-10 visual scale)
+const RISK_TYPES = {
+  R1:  'Minimal Risk - Stable',
+  R2:  'Minimal Risk - Increasing / Low Risk - Decreasing',
+  R3:  'Low Risk - Stable',
+  R4:  'Low Risk - Increasing',
+  R5:  'Moderate Risk - Decreasing',
+  R6:  'Moderate Risk - Stable',
+  R7:  'Moderate Risk - Increasing / High Risk - Decreasing',
+  R8:  'High Risk - Stable',
+  R9:  'High Risk - Increasing / Critical Risk - Decreasing',
+  R10: 'Critical Risk - Stable',
+};
+
+const RISK_COLORS = {
+  R1:  '#1f8b80',
+  R2:  '#6f9d6e',
+  R3:  '#8cab60',
+  R4:  '#a8b34a',
+  R5:  '#c7c83d',
+  R6:  '#e5d61a',
+  R7:  '#f0b429',
+  R8:  '#e39a3d',
+  R9:  '#d96b4a',
+  R10: '#b8355b',
+};
+
 // Country risk data keyed by ISO alpha-2
 const COUNTRY_DATA = {
-  AF:{risk:'High',  color:'#e63946',detail:'Active conflict environment. Specialist coordination essential for all operations.'},
-  SO:{risk:'High',  color:'#e63946',detail:'Ongoing insurgency and civil disorder. High-risk advisory in effect.'},
-  SS:{risk:'High',  color:'#e63946',detail:'Fragile ceasefire conditions. Active monitoring and advisory support available.'},
-  SD:{risk:'High',  color:'#e63946',detail:'Active conflict with widespread displacement. Critical-level advisory.'},
-  SY:{risk:'High',  color:'#e63946',detail:'Complex conflict landscape. Full operational assessment required.'},
-  IQ:{risk:'High',  color:'#e63946',detail:'Residual instability and militia activity. Close advisory support available.'},
-  YE:{risk:'High',  color:'#e63946',detail:'Ongoing armed conflict. No-travel advisory in most regions.'},
-  LY:{risk:'High',  color:'#e63946',detail:'Divided governance and active armed factions. High-level briefings available.'},
-  ML:{risk:'High',  color:'#e63946',detail:'Jihadist activity in northern and central regions. Travel risk assessment essential.'},
-  CF:{risk:'High',  color:'#e63946',detail:'Persistent armed group activity. Operational presence requires specialist coordination.'},
-  MZ:{risk:'High',  color:'#e63946',detail:'Cabo Delgado insurgency ongoing. Northern operations require security clearance.'},
-  PK:{risk:'Elevated',color:'#f4a261',detail:'Core operational region. Political volatility and border tensions require constant monitoring.'},
-  NG:{risk:'Elevated',color:'#f4a261',detail:'Boko Haram activity in the north, banditry in the northwest. Regional advisories active.'},
-  CD:{risk:'Elevated',color:'#f4a261',detail:'Eastern DRC remains volatile. Armed group presence requires advanced coordination.'},
-  BI:{risk:'Elevated',color:'#f4a261',detail:'Political tensions and targeted violence. Monitored closely for executive travel.'},
-  ET:{risk:'Elevated',color:'#f4a261',detail:'Tigray and Amhara regions remain unstable. Intelligence briefings available on request.'},
-  MX:{risk:'Elevated',color:'#f4a261',detail:'Cartel activity in multiple states. Executive protection coordination recommended.'},
-  VE:{risk:'Elevated',color:'#f4a261',detail:'Political instability and organised crime. Specialist security advisory in effect.'},
-  HT:{risk:'Elevated',color:'#f4a261',detail:'Gang control in major urban areas. Critical advisory for all personnel.'},
-  MM:{risk:'Elevated',color:'#f4a261',detail:'Military junta with ongoing civil conflict. Travel strongly discouraged in conflict zones.'},
-  BF:{risk:'Elevated',color:'#f4a261',detail:'Jihadist spillover from Mali. Significant portions of territory under advisory.'},
-  NE:{risk:'Elevated',color:'#f4a261',detail:'Post-coup instability. Border regions with armed group activity.'},
-  IN:{risk:'Moderate',color:'#e9c46a',detail:'Generally manageable risk. Border regions and some northern areas require targeted assessment.'},
-  KE:{risk:'Moderate',color:'#e9c46a',detail:'Terrorism risk in border areas. Urban crime in Nairobi requires executive awareness.'},
-  TZ:{risk:'Moderate',color:'#e9c46a',detail:'Generally stable. Zanzibar and Mozambique border areas monitored.'},
-  GH:{risk:'Moderate',color:'#e9c46a',detail:'Relatively stable. Northern border areas under advisory watch.'},
-  CM:{risk:'Moderate',color:'#e9c46a',detail:'Anglophone crisis in western regions. Intelligence coverage active.'},
-  CO:{risk:'Moderate',color:'#e9c46a',detail:'Improved security but FARC dissidents active in rural areas. Operational support available.'},
-  BD:{risk:'Moderate',color:'#e9c46a',detail:'Political environment requires monitoring. Business operations manageable with advisory.'},
-  LB:{risk:'Moderate',color:'#e9c46a',detail:'Economic crisis with political instability. Heightened situational awareness advised.'},
-  UG:{risk:'Moderate',color:'#e9c46a',detail:'Generally stable with border area concerns. Executive travel briefings available.'},
-  ZM:{risk:'Moderate',color:'#e9c46a',detail:'Stable environment with crime risk in urban centres. Business risk advisory available.'},
-  MR:{risk:'Moderate',color:'#e9c46a',detail:'Sahel corridor monitoring active. Generally manageable environment for operations.'},
-  PG:{risk:'Moderate',color:'#e9c46a',detail:'High tribal violence and urban crime. Executive travel risk assessment required.'},
-  SA:{risk:'Monitored',color:'#4cc9f0',detail:'Strategic Gulf partner. Operational coordination capacity available for executive travel.'},
-  AE:{risk:'Monitored',color:'#4cc9f0',detail:'Stable operational environment. Regional coordination hub for Gulf operations.'},
-  QA:{risk:'Monitored',color:'#4cc9f0',detail:'Stable environment. Intelligence briefings available for Gulf corridor operations.'},
-  EG:{risk:'Monitored',color:'#4cc9f0',detail:'Controlled security environment. Sinai region under elevated advisory.'},
-  MA:{risk:'Monitored',color:'#4cc9f0',detail:'Stable North Africa hub. Sahel border area monitoring active.'},
-  TN:{risk:'Monitored',color:'#4cc9f0',detail:'Political transitions ongoing. Generally manageable security environment.'},
-  TH:{risk:'Monitored',color:'#4cc9f0',detail:'Southern provinces under advisory. Major cities and business hubs manageable.'},
-  ID:{risk:'Monitored',color:'#4cc9f0',detail:'Terrorism risk present. Papua region under elevated advisory.'},
-  PH:{risk:'Monitored',color:'#4cc9f0',detail:'Mindanao under elevated risk. Business travel to major cities is manageable.'},
-  ZA:{risk:'Monitored',color:'#4cc9f0',detail:'High crime rate in urban areas. Executive protection coordination recommended.'},
-  TR:{risk:'Monitored',color:'#4cc9f0',detail:'Regional intelligence hub. Southeast border areas monitored closely.'},
-  JO:{risk:'Monitored',color:'#4cc9f0',detail:'Stable despite regional pressures. Intelligence briefings available.'},
-  UZ:{risk:'Monitored',color:'#4cc9f0',detail:'Central Asia corridor. Politically controlled environment with stable operations.'},
-  KZ:{risk:'Monitored',color:'#4cc9f0',detail:'Strategic Central Asian hub. Business environment manageable with advisories.'},
-  PE:{risk:'Monitored',color:'#4cc9f0',detail:'Political instability and Shining Path activity in some regions. Advisory available.'},
-  BR:{risk:'Monitored',color:'#4cc9f0',detail:'Urban security concerns and organised crime. Targeted executive advisory available.'},
-  IL:{risk:'Monitored',color:'#4cc9f0',detail:'Heightened security environment. Active intelligence monitoring across borders.'},
-  GE:{risk:'Monitored',color:'#4cc9f0',detail:'Stable with South Ossetia and Abkhazia tensions. Risk monitoring active.'},
-  GB:{risk:'Advisory',color:'#3a7bd5',detail:'SECURIDE 24 headquarters. Premier risk advisory and coordination capability.'},
-  DE:{risk:'Advisory',color:'#3a7bd5',detail:'Stable environment. Intelligence advisory available for corporate operations.'},
-  FR:{risk:'Advisory',color:'#3a7bd5',detail:'Managed security environment. Protest activity and terrorism risk monitored.'},
-  US:{risk:'Advisory',color:'#3a7bd5',detail:'Stable. Executive security protocols and business risk assessments available.'},
-  CA:{risk:'Advisory',color:'#3a7bd5',detail:'Low-risk environment. Operational support for executive travel available.'},
-  AU:{risk:'Advisory',color:'#3a7bd5',detail:'Stable. Business risk intelligence and executive travel support available.'},
-  JP:{risk:'Advisory',color:'#3a7bd5',detail:'Secure environment. Business intelligence monitoring available.'},
-  SG:{risk:'Advisory',color:'#3a7bd5',detail:'Hub for Southeast Asia operations. Stable and well-governed environment.'},
-  CH:{risk:'Advisory',color:'#3a7bd5',detail:'Neutral, stable environment. Financial and diplomatic operations well-supported.'},
-  SE:{risk:'Advisory',color:'#3a7bd5',detail:'Stable environment. Advisory coverage available.'},
-  NO:{risk:'Advisory',color:'#3a7bd5',detail:'Stable Nordic environment. Advisory coverage available.'},
-  NL:{risk:'Advisory',color:'#3a7bd5',detail:'Stable European hub. Business intelligence monitoring available.'},
-  KR:{risk:'Advisory',color:'#3a7bd5',detail:'Stable but North Korea tensions monitored. Business travel well-supported.'},
-  NZ:{risk:'Advisory',color:'#3a7bd5',detail:'Low-risk environment. Executive travel support available.'},
+  AF:{risk:RISK_TYPES.R10,color:RISK_COLORS.R10,detail:'Active conflict environment. Specialist coordination essential for all operations.'},
+  SO:{risk:RISK_TYPES.R10,color:RISK_COLORS.R10,detail:'Ongoing insurgency and civil disorder. High-risk advisory in effect.'},
+  SS:{risk:RISK_TYPES.R10,color:RISK_COLORS.R10,detail:'Fragile ceasefire conditions. Active monitoring and advisory support available.'},
+  SD:{risk:RISK_TYPES.R10,color:RISK_COLORS.R10,detail:'Active conflict with widespread displacement. Critical-level advisory.'},
+  SY:{risk:RISK_TYPES.R10,color:RISK_COLORS.R10,detail:'Complex conflict landscape. Full operational assessment required.'},
+  IQ:{risk:RISK_TYPES.R10,color:RISK_COLORS.R10,detail:'Residual instability and militia activity. Close advisory support available.'},
+  YE:{risk:RISK_TYPES.R10,color:RISK_COLORS.R10,detail:'Ongoing armed conflict. No-travel advisory in most regions.'},
+  LY:{risk:RISK_TYPES.R10,color:RISK_COLORS.R10,detail:'Divided governance and active armed factions. High-level briefings available.'},
+  ML:{risk:RISK_TYPES.R10,color:RISK_COLORS.R10,detail:'Jihadist activity in northern and central regions. Travel risk assessment essential.'},
+  CF:{risk:RISK_TYPES.R10,color:RISK_COLORS.R10,detail:'Persistent armed group activity. Operational presence requires specialist coordination.'},
+  MZ:{risk:RISK_TYPES.R10,color:RISK_COLORS.R10,detail:'Cabo Delgado insurgency ongoing. Northern operations require security clearance.'},
+
+  PK:{risk:RISK_TYPES.R8,color:RISK_COLORS.R8,detail:'Core operational region. Political volatility and border tensions require constant monitoring.'},
+  NG:{risk:RISK_TYPES.R8,color:RISK_COLORS.R8,detail:'Boko Haram activity in the north, banditry in the northwest. Regional advisories active.'},
+  CD:{risk:RISK_TYPES.R8,color:RISK_COLORS.R8,detail:'Eastern DRC remains volatile. Armed group presence requires advanced coordination.'},
+  BI:{risk:RISK_TYPES.R9,color:RISK_COLORS.R9,detail:'Political tensions and targeted violence. Monitored closely for executive travel.'},
+  ET:{risk:RISK_TYPES.R8,color:RISK_COLORS.R8,detail:'Tigray and Amhara regions remain unstable. Intelligence briefings available on request.'},
+  MX:{risk:RISK_TYPES.R7,color:RISK_COLORS.R7,detail:'Cartel activity in multiple states. Executive protection coordination recommended.'},
+  VE:{risk:RISK_TYPES.R9,color:RISK_COLORS.R9,detail:'Political instability and organised crime. Specialist security advisory in effect.'},
+  HT:{risk:RISK_TYPES.R8,color:RISK_COLORS.R8,detail:'Gang control in major urban areas. Critical advisory for all personnel.'},
+  MM:{risk:RISK_TYPES.R8,color:RISK_COLORS.R8,detail:'Military junta with ongoing civil conflict. Travel strongly discouraged in conflict zones.'},
+  BF:{risk:RISK_TYPES.R9,color:RISK_COLORS.R9,detail:'Jihadist spillover from Mali. Significant portions of territory under advisory.'},
+  NE:{risk:RISK_TYPES.R9,color:RISK_COLORS.R9,detail:'Post-coup instability. Border regions with armed group activity.'},
+
+  IN:{risk:RISK_TYPES.R6,color:RISK_COLORS.R6,detail:'Generally manageable risk. Border regions and some northern areas require targeted assessment.'},
+  KE:{risk:RISK_TYPES.R6,color:RISK_COLORS.R6,detail:'Terrorism risk in border areas. Urban crime in Nairobi requires executive awareness.'},
+  TZ:{risk:RISK_TYPES.R6,color:RISK_COLORS.R6,detail:'Generally stable. Zanzibar and Mozambique border areas monitored.'},
+  GH:{risk:RISK_TYPES.R6,color:RISK_COLORS.R6,detail:'Relatively stable. Northern border areas under advisory watch.'},
+  CM:{risk:RISK_TYPES.R6,color:RISK_COLORS.R6,detail:'Anglophone crisis in western regions. Intelligence coverage active.'},
+  CO:{risk:RISK_TYPES.R7,color:RISK_COLORS.R7,detail:'Improved security but FARC dissidents active in rural areas. Operational support available.'},
+  BD:{risk:RISK_TYPES.R6,color:RISK_COLORS.R6,detail:'Political environment requires monitoring. Business operations manageable with advisory.'},
+  LB:{risk:RISK_TYPES.R9,color:RISK_COLORS.R9,detail:'Economic crisis with political instability. Heightened situational awareness advised.'},
+  UG:{risk:RISK_TYPES.R6,color:RISK_COLORS.R6,detail:'Generally stable with border area concerns. Executive travel briefings available.'},
+  ZM:{risk:RISK_TYPES.R6,color:RISK_COLORS.R6,detail:'Stable environment with crime risk in urban centres. Business risk advisory available.'},
+  MR:{risk:RISK_TYPES.R6,color:RISK_COLORS.R6,detail:'Sahel corridor monitoring active. Generally manageable environment for operations.'},
+  PG:{risk:RISK_TYPES.R6,color:RISK_COLORS.R6,detail:'High tribal violence and urban crime. Executive travel risk assessment required.'},
+
+  SA:{risk:RISK_TYPES.R4,color:RISK_COLORS.R4,detail:'Strategic Gulf partner. Operational coordination capacity available for executive travel.'},
+  AE:{risk:RISK_TYPES.R4,color:RISK_COLORS.R4,detail:'Stable operational environment. Regional coordination hub for Gulf operations.'},
+  QA:{risk:RISK_TYPES.R4,color:RISK_COLORS.R4,detail:'Stable environment. Intelligence briefings available for Gulf corridor operations.'},
+  EG:{risk:RISK_TYPES.R7,color:RISK_COLORS.R7,detail:'Controlled security environment. Sinai region under elevated advisory.'},
+  MA:{risk:RISK_TYPES.R4,color:RISK_COLORS.R4,detail:'Stable North Africa hub. Sahel border area monitoring active.'},
+  TN:{risk:RISK_TYPES.R4,color:RISK_COLORS.R4,detail:'Political transitions ongoing. Generally manageable security environment.'},
+  TH:{risk:RISK_TYPES.R5,color:RISK_COLORS.R5,detail:'Southern provinces under advisory. Major cities and business hubs manageable.'},
+  ID:{risk:RISK_TYPES.R5,color:RISK_COLORS.R5,detail:'Terrorism risk present. Papua region under elevated advisory.'},
+  PH:{risk:RISK_TYPES.R7,color:RISK_COLORS.R7,detail:'Mindanao under elevated risk. Business travel to major cities is manageable.'},
+  ZA:{risk:RISK_TYPES.R5,color:RISK_COLORS.R5,detail:'High crime rate in urban areas. Executive protection coordination recommended.'},
+  TR:{risk:RISK_TYPES.R7,color:RISK_COLORS.R7,detail:'Regional intelligence hub. Southeast border areas monitored closely.'},
+  JO:{risk:RISK_TYPES.R4,color:RISK_COLORS.R4,detail:'Stable despite regional pressures. Intelligence briefings available.'},
+  UZ:{risk:RISK_TYPES.R4,color:RISK_COLORS.R4,detail:'Central Asia corridor. Politically controlled environment with stable operations.'},
+  KZ:{risk:RISK_TYPES.R4,color:RISK_COLORS.R4,detail:'Strategic Central Asian hub. Business environment manageable with advisories.'},
+  PE:{risk:RISK_TYPES.R4,color:RISK_COLORS.R4,detail:'Political instability and Shining Path activity in some regions. Advisory available.'},
+  BR:{risk:RISK_TYPES.R5,color:RISK_COLORS.R5,detail:'Urban security concerns and organised crime. Targeted executive advisory available.'},
+  IL:{risk:RISK_TYPES.R4,color:RISK_COLORS.R4,detail:'Heightened security environment. Active intelligence monitoring across borders.'},
+  GE:{risk:RISK_TYPES.R4,color:RISK_COLORS.R4,detail:'Stable with South Ossetia and Abkhazia tensions. Risk monitoring active.'},
+
+  GB:{risk:RISK_TYPES.R2,color:RISK_COLORS.R2,detail:'SECURIDE 24 headquarters. Premier risk advisory and coordination capability.'},
+  GL:{risk:RISK_TYPES.R2,color:RISK_COLORS.R2,detail:'Remote Arctic environment with minimal baseline risk and limited operational exposure.'},
+  DE:{risk:RISK_TYPES.R2,color:RISK_COLORS.R2,detail:'Stable environment. Intelligence advisory available for corporate operations.'},
+  FR:{risk:RISK_TYPES.R2,color:RISK_COLORS.R2,detail:'Managed security environment. Protest activity and terrorism risk monitored.'},
+  US:{risk:RISK_TYPES.R3,color:RISK_COLORS.R3,detail:'Stable. Executive security protocols and business risk assessments available.'},
+  CA:{risk:RISK_TYPES.R3,color:RISK_COLORS.R3,detail:'Low-risk environment. Operational support for executive travel available.'},
+  AU:{risk:RISK_TYPES.R3,color:RISK_COLORS.R3,detail:'Stable. Business risk intelligence and executive travel support available.'},
+  JP:{risk:RISK_TYPES.R3,color:RISK_COLORS.R3,detail:'Secure environment. Business intelligence monitoring available.'},
+  SG:{risk:RISK_TYPES.R4,color:RISK_COLORS.R4,detail:'Hub for Southeast Asia operations. Stable and well-governed environment.'},
+  CH:{risk:RISK_TYPES.R1,color:RISK_COLORS.R1,detail:'Neutral, stable environment. Financial and diplomatic operations well-supported.'},
+  SE:{risk:RISK_TYPES.R3,color:RISK_COLORS.R3,detail:'Stable environment. Advisory coverage available.'},
+  NO:{risk:RISK_TYPES.R1,color:RISK_COLORS.R1,detail:'Stable Nordic environment. Advisory coverage available.'},
+  NL:{risk:RISK_TYPES.R3,color:RISK_COLORS.R3,detail:'Stable European hub. Business intelligence monitoring available.'},
+  KR:{risk:RISK_TYPES.R4,color:RISK_COLORS.R4,detail:'Stable but North Korea tensions monitored. Business travel well-supported.'},
+  NZ:{risk:RISK_TYPES.R1,color:RISK_COLORS.R1,detail:'Low-risk environment. Executive travel support available.'},
 };
 
 // Risk badge colours
 const RISK_BADGE = {
-  High:      {bg:'rgba(230,57,70,0.2)',    text:'#ff6b75'},
-  Elevated:  {bg:'rgba(244,162,97,0.2)',   text:'#f4a261'},
-  Moderate:  {bg:'rgba(233,196,106,0.2)',  text:'#e9c46a'},
-  Monitored: {bg:'rgba(76,201,240,0.2)',   text:'#4cc9f0'},
-  Advisory:  {bg:'rgba(58,123,213,0.22)', text:'#6da8ff'},
+  [RISK_TYPES.R1]:  { bg: 'rgba(31,139,128,0.2)', text: RISK_COLORS.R1 },
+  [RISK_TYPES.R2]:  { bg: 'rgba(111,157,110,0.2)', text: RISK_COLORS.R2 },
+  [RISK_TYPES.R3]:  { bg: 'rgba(140,171,96,0.2)', text: RISK_COLORS.R3 },
+  [RISK_TYPES.R4]:  { bg: 'rgba(168,179,74,0.2)', text: RISK_COLORS.R4 },
+  [RISK_TYPES.R5]:  { bg: 'rgba(199,200,61,0.2)', text: RISK_COLORS.R5 },
+  [RISK_TYPES.R6]:  { bg: 'rgba(229,214,26,0.2)', text: RISK_COLORS.R6 },
+  [RISK_TYPES.R7]:  { bg: 'rgba(240,180,41,0.2)', text: RISK_COLORS.R7 },
+  [RISK_TYPES.R8]:  { bg: 'rgba(227,154,61,0.2)', text: RISK_COLORS.R8 },
+  [RISK_TYPES.R9]:  { bg: 'rgba(217,107,74,0.2)', text: RISK_COLORS.R9 },
+  [RISK_TYPES.R10]: { bg: 'rgba(184,53,91,0.22)', text: RISK_COLORS.R10 },
 };
 
-const DEFAULT_FILL = '#1e2a45';
+const DEFAULT_FILL = RISK_COLORS.R6;
 let countryNodes = {};
 
 // --- Tooltip -----------------------------------------------------------------
@@ -178,9 +215,9 @@ function showMobileCountryDetails(numericId) {
   var c = a2 ? COUNTRY_DATA[a2] : null;
   var modal = getMobileModal();
   var content = modal.querySelector('.wrm-mobile-content');
-  var risk = c ? c.risk : 'No Advisory';
-  var detail = c ? c.detail : 'No active advisory data for this country at the moment.';
-  var badge = RISK_BADGE[risk] || { bg: 'rgba(116, 134, 164, 0.22)', text: '#d7e4ff' };
+  var risk = c ? c.risk : RISK_TYPES.R6;
+  var detail = c ? c.detail : 'Moderate risk environment - stable. Active monitoring continues.';
+  var badge = RISK_BADGE[risk] || RISK_BADGE[RISK_TYPES.R6];
 
   content.innerHTML =
     '<div class="wrm-mobile-header">' +
@@ -221,7 +258,7 @@ function showTooltip(event, numericId) {
   const tip  = getTooltip();
 
   if (c) {
-    const b = RISK_BADGE[c.risk] || RISK_BADGE.Advisory;
+    const b = RISK_BADGE[c.risk] || RISK_BADGE[RISK_TYPES.R6];
     tip.innerHTML =
       '<div class="wrm-tip-inner">' +
         '<div class="wrm-tip-header">' +
@@ -232,10 +269,14 @@ function showTooltip(event, numericId) {
         '<span class="wrm-tip-cta">View Intelligence Briefing &rarr;</span>' +
       '</div>';
   } else {
+    const b = RISK_BADGE[RISK_TYPES.R6];
     tip.innerHTML =
-      '<div class="wrm-tip-inner wrm-tip-plain">' +
-        '<span class="wrm-tip-name">' + name + '</span>' +
-        '<span class="wrm-tip-nodata">No active advisory</span>' +
+      '<div class="wrm-tip-inner">' +
+        '<div class="wrm-tip-header">' +
+          '<span class="wrm-tip-name">' + name + '</span>' +
+          '<span class="wrm-tip-badge" style="background:' + b.bg + ';color:' + b.text + ';">' + RISK_TYPES.R6 + '</span>' +
+        '</div>' +
+        '<p class="wrm-tip-detail">Moderate risk environment - stable. Active monitoring continues.</p>' +
       '</div>';
   }
 
@@ -315,6 +356,12 @@ function initWorldRiskMap() {
     .style('width', '100%')
     .style('height', 'auto')
     .style('display', 'block');
+
+  // Ocean / sea background
+  svg.append('rect')
+    .attr('width', W)
+    .attr('height', H)
+    .attr('fill', '#60d3db');
 
   var g = svg.append('g');
 

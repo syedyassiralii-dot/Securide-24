@@ -83,11 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const initSolutionsTeamProfiles = () => {
     const leadershipProfiles = [
       {
-        name: 'Major Imtiaz',
-        designation: 'Chief Executive Officer (CEO) — Securide 24',
-        experience: 'Executive leadership across security strategy, high-risk operations, and enterprise resilience programs.'
-      },
-      {
         name: 'Muhammad Ahmad Malik',
         designation: 'Director — Global Operations',
         experience: 'Leads global operations delivery, field execution standards, and cross-region mission coordination.'
@@ -116,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
         experience: 'Leads secure travel risk strategy, protective services integration, and mobility assurance planning.'
       },
       {
-        name: 'Muhammad Ashraf',
+        name: 'Imran Noor',
         designation: 'Senior Manager — Global Operations Coordination',
         experience: 'Coordinates operational readiness, command support rhythms, and incident response alignment.'
       },

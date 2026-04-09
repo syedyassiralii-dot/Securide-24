@@ -2324,7 +2324,8 @@ main:not(.hero-page) {
   width: 100%;
   aspect-ratio: 0.92;
   object-fit: cover;
-  filter: grayscale(1);
+  object-position: center top;
+  display: block;
 }
 
 .person-card h3 {
@@ -2985,7 +2986,8 @@ main:not(.hero-page) {
   width: 100%;
   aspect-ratio: 0.8;
   object-fit: cover;
-  filter: grayscale(1);
+  object-position: center top;
+  display: block;
 }
 
 .solutions24-people-grid h4 {
@@ -3166,7 +3168,7 @@ main:not(.hero-page) {
 
 .about24-path-grid {
   display: grid;
-  grid-template-columns: 1.3fr 0.7fr;
+  grid-template-columns: 0.7fr 1.3fr;
   gap: clamp(24px, 3.2vw, 52px);
   align-items: center;
 }
@@ -3200,9 +3202,11 @@ main:not(.hero-page) {
 
 .about24-path-photo img {
   width: 100%;
+  max-height: 420px;
   aspect-ratio: 0.76;
   object-fit: cover;
-  filter: grayscale(1);
+  object-position: top;
+  display: block;
 }
 
 .about24-people {
@@ -3256,7 +3260,8 @@ main:not(.hero-page) {
   width: 100%;
   aspect-ratio: 0.85;
   object-fit: cover;
-  filter: grayscale(1);
+  object-position: center top;
+  display: block;
 }
 
 .about24-person-card h3 {
@@ -4282,7 +4287,8 @@ main:not(.hero-page) {
   width: 100%;
   aspect-ratio: 0.8;
   object-fit: cover;
-  filter: grayscale(1);
+  object-position: center top;
+  display: block;
 }
 
 .industries-detail-page .solution-detail-people-grid .people-info {
@@ -4328,7 +4334,8 @@ main:not(.hero-page) {
   width: 100%;
   aspect-ratio: 0.8;
   object-fit: cover;
-  filter: grayscale(1);
+  object-position: center top;
+  display: block;
 }
 
 .capabilities-detail-page .solution-detail-people-grid .people-info {
@@ -4374,7 +4381,8 @@ main:not(.hero-page) {
   width: 100%;
   aspect-ratio: 0.8;
   object-fit: cover;
-  filter: grayscale(1);
+  object-position: center top;
+  display: block;
 }
 
 .solutions-detail-page .solution-detail-people-grid .people-info {
@@ -4525,12 +4533,8 @@ main:not(.hero-page) {
   width: 100%;
   aspect-ratio: 3 / 4;
   object-fit: cover;
-  filter: grayscale(100%);
-  transition: filter 0.3s ease;
-}
-
-.people-card:hover img {
-  filter: grayscale(0%);
+  object-position: center top;
+  display: block;
 }
 
 .people-info {

@@ -5355,9 +5355,10 @@
 
 .wrm-tip-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 10px;
+  flex-wrap: wrap;
 }
 
 .wrm-tip-name {
@@ -5365,6 +5366,7 @@
   font-weight: 700;
   color: #ffffff;
   letter-spacing: 0.02em;
+  min-width: 0;
 }
 
 .wrm-tip-badge {
@@ -5372,9 +5374,12 @@
   font-weight: 600;
   padding: 3px 9px;
   border-radius: 20px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  white-space: nowrap;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  white-space: normal;
+  line-height: 1.3;
+  text-align: center;
+  max-width: 100%;
 }
 
 .wrm-tip-detail {
@@ -5458,11 +5463,12 @@
 
 .wrm-mobile-header {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 10px;
   margin-bottom: 10px;
   padding-right: 24px;
+  flex-wrap: wrap;
 }
 
 .wrm-mobile-name {
@@ -5470,16 +5476,20 @@
   font-size: 1.02rem;
   color: #ffffff;
   font-weight: 700;
+  min-width: 0;
 }
 
 .wrm-mobile-badge {
   font-size: 0.68rem;
   font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
+  text-transform: none;
+  letter-spacing: 0.02em;
   padding: 4px 8px;
   border-radius: 999px;
-  white-space: nowrap;
+  white-space: normal;
+  line-height: 1.3;
+  text-align: center;
+  max-width: 100%;
 }
 
 .wrm-mobile-detail {
@@ -5609,20 +5619,22 @@
 
 /* Legend */
 .risk-map-legend {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 12px 14px;
+  width: 100%;
 }
 
 .risk-legend-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 6px;
   font-size: 0.78rem;
   color: rgba(255, 255, 255, 0.65);
-  white-space: nowrap;
+  white-space: normal;
   font-weight: 500;
+  line-height: 1.35;
+  min-width: 0;
 }
 
 .risk-legend-dot {
@@ -5714,6 +5726,7 @@
   /* SVG auto-height */
 
   .risk-map-legend {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
   }
 
