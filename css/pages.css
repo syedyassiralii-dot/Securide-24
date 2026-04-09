@@ -2901,10 +2901,26 @@ main:not(.hero-page) {
 }
 
 .solutions24-people-grid article {
+  position: relative;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   cursor: pointer;
+  overflow: hidden;
   transition: transform var(--transition-base), border-color var(--transition-base), background-color var(--transition-base);
+}
+
+.solutions24-people-grid article::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  aspect-ratio: 0.8;
+  background: rgba(212, 175, 55, 0.28);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base);
+  z-index: 1;
 }
 
 .solutions24-people-grid article:hover,
@@ -2988,6 +3004,13 @@ main:not(.hero-page) {
   object-fit: cover;
   object-position: center top;
   display: block;
+  transition: box-shadow var(--transition-base);
+}
+
+.solutions24-people-grid article:hover::before,
+.solutions24-people-grid article:focus-visible::before,
+.solutions24-people-grid article.is-active::before {
+  opacity: 1;
 }
 
 .solutions24-people-grid h4 {
@@ -2995,6 +3018,29 @@ main:not(.hero-page) {
   text-transform: uppercase;
   letter-spacing: 0.04em;
   margin: 10px 10px 12px;
+}
+
+.solutions24-people-grid article::after {
+  content: attr(data-profile-designation);
+  display: block;
+  margin: 0 10px 0;
+  font-size: 11px;
+  line-height: 1.35;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(212, 175, 55, 0.92);
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-base), opacity var(--transition-base), margin var(--transition-base);
+}
+
+.solutions24-people-grid article:hover::after,
+.solutions24-people-grid article:focus-visible::after,
+.solutions24-people-grid article.is-active::after {
+  max-height: 80px;
+  opacity: 1;
+  margin: 0 10px 12px;
 }
 
 .solutions24-intel-strip {
@@ -4361,28 +4407,50 @@ main:not(.hero-page) {
 }
 
 /* Solution subpages: same main-page-style employee cards */
-.solutions-detail-page .solution-detail-people-grid {
+.solution-detail-page .solution-detail-people-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 14px;
 }
 
-.solutions-detail-page .solution-detail-people-grid .people-card {
+.solution-detail-page .solution-detail-people-grid .people-card {
+  position: relative;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 0;
+  overflow: hidden;
   transition: transform var(--transition-base), border-color var(--transition-base), background-color var(--transition-base);
 }
 
-.solutions-detail-page .solution-detail-people-grid .people-card:hover,
-.solutions-detail-page .solution-detail-people-grid .people-card:focus-visible,
-.solutions-detail-page .solution-detail-people-grid .people-card.is-active {
+.solution-detail-page .solution-detail-people-grid .people-card[data-profile-name]::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  aspect-ratio: 0.8;
+  background: rgba(212, 175, 55, 0.28);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base);
+  z-index: 1;
+}
+
+.solution-detail-page .solution-detail-people-grid .people-card:hover,
+.solution-detail-page .solution-detail-people-grid .people-card:focus-visible,
+.solution-detail-page .solution-detail-people-grid .people-card.is-active {
   transform: translateY(-4px);
   border-color: rgba(212, 175, 55, 0.55);
   background: rgba(255, 255, 255, 0.06);
 }
 
-.solutions-detail-page .solution-detail-people-grid .people-card img {
+.solution-detail-page .solution-detail-people-grid .people-card[data-profile-name]:hover::before,
+.solution-detail-page .solution-detail-people-grid .people-card[data-profile-name]:focus-visible::before,
+.solution-detail-page .solution-detail-people-grid .people-card[data-profile-name].is-active::before {
+  opacity: 1;
+}
+
+.solution-detail-page .solution-detail-people-grid .people-card img {
   width: 100%;
   aspect-ratio: 0.8;
   object-fit: cover;
@@ -4390,11 +4458,11 @@ main:not(.hero-page) {
   display: block;
 }
 
-.solutions-detail-page .solution-detail-people-grid .people-info {
+.solution-detail-page .solution-detail-people-grid .people-info {
   padding: 0;
 }
 
-.solutions-detail-page .solution-detail-people-grid .people-info h4 {
+.solution-detail-page .solution-detail-people-grid .people-info h4 {
   font-size: 14px;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -4402,9 +4470,68 @@ main:not(.hero-page) {
   color: #ffffff;
 }
 
-.solutions-detail-page .solution-detail-people-grid .people-info p,
-.solutions-detail-page .solution-detail-people-grid .people-info a {
+.solution-detail-page .solution-detail-people-grid .people-info p,
+.solution-detail-page .solution-detail-people-grid .people-info a {
   display: none;
+}
+
+.solution-detail-page .solution-detail-people-grid .people-card[data-profile-designation]::after {
+  content: attr(data-profile-designation);
+  display: block;
+  margin: 0 10px 0;
+  font-size: 11px;
+  line-height: 1.35;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(212, 175, 55, 0.92);
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-base), opacity var(--transition-base), margin var(--transition-base);
+}
+
+.solution-detail-page .solution-detail-people-grid .people-card[data-profile-designation]:hover::after,
+.solution-detail-page .solution-detail-people-grid .people-card[data-profile-designation]:focus-visible::after,
+.solution-detail-page .solution-detail-people-grid .people-card[data-profile-designation].is-active::after {
+  max-height: 80px;
+  opacity: 1;
+  margin: 0 10px 12px;
+}
+
+.solution-detail-page .solution-detail-people-grid .people-card-logo {
+  background: #6f7278;
+  border-color: rgba(212, 175, 55, 0.35);
+}
+
+.solution-detail-page .solution-detail-people-grid .people-card-logo:hover,
+.solution-detail-page .solution-detail-people-grid .people-card-logo:focus-visible,
+.solution-detail-page .solution-detail-people-grid .people-card-logo.is-active {
+  background: linear-gradient(135deg, #d4af37 0%, #e6c65c 100%);
+  border-color: rgba(143, 107, 0, 0.9);
+}
+
+.solution-detail-page .solution-detail-people-grid .people-card-logo .logo-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 20px 12px;
+}
+
+.solution-detail-page .solution-detail-people-grid .people-card-logo .logo-display::before {
+  content: "";
+  width: clamp(108px, 12vw, 168px);
+  aspect-ratio: 1;
+  background: url("../assets/images/logo.webp") center / contain no-repeat;
+}
+
+.solution-detail-page .solution-detail-people-grid .people-card-logo .logo-text {
+  display: none;
+}
+
+.solution-detail-page .solution-detail-people-grid .people-card-logo .logo-number {
+  color: #8f6b00;
 }
 
 .solution-cta-section .container {
