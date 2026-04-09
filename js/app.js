@@ -121,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         experience: 'Aligns client requirements to practical security solutions and long-term service outcomes.'
       },
       {
-        name: 'Daim Khan',
+        name: 'Afaq Durez Khan',
         designation: 'Manager — Executive Protection & Secure Mobility (Asia)',
         experience: 'Manages Asia-focused executive protection and secure mobility operations in dynamic contexts.'
       },
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }, {});
 
     const fixedRoleToMemberRules = [
-      { matcher: /(executive protection|protective|principal)/i, member: 'Daim Khan' },
+      { matcher: /(executive protection|protective|principal)/i, member: 'Afaq Durez Khan' },
       { matcher: /(travel|mobility|route|movement|transit|journey)/i, member: 'Masood Kharal' },
       { matcher: /(risk intelligence|intelligence|threat|analysis|advisory|strategy|resilience)/i, member: 'Tufail Khan' },
       { matcher: /(incident|response|coordination|command|field|operation|operations)/i, member: 'Muhammad Ashraf' },
@@ -161,9 +161,9 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     const fixedFallbackBySection = {
-      solutions: ['Muhammad Ashraf', 'Tufail Khan', 'Masood Kharal', 'Daim Khan', 'Sara Rose', 'Maria K', 'Mike Jr.', 'Ayesha Arooj'],
-      industries: ['Ayesha Arooj', 'Sara Rose', 'Muhammad Ashraf', 'Masood Kharal', 'Tufail Khan', 'Maria K', 'Mike Jr.', 'Daim Khan'],
-      capabilities: ['Tufail Khan', 'Muhammad Ashraf', 'Masood Kharal', 'Daim Khan', 'Mike Jr.', 'Sara Rose', 'Maria K', 'Ayesha Arooj']
+      solutions: ['Muhammad Ashraf', 'Tufail Khan', 'Masood Kharal', 'Afaq Durez Khan', 'Sara Rose', 'Maria K', 'Mike Jr.', 'Ayesha Arooj'],
+      industries: ['Ayesha Arooj', 'Sara Rose', 'Muhammad Ashraf', 'Masood Kharal', 'Tufail Khan', 'Maria K', 'Mike Jr.', 'Afaq Durez Khan'],
+      capabilities: ['Tufail Khan', 'Muhammad Ashraf', 'Masood Kharal', 'Afaq Durez Khan', 'Mike Jr.', 'Sara Rose', 'Maria K', 'Ayesha Arooj']
     };
 
     const cardSelectors = [
@@ -623,3 +623,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
   console.log('SECURIDE 24 initialized');
 });
+
