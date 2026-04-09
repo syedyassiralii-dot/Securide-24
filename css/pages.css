@@ -3469,6 +3469,11 @@ main:not(.hero-page) {
   color: #444444;
 }
 
+.about24-stability .about24-head h2 span {
+  display: inline-block;
+  white-space: nowrap;
+}
+
 .about24-story-grid {
   margin-top: 18px;
   display: grid;
