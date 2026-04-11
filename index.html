@@ -381,11 +381,48 @@
   <main class="hero-page">
     <!-- Hero Video Section -->
     <section class="hero-section">
-      <video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1">
-        <source src="assets/video/hero.webm" type="video/webm" />
+      <video
+        class="hero-video-backdrop"
+        id="heroVideoSliderBackdrop"
+        autoplay
+        muted
+        playsinline
+        preload="metadata"
+        aria-hidden="true"
+        tabindex="-1"
+      >
+        <source src="assets/video/hero-slide-01.webm" type="video/webm" />
+      </video>
+      <video
+        class="hero-video"
+        id="heroVideoSlider"
+        autoplay
+        muted
+        playsinline
+        preload="metadata"
+        aria-hidden="true"
+        tabindex="-1"
+      >
+        <source src="assets/video/hero-slide-01.webm" type="video/webm" />
         Your browser does not support the video tag.
       </video>
       <div class="hero-overlay"></div>
+      <div class="hero-slider-controls" aria-label="Hero video slider controls">
+        <button class="hero-slider-arrow hero-slider-arrow-prev" id="heroSliderPrev" type="button" aria-label="Previous hero video">
+          &#8249;
+        </button>
+        <div class="hero-slider-dots" role="tablist" aria-label="Hero video slides">
+          <button class="hero-slider-dot active" type="button" role="tab" aria-selected="true" aria-label="Go to hero video 1" data-hero-slide="0"></button>
+          <button class="hero-slider-dot" type="button" role="tab" aria-selected="false" aria-label="Go to hero video 2" data-hero-slide="1"></button>
+          <button class="hero-slider-dot" type="button" role="tab" aria-selected="false" aria-label="Go to hero video 3" data-hero-slide="2"></button>
+          <button class="hero-slider-dot" type="button" role="tab" aria-selected="false" aria-label="Go to hero video 4" data-hero-slide="3"></button>
+          <button class="hero-slider-dot" type="button" role="tab" aria-selected="false" aria-label="Go to hero video 5" data-hero-slide="4"></button>
+          <button class="hero-slider-dot" type="button" role="tab" aria-selected="false" aria-label="Go to hero video 6" data-hero-slide="5"></button>
+        </div>
+        <button class="hero-slider-arrow hero-slider-arrow-next" id="heroSliderNext" type="button" aria-label="Next hero video">
+          &#8250;
+        </button>
+      </div>
     </section>
 
     <!-- Why SECURIDE 24 -->
@@ -883,6 +920,7 @@
   <script src="js/navigation.js"></script>
   <script src="js/ticker.js"></script>
   <script src="js/alerts.js"></script>
+  <script src="js/hero-video-slider.js"></script>
   <script src="js/carousel.js"></script>
   <script src="js/contact-panel.js"></script>
   <script src="js/search.js"></script>

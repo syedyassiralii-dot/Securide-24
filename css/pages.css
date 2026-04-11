@@ -1980,8 +1980,9 @@ main:not(.hero-page) {
     grid-template-columns: 1fr;
   }
 
-  .solution-detail-people-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .solution-detail-people-grid,
+  .solution-detail-page .solution-detail-people-grid {
+    grid-template-columns: 1fr !important;
   }
 }
 
@@ -4929,8 +4930,9 @@ main:not(.hero-page) {
     grid-template-columns: 1fr;
   }
 
-  .solution-detail-people-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .solution-detail-people-grid,
+  .solution-detail-page .solution-detail-people-grid {
+    grid-template-columns: 1fr !important;
   }
 
   .intel-strip-grid {
