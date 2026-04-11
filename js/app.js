@@ -2,6 +2,20 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  const registerServiceWorker = () => {
+    if (!('serviceWorker' in navigator) || !window.isSecureContext) {
+      return;
+    }
+
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/service-worker.js').catch(() => {
+        // SW registration failure should not block site behavior.
+      });
+    });
+  };
+
+  registerServiceWorker();
+
   const initCaseStudyCardLinks = () => {
     const pathname = window.location.pathname.toLowerCase();
     const isOperationalSubpage = /\/(industries|solutions|capabilities)\//.test(pathname) && !/\/index\.html$/.test(pathname);

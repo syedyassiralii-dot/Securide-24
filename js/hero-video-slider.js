@@ -126,10 +126,6 @@
       });
     });
 
-    // Ensure a known initial video file is loaded.
-    const initialVideo = getVideoFiles()[0];
-    syncVideoSource(video, initialVideo);
-    syncVideoSource(backdropVideo, initialVideo);
     updateDots(0);
 
     const onViewportModeChange = () => {
@@ -148,7 +144,29 @@
       mobileViewportQuery.addListener(onViewportModeChange);
     }
 
+    const initialVideo = getVideoFiles()[activeIndex];
+    syncVideoSource(video, initialVideo);
+    syncVideoSource(backdropVideo, initialVideo);
     restartAutoRotation();
+
+    const retryPlayback = () => {
+      video.play().catch(() => {
+        // Some browsers require an interaction before autoplay; retry on interaction.
+      });
+      if (backdropVideo) {
+        backdropVideo.play().catch(() => {});
+      }
+    };
+
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        retryPlayback();
+      }
+    });
+
+    ['pointerdown', 'touchstart', 'keydown'].forEach((eventName) => {
+      document.addEventListener(eventName, retryPlayback, { once: true, passive: true });
+    });
   }
 
   document.addEventListener('DOMContentLoaded', initHeroVideoSlider);

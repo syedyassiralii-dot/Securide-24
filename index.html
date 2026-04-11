@@ -21,6 +21,8 @@
   <meta name="twitter:title" content="SECURIDE 24 | Intelligence-Led Risk Advisory &amp; Discreet Protection" />
   <meta name="twitter:description" content="SECURIDE 24 delivers intelligence-led risk advisory, executive protection, and secure mobility planning for executives, diplomats, and HNW clients worldwide." />
   <meta name="twitter:image" content="https://www.securide24.com/assets/images/logo.webp" />
+  <link rel="dns-prefetch" href="//cdn.jsdelivr.net" />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
   <link rel="icon" href="/assets/icons/logo-favicon.svg?v=2" type="image/svg+xml" sizes="64x64" />
   <link rel="shortcut icon" href="/assets/icons/logo-favicon.svg?v=2" type="image/svg+xml" sizes="64x64" />
   <link rel="apple-touch-icon" href="/assets/images/logo.webp" />
@@ -382,24 +384,13 @@
     <!-- Hero Video Section -->
     <section class="hero-section">
       <video
-        class="hero-video-backdrop"
-        id="heroVideoSliderBackdrop"
-        autoplay
-        muted
-        playsinline
-        preload="metadata"
-        aria-hidden="true"
-        tabindex="-1"
-      >
-        <source src="assets/video/hero-slide-01.webm" type="video/webm" />
-      </video>
-      <video
         class="hero-video"
         id="heroVideoSlider"
         autoplay
         muted
         playsinline
-        preload="metadata"
+        preload="none"
+        poster="assets/images/slide-01.webp"
         aria-hidden="true"
         tabindex="-1"
       >
@@ -925,9 +916,7 @@
   <script src="js/contact-panel.js"></script>
   <script src="js/search.js"></script>
   <script src="js/scroll.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js"></script>
-  <script src="js/world-risk-map.js?v=3"></script>
+  <script src="js/lazy-world-map-loader.js?v=1"></script>
   <script src="js/app.js"></script>
 </body>
 </html>

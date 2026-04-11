@@ -497,9 +497,15 @@ function initCountrySearch() {
 }
 
 // --- Boot --------------------------------------------------------------------
-document.addEventListener('DOMContentLoaded', function() {
+function bootWorldRiskMap() {
   if (document.getElementById('worldRiskMap')) {
     initWorldRiskMap();
     initCountrySearch();
   }
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', bootWorldRiskMap);
+} else {
+  bootWorldRiskMap();
+}
