@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'securide24-static-v1';
+const CACHE_VERSION = 'securide24-static-v2';
 const STATIC_CACHE = CACHE_VERSION;
 const CORE_ASSETS = [
   '/',
@@ -39,6 +39,10 @@ function isStaticAssetRequest(requestUrl) {
   return /\.(?:css|js|webp|avif|png|jpg|jpeg|gif|svg|webm|woff2?)$/i.test(requestUrl.pathname);
 }
 
+function isCriticalUiAsset(requestUrl) {
+  return requestUrl.pathname.endsWith('/js/app.js') || requestUrl.pathname.endsWith('/css/components.css');
+}
+
 function isTrustedCdn(requestUrl) {
   return requestUrl.origin === 'https://cdn.jsdelivr.net';
 }
@@ -65,6 +69,21 @@ self.addEventListener('fetch', (event) => {
   }
 
   if (isSameOrigin && isStaticAssetRequest(requestUrl)) {
+    if (isCriticalUiAsset(requestUrl)) {
+      event.respondWith(
+        fetch(event.request)
+          .then((response) => {
+            if (response && response.status === 200) {
+              const responseClone = response.clone();
+              caches.open(STATIC_CACHE).then((cache) => cache.put(event.request, responseClone));
+            }
+            return response;
+          })
+          .catch(() => caches.match(event.request))
+      );
+      return;
+    }
+
     event.respondWith(
       caches.match(event.request).then((cached) => {
         const networkFetch = fetch(event.request)

@@ -187,3 +187,142 @@ const Alerts = {
     this.card.classList.add(item.cardClass);
   }
 };
+
+// ─── Executive Signals – rotating card for senior decision-makers ─────────────
+
+const Signals = {
+  items: [
+    {
+      type: 'Geopolitical',
+      typeClass: 'signal-geopolitical',
+      classification: 'RESTRICTED',
+      subject: 'Central Asia Corridor: Elevated Executive Transit Risk',
+      summary: 'Intelligence assessments indicate increased military posturing along key transit corridors. Executive movement through Tier 2 zones requires enhanced security protocols and updated contingency routing.',
+      assessment: 'Elevated',
+      assessmentClass: 'signal-assessment--elevated',
+      updated: 'Updated: 8 mins ago',
+      href: 'pages/intelligence/index.html'
+    },
+    {
+      type: 'Strategic',
+      typeClass: 'signal-strategic',
+      classification: 'CONFIDENTIAL',
+      subject: 'Middle East Diplomatic Tension: Board-Level Exposure Assessment',
+      summary: 'Escalating diplomatic friction between Gulf states introduces reputational and operational exposure for senior executives with regional assets. Board-level briefing recommended prior to Q2 engagements.',
+      assessment: 'Advisory',
+      assessmentClass: 'signal-assessment--advisory',
+      updated: 'Updated: 22 mins ago',
+      href: 'pages/intelligence/index.html'
+    },
+    {
+      type: 'Operational',
+      typeClass: 'signal-operational',
+      classification: 'INTERNAL',
+      subject: 'South Asia Supply Chain: Critical Node Disruption Risk',
+      summary: 'Port congestion and labour action at key logistics nodes in South Asia are creating cascading delays. Executives with operational dependencies in the region should initiate contingency supply reviews.',
+      assessment: 'Moderate',
+      assessmentClass: 'signal-assessment--moderate',
+      updated: 'Updated: 41 mins ago',
+      href: 'pages/intelligence/index.html'
+    },
+    {
+      type: 'Economic',
+      typeClass: 'signal-economic',
+      classification: 'INTERNAL',
+      subject: 'Currency Volatility: Emerging Market Exposure for Q2 Travel Budgets',
+      summary: 'Rapid currency depreciation across three emerging markets is inflating executive travel and security contract costs by an estimated 18–24%. Finance and security teams should review budget exposure immediately.',
+      assessment: 'Standard',
+      assessmentClass: 'signal-assessment--standard',
+      updated: 'Updated: 1 hr ago',
+      href: 'pages/intelligence/index.html'
+    },
+    {
+      type: 'Crisis',
+      typeClass: 'signal-crisis',
+      classification: 'RESTRICTED',
+      subject: 'Energy Sector Targeting: Infrastructure Threat Intelligence',
+      summary: 'Credible intelligence indicates coordinated threat actor interest in energy infrastructure executives across three jurisdictions. Personal digital hygiene protocols and travel security posture should be reviewed immediately.',
+      assessment: 'Critical',
+      assessmentClass: 'signal-assessment--critical',
+      updated: 'Updated: 6 mins ago',
+      href: 'pages/intelligence/index.html'
+    },
+    {
+      type: 'Advisory',
+      typeClass: 'signal-advisory',
+      classification: 'CONFIDENTIAL',
+      subject: 'Executive Profile Exposure: Open-Source Intelligence Risk',
+      summary: 'Recent OSINT analysis of C-suite public profiles identifies exploitable patterns in travel routines, public schedule disclosures, and digital footprint. Immediate profile hardening advised for high-value principals.',
+      assessment: 'Elevated',
+      assessmentClass: 'signal-assessment--elevated',
+      updated: 'Updated: 15 mins ago',
+      href: 'pages/intelligence/index.html'
+    },
+    {
+      type: 'Geopolitical',
+      typeClass: 'signal-geopolitical',
+      classification: 'RESTRICTED',
+      subject: 'Eastern Europe Corridor: Sanctions Compliance & Movement Risk',
+      summary: 'New sanctions designations and border checkpoint protocols across Eastern European corridors are affecting executive transit timelines. Legal and security teams should validate travel itineraries against updated compliance frameworks.',
+      assessment: 'Informational',
+      assessmentClass: 'signal-assessment--informational',
+      updated: 'Updated: 33 mins ago',
+      href: 'pages/intelligence/index.html'
+    }
+  ],
+
+  init() {
+    const section = Utils.qs('.intelligence-alerts-section');
+    this.card = section ? section.querySelector('#rotatingSignalCard') : null;
+    if (!this.card) return;
+
+    this.typeBadge        = this.card.querySelector('.signal-type-badge-text');
+    this.classification   = this.card.querySelector('.signal-classification-text');
+    this.subject          = this.card.querySelector('.signal-subject-text');
+    this.summary          = this.card.querySelector('.signal-summary-text');
+    this.assessmentBadge  = this.card.querySelector('.signal-assessment-text');
+    this.timestamp        = this.card.querySelector('.signal-timestamp-text');
+    this.cta              = this.card.querySelector('.signal-cta');
+
+    if (!this.typeBadge || !this.subject || !this.summary) return;
+
+    this.currentIndex = 0;
+    this.render(0);
+
+    this.intervalId = setInterval(() => {
+      this.currentIndex = (this.currentIndex + 1) % this.items.length;
+      this.render(this.currentIndex);
+    }, 5000); // 5 s — offset from alert's 4 s so they never switch simultaneously
+  },
+
+  render(index) {
+    const item = this.items[index];
+    if (!item) return;
+
+    // Swap card-level class for accent colour
+    this.card.classList.remove(
+      'signal-geopolitical', 'signal-economic', 'signal-operational',
+      'signal-strategic', 'signal-crisis', 'signal-advisory'
+    );
+    this.card.classList.add(item.typeClass);
+
+    this.typeBadge.textContent = item.type;
+
+    // Sync badge border/bg colour to current signal accent via inline style
+    this.typeBadge.style.color = '';
+    this.typeBadge.style.borderColor = '';
+    this.typeBadge.style.backgroundColor = '';
+
+    if (this.classification) this.classification.textContent = item.classification;
+    if (this.timestamp)      this.timestamp.textContent      = item.updated;
+    this.subject.textContent  = item.subject;
+    this.summary.textContent  = item.summary;
+
+    if (this.assessmentBadge) {
+      this.assessmentBadge.textContent = item.assessment;
+      this.assessmentBadge.className = 'signal-assessment-badge signal-assessment-text ' + item.assessmentClass;
+    }
+
+    if (this.cta) this.cta.setAttribute('href', item.href);
+  }
+};

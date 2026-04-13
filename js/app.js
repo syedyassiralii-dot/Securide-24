@@ -16,6 +16,146 @@ document.addEventListener('DOMContentLoaded', () => {
 
   registerServiceWorker();
 
+  const initSiteFooter = () => {
+    const footer = document.querySelector('.site-footer');
+    const footerContainer = footer?.querySelector('.container');
+
+    if (!footerContainer || footer.dataset.enhancedFooter === 'true') {
+      return;
+    }
+
+    const pathname = window.location.pathname.toLowerCase();
+    const rootPrefix = /\/pages\//.test(pathname) ? '../../' : '';
+    const year = new Date().getFullYear();
+
+    const buildLink = (relativePath) => `${rootPrefix}${relativePath}`;
+
+    const links = {
+      home: buildLink('index.html'),
+      about: buildLink('pages/about/index.html'),
+      solutions: buildLink('pages/solutions/index.html'),
+      capabilities: buildLink('pages/capabilities/index.html'),
+      industries: buildLink('pages/industries/index.html'),
+      intelligence: buildLink('pages/intelligence/index.html'),
+      contact: buildLink('pages/contact/index.html'),
+      riskMonitoring: buildLink('pages/solutions/risk-intelligence-monitoring.html'),
+      mobility: buildLink('pages/solutions/executive-mobility-secure-travel.html'),
+      protection: buildLink('pages/solutions/executive-protection-coordination.html'),
+      crisis: buildLink('pages/solutions/crisis-response-incident-coordination.html')
+    };
+
+    footer.dataset.enhancedFooter = 'true';
+    footerContainer.innerHTML = `
+      <div class="footer-content footer-content-rich">
+        <section class="footer-panel footer-brand-panel" aria-label="SECURIDE 24 overview">
+          <a class="footer-brand-lockup" href="${links.home}" aria-label="SECURIDE 24 home">
+            <img src="${buildLink('assets/images/logo.webp')}" alt="SECURIDE 24" class="footer-brand-logo" loading="lazy" decoding="async" />
+            <span class="footer-brand-name">SECURIDE 24</span>
+          </a>
+          <p class="footer-brand-text">SECURIDE 24 delivers intelligence-led risk advisory, executive protection, and secure mobility planning for executives, diplomats, and organisations operating in complex environments.</p>
+        </section>
+        <section class="footer-panel" aria-label="Quick links">
+          <h4>Quick Links</h4>
+          <ul class="footer-link-list">
+            <li><a href="${links.home}">Home</a></li>
+            <li><a href="${links.about}">About</a></li>
+            <li><a href="${links.solutions}">Solutions</a></li>
+            <li><a href="${links.capabilities}">Capabilities</a></li>
+            <li><a href="${links.industries}">Industries</a></li>
+            <li><a href="${links.contact}">Contact</a></li>
+          </ul>
+        </section>
+        <section class="footer-panel" aria-label="Follow SECURIDE 24">
+          <h4>Follow Us On</h4>
+          <ul class="footer-link-list footer-social-list">
+            <li>
+              <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer">
+                <span class="footer-social-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor" focusable="false">
+                    <path d="M6.94 8.5H3.56V20h3.38V8.5ZM5.25 3A2.01 2.01 0 0 0 3.25 5c0 1.1.9 2 2 2s2-.9 2-2a2.01 2.01 0 0 0-2-2ZM20.75 12.65c0-3.46-1.85-5.07-4.32-5.07-1.99 0-2.88 1.1-3.38 1.87V8.5H9.67c.04.63 0 11.5 0 11.5h3.38v-6.42c0-.34.03-.68.13-.92.27-.68.89-1.38 1.93-1.38 1.36 0 1.91 1.04 1.91 2.57V20H20.4v-6.96c0-.14.01-.26.01-.39Z" />
+                  </svg>
+                </span>
+                <span>LinkedIn</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://x.com/" target="_blank" rel="noopener noreferrer">
+                <span class="footer-social-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor" focusable="false">
+                    <path d="M18.9 2H22l-6.77 7.74L23 22h-6.1l-4.77-6.24L6.67 22H3.56l7.24-8.27L1 2h6.26l4.31 5.69L18.9 2Zm-1.07 18.17h1.72L6.32 3.74H4.47l13.36 16.43Z" />
+                  </svg>
+                </span>
+                <span>X</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
+                <span class="footer-social-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor" focusable="false">
+                    <path d="M23.5 6.2a3.06 3.06 0 0 0-2.15-2.16C19.46 3.5 12 3.5 12 3.5s-7.46 0-9.35.54A3.06 3.06 0 0 0 .5 6.2 32.4 32.4 0 0 0 0 12a32.4 32.4 0 0 0 .5 5.8 3.06 3.06 0 0 0 2.15 2.16c1.89.54 9.35.54 9.35.54s7.46 0 9.35-.54a3.06 3.06 0 0 0 2.15-2.16A32.4 32.4 0 0 0 24 12a32.4 32.4 0 0 0-.5-5.8ZM9.6 15.73V8.27L16 12l-6.4 3.73Z" />
+                  </svg>
+                </span>
+                <span>YouTube</span>
+              </a>
+            </li>
+          </ul>
+          <p class="footer-note">Follow SECURIDE 24 for intelligence updates, security insights, and operational briefings.</p>
+        </section>
+        <section class="footer-panel" aria-label="Contact details">
+          <h4>Contact</h4>
+          <ul class="footer-link-list footer-contact-details">
+            <li>
+              <a class="footer-contact-row" href="mailto:social@securide24.com" aria-label="Email SECURIDE 24">
+                <span class="footer-social-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor" focusable="false">
+                    <path d="M3 6.75A2.75 2.75 0 0 1 5.75 4h12.5A2.75 2.75 0 0 1 21 6.75v10.5A2.75 2.75 0 0 1 18.25 20H5.75A2.75 2.75 0 0 1 3 17.25V6.75Zm2.17-.47L12 10.56l6.83-4.28a.75.75 0 0 0-.58-.28H5.75c-.2 0-.4.1-.58.28Z" />
+                  </svg>
+                </span>
+                <span class="footer-contact-inline"><span class="footer-contact-value">social@securide24.com</span></span>
+              </a>
+            </li>
+            <li>
+              <a class="footer-contact-row" href="https://wa.me/19145206519" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp SECURIDE 24">
+                <span class="footer-social-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor" focusable="false">
+                    <path d="M20.52 3.48A11.93 11.93 0 0 0 12.01 0C5.39 0 0 5.38 0 12c0 2.12.55 4.19 1.6 6.02L0 24l6.16-1.57A11.95 11.95 0 0 0 12 24h.01C18.63 24 24 18.62 24 12a11.9 11.9 0 0 0-3.48-8.52Zm-8.51 18.5h-.01c-1.8 0-3.56-.49-5.09-1.42l-.36-.22-3.66.93.98-3.56-.24-.37a9.93 9.93 0 1 1 8.38 4.64Zm5.44-7.42c-.3-.15-1.76-.87-2.04-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.95 1.17-.17.2-.35.22-.64.07-.3-.15-1.25-.46-2.39-1.45a8.9 8.9 0 0 1-1.66-2.06c-.17-.3-.02-.46.13-.61.14-.14.3-.35.44-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.62-.92-2.22-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.49 0 1.46 1.06 2.88 1.2 3.08.15.2 2.08 3.17 5.03 4.45.71.31 1.26.49 1.69.63.71.22 1.35.19 1.86.12.57-.08 1.76-.72 2.01-1.42.25-.7.25-1.3.17-1.42-.07-.12-.27-.2-.57-.35Z" />
+                  </svg>
+                </span>
+                <span class="footer-contact-inline"><span class="footer-contact-value">+1 (914) 520-6519</span></span>
+              </a>
+            </li>
+            <li>
+              <div class="footer-contact-row">
+                <span class="footer-social-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor" focusable="false">
+                    <path d="M12 2a7 7 0 0 1 7 7c0 4.78-4.74 9.15-6.35 10.47a1 1 0 0 1-1.3 0C9.74 18.15 5 13.78 5 9a7 7 0 0 1 7-7Zm0 4.5A2.5 2.5 0 1 0 12 11.5a2.5 2.5 0 0 0 0-5Z" />
+                  </svg>
+                </span>
+                <span class="footer-contact-inline footer-contact-inline-stack"><span class="footer-contact-label">Headquarters (UK)</span><span class="footer-contact-value">London, United Kingdom</span></span>
+              </div>
+            </li>
+            <li>
+              <div class="footer-contact-row">
+                <span class="footer-social-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor" focusable="false">
+                    <path d="M12 2a7 7 0 0 1 7 7c0 4.78-4.74 9.15-6.35 10.47a1 1 0 0 1-1.3 0C9.74 18.15 5 13.78 5 9a7 7 0 0 1 7-7Zm0 4.5A2.5 2.5 0 1 0 12 11.5a2.5 2.5 0 0 0 0-5Z" />
+                  </svg>
+                </span>
+                <span class="footer-contact-inline footer-contact-inline-stack"><span class="footer-contact-label">Regional Operations (Pakistan)</span><span class="footer-contact-value">Lahore, Pakistan</span></span>
+              </div>
+            </li>
+          </ul>
+        </section>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; ${year} SECURIDE 24. All rights reserved.</p>
+        <p>Worldwide risk advisory, protective coordination, and secure mobility support.</p>
+      </div>
+    `;
+  };
+
+  initSiteFooter();
+
   const initCaseStudyCardLinks = () => {
     const pathname = window.location.pathname.toLowerCase();
     const isOperationalSubpage = /\/(industries|solutions|capabilities)\//.test(pathname) && !/\/index\.html$/.test(pathname);
@@ -617,6 +757,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (typeof Alerts !== 'undefined') {
     Alerts.init();
+  }
+
+  if (typeof Signals !== 'undefined') {
+    Signals.init();
   }
 
   if (typeof Carousel !== 'undefined') {
