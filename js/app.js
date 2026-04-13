@@ -261,7 +261,7 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       {
         name: 'Masood Kharal',
-        designation: 'Director — Global Travel Risk & Protective Services',
+        designation: 'Senior Manager — Global Travel Risk & Protective Services',
         experience: 'Leads secure travel risk strategy, protective services integration, and mobility assurance planning.'
       },
       {
@@ -271,12 +271,12 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       {
         name: 'Ayesha Arooj',
-        designation: 'Manager — Global Sales & Client Solutions',
+        designation: 'Senior Manager — Global Sales & Client Solutions',
         experience: 'Aligns client requirements to practical security solutions and long-term service outcomes.'
       },
       {
         name: 'Afaq Durez Khan',
-        designation: 'Manager — Executive Protection & Secure Mobility (Asia)',
+        designation: 'Senior Manager — Executive Protection & Secure Mobility (Asia)',
         experience: 'Manages Asia-focused executive protection and secure mobility operations in dynamic contexts.'
       },
       {
