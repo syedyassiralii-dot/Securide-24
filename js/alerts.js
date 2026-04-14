@@ -1,6 +1,8 @@
 // alerts.js - rotates active intelligence alert card in sync with border cycle
 
 const svgToDataUrl = (svg) => `data:image/svg+xml;utf8,${encodeURIComponent(svg)}`;
+const ALERTS_SIGNALS_ROTATION_MS = 4000;
+const ALERTS_SIGNALS_TICK_EVENT = 'alerts-signals-tick';
 
 const Alerts = {
   flagSVGs: {
@@ -146,7 +148,7 @@ const Alerts = {
   },
 
   getCycleDurationMs() {
-    return 4000; // 4 seconds rotation
+    return ALERTS_SIGNALS_ROTATION_MS;
   },
 
   startRotation() {
@@ -154,6 +156,7 @@ const Alerts = {
     this.intervalId = setInterval(() => {
       this.currentIndex = (this.currentIndex + 1) % this.items.length;
       this.render(this.currentIndex);
+      window.dispatchEvent(new CustomEvent(ALERTS_SIGNALS_TICK_EVENT, { detail: { alertIndex: this.currentIndex } }));
     }, this.cycleMs);
   },
 
@@ -271,6 +274,10 @@ const Signals = {
     }
   ],
 
+  getCycleDurationMs() {
+    return ALERTS_SIGNALS_ROTATION_MS;
+  },
+
   init() {
     const section = Utils.qs('.intelligence-alerts-section');
     this.card = section ? section.querySelector('#rotatingSignalCard') : null;
@@ -288,11 +295,12 @@ const Signals = {
 
     this.currentIndex = 0;
     this.render(0);
-
-    this.intervalId = setInterval(() => {
+    this.onAlertsTick = () => {
       this.currentIndex = (this.currentIndex + 1) % this.items.length;
       this.render(this.currentIndex);
-    }, 5000); // 5 s — offset from alert's 4 s so they never switch simultaneously
+    };
+
+    window.addEventListener(ALERTS_SIGNALS_TICK_EVENT, this.onAlertsTick);
   },
 
   render(index) {

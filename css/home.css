@@ -775,6 +775,11 @@
   font-weight: 600;
   color: var(--color-text);
   min-width: 0;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 48px);
 }
 
 .alert-type {
@@ -793,6 +798,11 @@
   font-size: 0.95rem;
   font-weight: 500;
   color: var(--color-text);
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 65%;
 }
 
 .alert-badge {
@@ -1177,6 +1187,11 @@
   line-height: 1.3;
   margin: 0;
   letter-spacing: -0.01em;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  max-height: calc(1.3em * 2);
 }
 
 .signal-summary {
