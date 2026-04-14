@@ -1,4 +1,4 @@
-const CACHE_VERSION = 'securide24-static-v2';
+const CACHE_VERSION = 'securide24-static-v3';
 const STATIC_CACHE = CACHE_VERSION;
 const CORE_ASSETS = [
   '/',
@@ -47,6 +47,16 @@ function isTrustedCdn(requestUrl) {
   return requestUrl.origin === 'https://cdn.jsdelivr.net';
 }
 
+function offlineFallbackResponse() {
+  return new Response('Offline resource unavailable', {
+    status: 503,
+    statusText: 'Service Unavailable',
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8'
+    }
+  });
+}
+
 self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') {
     return;
@@ -79,7 +89,7 @@ self.addEventListener('fetch', (event) => {
             }
             return response;
           })
-          .catch(() => caches.match(event.request))
+          .catch(() => caches.match(event.request).then((cached) => cached || offlineFallbackResponse()))
       );
       return;
     }
@@ -94,9 +104,9 @@ self.addEventListener('fetch', (event) => {
             }
             return response;
           })
-          .catch(() => cached);
+          .catch(() => cached || offlineFallbackResponse());
 
-        return cached || networkFetch;
+        return cached || networkFetch || offlineFallbackResponse();
       })
     );
     return;
@@ -115,7 +125,7 @@ self.addEventListener('fetch', (event) => {
             caches.open(STATIC_CACHE).then((cache) => cache.put(event.request, responseClone));
           }
           return response;
-        });
+        }).catch(() => offlineFallbackResponse());
       })
     );
   }

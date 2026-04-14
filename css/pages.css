@@ -555,7 +555,7 @@ main:not(.hero-page) {
 .case-studies-page .page-hero {
   background-image:
     linear-gradient(180deg, rgba(0, 10, 30, 0.6), rgba(0, 14, 40, 0.8)),
-    url("../assets/images/risk-assurance-bg.webp");
+    url("../assets/images/solutions-showcase-bg.svg");
 }
 
 .page-subtitle {

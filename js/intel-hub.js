@@ -90,7 +90,7 @@
       'incident-evacuation-drill': {
         kicker: 'FEATURED CASE STUDY',
         title: 'Case Study: Incident Evacuation Drill',
-        coverSrc: '../../assets/images/risk-assurance-bg.webp',
+        coverSrc: '../../assets/images/solutions-showcase-bg.svg',
         coverAlt: 'Evacuation drill coordination scenario',
         paragraphOne:
           'SECURIDE 24 supported a full-scale evacuation rehearsal for a distributed corporate site with mixed local and expatriate personnel. The objective was to reduce decision latency during fast escalation.',

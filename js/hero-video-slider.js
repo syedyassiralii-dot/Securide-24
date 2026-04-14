@@ -40,6 +40,13 @@
       return mobileViewportQuery.matches ? MOBILE_VIDEO_FILES : DESKTOP_VIDEO_FILES;
     }
 
+    function hideVideoControls() {
+      const controls = document.querySelector('.hero-slider-controls');
+      if (controls) {
+        controls.style.display = 'none';
+      }
+    }
+
     function syncVideoSource(element, source) {
       if (!element) {
         return;
@@ -62,6 +69,9 @@
 
     function setVideo(index) {
       const videoFiles = getVideoFiles();
+      if (!videoFiles.length) {
+        return;
+      }
 
       if (index === activeIndex && video.getAttribute('src') === videoFiles[index]) {
         return;
@@ -80,12 +90,19 @@
     }
 
     function showNext() {
-      const nextIndex = (activeIndex + 1) % getVideoFiles().length;
+      const videoFiles = getVideoFiles();
+      if (!videoFiles.length) {
+        return;
+      }
+      const nextIndex = (activeIndex + 1) % videoFiles.length;
       setVideo(nextIndex);
     }
 
     function showPrevious() {
       const currentLength = getVideoFiles().length;
+      if (!currentLength) {
+        return;
+      }
       const previousIndex = (activeIndex - 1 + currentLength) % currentLength;
       setVideo(previousIndex);
     }
@@ -118,6 +135,9 @@
 
     dotButtons.forEach((dot) => {
       dot.addEventListener('click', () => {
+        if (!getVideoFiles().length) {
+          return;
+        }
         const slideIndex = Number(dot.getAttribute('data-hero-slide'));
         if (!Number.isNaN(slideIndex)) {
           setVideo(slideIndex);
@@ -145,6 +165,10 @@
     }
 
     const initialVideo = getVideoFiles()[activeIndex];
+    if (!initialVideo) {
+      hideVideoControls();
+      return;
+    }
     syncVideoSource(video, initialVideo);
     syncVideoSource(backdropVideo, initialVideo);
     restartAutoRotation();
