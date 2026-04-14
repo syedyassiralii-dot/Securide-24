@@ -172,6 +172,7 @@ const RISK_BADGE = {
 
 const DEFAULT_FILL = RISK_COLORS.R6;
 let countryNodes = {};
+let countryNamesById = Object.assign({}, ISO_NAMES);
 
 // --- Tooltip -----------------------------------------------------------------
 let wrmTip = null;
@@ -185,6 +186,10 @@ function getBriefingUrl(a2) {
   return a2
     ? 'pages/intelligence/active-alerts.html?country=' + a2
     : 'pages/intelligence/active-alerts.html';
+}
+
+function getCountryName(numericId) {
+  return countryNamesById[numericId] || ISO_NAMES[numericId] || ISO_N[numericId] || 'Unknown';
 }
 
 function getMobileModal() {
@@ -211,7 +216,7 @@ function getMobileModal() {
 
 function showMobileCountryDetails(numericId) {
   var a2 = ISO_N[numericId];
-  var name = ISO_NAMES[numericId] || a2 || 'Unknown';
+  var name = getCountryName(numericId);
   var c = a2 ? COUNTRY_DATA[a2] : null;
   var modal = getMobileModal();
   var content = modal.querySelector('.wrm-mobile-content');
@@ -253,7 +258,7 @@ function getTooltip() {
 
 function showTooltip(event, numericId) {
   const a2   = ISO_N[numericId];
-  const name = ISO_NAMES[numericId] || a2 || 'Unknown';
+  const name = getCountryName(numericId);
   const c    = a2 ? COUNTRY_DATA[a2] : null;
   const tip  = getTooltip();
 
@@ -361,7 +366,7 @@ function initWorldRiskMap() {
   svg.append('rect')
     .attr('width', W)
     .attr('height', H)
-    .attr('fill', '#60d3db');
+    .attr('fill', '#0b2a5b');
 
   var g = svg.append('g');
 
@@ -371,6 +376,14 @@ function initWorldRiskMap() {
   // Zoom + pan
   var zoom = d3.zoom()
     .scaleExtent([1, 8])
+    .filter(function(event) {
+      // Keep map fixed at base scale; allow drag/touch pan only after zoom-in.
+      if (event.type === 'wheel' || event.type === 'dblclick') {
+        return true;
+      }
+      var currentScale = d3.zoomTransform(svg.node()).k;
+      return currentScale > 1;
+    })
     .on('zoom', function(event) {
       g.attr('transform', event.transform);
     });
@@ -380,6 +393,13 @@ function initWorldRiskMap() {
     .then(function(r) { return r.json(); })
     .then(function(world) {
       var features = topojson.feature(world, world.objects.countries).features;
+      features.forEach(function(feature) {
+        var id = +feature.id;
+        var mapName = feature && feature.properties ? feature.properties.name : '';
+        if (mapName) {
+          countryNamesById[id] = mapName;
+        }
+      });
 
       projection.fitExtent([[10, 18], [W - 10, H - 18]], { type: 'FeatureCollection', features: features });
 
@@ -407,6 +427,45 @@ function initWorldRiskMap() {
           if (a2) {
             window.location.href = getBriefingUrl(a2);
           }
+        });
+
+      // Country labels (render for all countries)
+      var labelFeatures = features.filter(function(d) {
+        var id = +d.id;
+        var countryName = getCountryName(id);
+        return Boolean(countryName);
+      });
+
+      g.selectAll('text.country-label')
+        .data(labelFeatures)
+        .join('text')
+        .attr('class', 'country-label')
+        .attr('x', function(d) {
+          var centroid = pathGen.centroid(d);
+          return centroid[0];
+        })
+        .attr('y', function(d) {
+          var centroid = pathGen.centroid(d);
+          return centroid[1];
+        })
+        .attr('text-anchor', 'middle')
+        .attr('dominant-baseline', 'middle')
+        .attr('fill', '#ffffff')
+        .attr('font-size', function(d) {
+          var area = pathGen.area(d);
+          if (area > 3000) return 9;
+          if (area > 1400) return 8;
+          if (area > 700) return 7;
+          return 5.5;
+        })
+        .attr('font-weight', 600)
+        .attr('paint-order', 'stroke')
+        .attr('stroke', 'rgba(11, 42, 91, 0.85)')
+        .attr('stroke-width', 1.2)
+        .style('pointer-events', 'none')
+        .text(function(d) {
+          var id = +d.id;
+          return getCountryName(id);
         });
 
       if (!isMobileMapView()) {
@@ -467,6 +526,10 @@ function initCountrySearch() {
       item.addEventListener('click', function() {
         input.value = name;
         results.style.display = 'none';
+        if (isMobileMapView()) {
+          showMobileCountryDetails(+numId);
+          return;
+        }
         focusCountryById(+numId);
       });
 

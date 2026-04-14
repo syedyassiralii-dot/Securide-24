@@ -3150,7 +3150,59 @@ main:not(.hero-page) {
 
   .solutions24-profile-drawer {
     width: 100%;
-    padding: 30px 20px;
+    max-width: 100%;
+    height: auto;
+    min-height: 100dvh;
+    max-height: 100dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 56px 18px 24px;
+    box-shadow: none;
+    border-right: 0;
+  }
+
+  .solutions24-profile-backdrop {
+    background: rgba(3, 6, 14, 0.72);
+  }
+
+  .solutions24-profile-close {
+    position: sticky;
+    top: calc(env(safe-area-inset-top, 0px) + 8px);
+    right: auto;
+    margin: 0 0 8px auto;
+    display: grid;
+    place-items: center;
+    z-index: 2;
+    width: 36px;
+    height: 36px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    font-size: 24px;
+  }
+
+  .solutions24-profile-kicker {
+    margin-bottom: 8px;
+    font-size: 10px;
+  }
+
+  .solutions24-profile-name {
+    margin: 0 0 10px;
+    font-size: clamp(22px, 7vw, 30px);
+    line-height: 1.15;
+    text-transform: none;
+  }
+
+  .solutions24-profile-designation {
+    margin: 0 0 12px;
+    font-size: 12px;
+    letter-spacing: 0.03em;
+    line-height: 1.4;
+    text-transform: none;
+  }
+
+  .solutions24-profile-experience {
+    font-size: 14px;
+    line-height: 1.6;
   }
 }
 

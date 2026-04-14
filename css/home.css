@@ -938,9 +938,20 @@
 }
 
 @media (max-width: 768px) {
+  .alerts-wrapper {
+    justify-items: center;
+    gap: 24px;
+  }
+
+  .alerts-divider {
+    display: none;
+  }
+
   .alerts-content {
     margin-left: 0;
-    max-width: 100%;
+    max-width: 560px;
+    width: 100%;
+    margin-right: 0;
     text-align: left;
   }
 
@@ -974,6 +985,8 @@
     padding: 14px;
     min-height: 340px;
     height: 340px;
+    width: 100%;
+    max-width: 100%;
   }
   
   .location-text {
@@ -1009,14 +1022,28 @@
   }
 
   .alerts-card-wrapper {
-    margin-left: auto;
-    margin-right: auto;
+    width: 100%;
+    max-width: 560px;
+    margin-inline: auto;
     justify-content: center;
+    align-items: stretch;
   }
 
   .signal-card {
+    width: 100%;
+    max-width: 100%;
+    padding: 14px;
     min-height: 340px;
     height: 340px;
+  }
+
+  .signal-card-header {
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+
+  .signal-timestamp {
+    margin-left: auto;
   }
 
   .signal-summary {

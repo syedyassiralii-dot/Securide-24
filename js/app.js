@@ -293,6 +293,11 @@ document.addEventListener('DOMContentLoaded', () => {
         name: 'Mike Jr.',
         designation: 'Manager — Compliance, Governance & Standards',
         experience: 'Leads compliance assurance, governance implementation, and quality standards alignment.'
+      },
+      {
+        name: 'Amir Aftab',
+        designation: 'Manager — Executive Mobility & Route Intelligence',
+        experience: 'Leads executive mobility planning, route intelligence, and movement risk assessments for secure operations.'
       }
     ];
 
