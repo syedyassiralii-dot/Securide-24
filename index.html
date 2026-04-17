@@ -372,13 +372,26 @@
               </div>
             </div>
 
-            <div class="live-intel-toolbar" data-live-intel-toolbar aria-label="Map overlay filters">
-              <button class="live-intel-chip is-active" type="button" data-overlay-toggle="risk-level" aria-pressed="true">Risk Level</button>
-              <button class="live-intel-chip" type="button" data-overlay-toggle="route-disruption" aria-pressed="false">Route Disruption</button>
-              <button class="live-intel-chip" type="button" data-overlay-toggle="earthquake" aria-pressed="false">Earthquake</button>
-              <button class="live-intel-chip" type="button" data-overlay-toggle="travel" aria-pressed="false">Travel</button>
-              <button class="live-intel-chip" type="button" data-overlay-toggle="civil-unrest" aria-pressed="false">Civil Unrest</button>
-              <button class="live-intel-chip is-active" type="button" data-overlay-toggle="general-alerts" aria-pressed="true">General Alerts</button>
+            <div class="live-intel-control-deck">
+              <div class="live-intel-toolbar" data-live-intel-toolbar aria-label="Map overlay filters">
+                <button class="live-intel-chip is-active" type="button" data-overlay-toggle="risk-level" aria-pressed="true">Risk Level</button>
+                <button class="live-intel-chip" type="button" data-overlay-toggle="route-disruption" aria-pressed="false">Route Disruption</button>
+                <button class="live-intel-chip" type="button" data-overlay-toggle="earthquake" aria-pressed="false">Earthquake</button>
+                <button class="live-intel-chip" type="button" data-overlay-toggle="travel" aria-pressed="false">Travel</button>
+                <button class="live-intel-chip" type="button" data-overlay-toggle="civil-unrest" aria-pressed="false">Civil Unrest</button>
+                <button class="live-intel-chip is-active" type="button" data-overlay-toggle="general-alerts" aria-pressed="true">General Alerts</button>
+              </div>
+
+              <div class="live-intel-secondary-rails">
+                <div class="live-intel-priority-strip" data-live-intel-priority-strip>
+                  <span class="live-intel-priority-pill">Priority Regions</span>
+                  <span class="live-intel-priority-pill">Pakistan</span>
+                  <span class="live-intel-priority-pill">Afghanistan</span>
+                  <span class="live-intel-priority-pill">Iran</span>
+                  <span class="live-intel-priority-pill">United Kingdom</span>
+                </div>
+                <div class="live-intel-source-strip" data-live-intel-sources></div>
+              </div>
             </div>
 
             <div class="live-intel-map-shell">
@@ -390,14 +403,6 @@
               <div class="live-intel-map-overlay" aria-hidden="true"></div>
               <div class="live-intel-map-grid" aria-hidden="true"></div>
               <div class="live-intel-map-status" data-live-intel-status aria-live="polite">Initializing live feeds…</div>
-              <div class="live-intel-priority-strip" data-live-intel-priority-strip>
-                <span class="live-intel-priority-pill">Priority Regions</span>
-                <span class="live-intel-priority-pill">Pakistan</span>
-                <span class="live-intel-priority-pill">Afghanistan</span>
-                <span class="live-intel-priority-pill">Iran</span>
-                <span class="live-intel-priority-pill">United Kingdom</span>
-              </div>
-              <div class="live-intel-source-strip" data-live-intel-sources></div>
               <div class="live-intel-map-legend">
                 <div class="live-intel-legend-scale" aria-label="Country risk legend">
                   <span class="live-intel-legend-item"><i class="risk-low"></i><span>Low</span></span>
@@ -409,12 +414,35 @@
                 <div class="live-intel-legend-updated"><strong>Last Updated</strong><span data-live-intel-legend-updated>Awaiting first sync</span></div>
               </div>
             </div>
+
+            <div class="live-intel-telemetry" data-live-intel-telemetry>
+              <div class="live-intel-telemetry-top">
+                <div class="live-intel-telemetry-title-block">
+                  <span class="media-label live-intel-telemetry-label">Risk indicators</span>
+                  <strong>Operational telemetry layer</strong>
+                </div>
+                <div class="live-intel-telemetry-sync">
+                  <span class="live-intel-live-dot" aria-hidden="true"></span>
+                  <span>Last sync</span>
+                  <strong data-live-intel-telemetry-updated>Awaiting first sync</strong>
+                </div>
+              </div>
+
+              <div class="live-intel-telemetry-grid" data-live-intel-telemetry-grid></div>
+
+              <div class="live-intel-ticker" aria-label="Live intelligence ticker">
+                <div class="live-intel-ticker-track" data-live-intel-ticker></div>
+              </div>
+            </div>
           </article>
 
           <aside class="live-intel-sidebar surface-card" aria-label="Latest active alerts">
             <div class="live-intel-sidebar-top">
               <div class="live-intel-sidebar-title-block">
-                <span class="eyebrow live-intel-mini-eyebrow">Active Alerts</span>
+                <div class="live-intel-sidebar-kicker-row">
+                  <span class="eyebrow live-intel-mini-eyebrow">Active Alerts</span>
+                  <span class="live-intel-live-pill"><span class="live-intel-live-dot" aria-hidden="true"></span>Live feed</span>
+                </div>
                 <h3>Active Alerts</h3>
                 <p>A structured live alert window showing newest open-source signals with Securide24 interpretation for executive movement and travel exposure.</p>
               </div>
@@ -425,6 +453,7 @@
             </div>
 
             <div class="live-intel-sidebar-meta">
+              <span class="live-intel-sidebar-status"><span class="live-intel-live-dot" aria-hidden="true"></span>Live</span>
               <span>Last Updated</span>
               <strong data-live-intel-sidebar-updated>Awaiting first sync</strong>
             </div>

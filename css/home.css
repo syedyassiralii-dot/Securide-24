@@ -544,37 +544,100 @@
   font-weight: 600;
 }
 
-.live-intel-toolbar {
+.live-intel-control-deck {
+  display: grid;
+  gap: 0.7rem;
+  padding: 0.9rem 1rem;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background:
+    linear-gradient(180deg, rgba(8, 16, 27, 0.84), rgba(5, 11, 19, 0.94)),
+    radial-gradient(circle at 12% 20%, rgba(121,199,255,0.08), transparent 0 22%);
+}
+
+.live-intel-toolbar,
+.live-intel-priority-strip,
+.live-intel-source-strip {
   display: flex;
   flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.live-intel-secondary-rails {
+  display: grid;
   gap: 0.55rem;
 }
 
 .live-intel-chip {
-  padding: 0.56rem 0.85rem;
+  position: relative;
+  padding: 0.46rem 0.72rem;
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.026);
+  background: rgba(255,255,255,0.024);
   color: var(--text-soft);
-  transition: transform var(--transition), border-color var(--transition), background var(--transition), color var(--transition), box-shadow var(--transition);
+  transition: transform var(--transition), border-color var(--transition), background var(--transition), color var(--transition), box-shadow var(--transition), opacity var(--transition);
 }
 
 .live-intel-chip:hover {
-  transform: translateY(-1px);
+  transform: translateY(-1px) scale(1.01);
   border-color: rgba(121,199,255,0.18);
+  box-shadow: 0 8px 18px rgba(7,17,29,0.16);
 }
 
 .live-intel-chip.is-active,
 .live-intel-chip[aria-pressed="true"] {
   color: var(--text);
-  background: rgba(121,199,255,0.1);
-  border-color: rgba(121,199,255,0.22);
-  box-shadow: 0 0 0 1px rgba(121,199,255,0.06), 0 10px 24px rgba(7,17,29,0.18);
+  background: linear-gradient(135deg, rgba(121,199,255,0.13), rgba(121,199,255,0.06));
+  border-color: rgba(121,199,255,0.24);
+  box-shadow: 0 0 0 1px rgba(121,199,255,0.08), 0 0 24px rgba(121,199,255,0.10);
+}
+
+.live-intel-priority-pill,
+.live-intel-source-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  padding: 0.34rem 0.62rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.03);
+  color: var(--text-soft);
+}
+
+.live-intel-priority-pill.is-label,
+.live-intel-source-pill.is-active {
+  color: var(--text);
+  border-color: rgba(121,199,255,0.18);
+  background: rgba(121,199,255,0.08);
+}
+
+.live-intel-priority-pill::before,
+.live-intel-source-pill::before,
+.live-intel-map-status::before,
+.live-intel-list-empty-dot,
+.live-intel-alert-location::before,
+.live-intel-live-dot {
+  content: "";
+  width: 0.48rem;
+  height: 0.48rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--cyan), var(--blue));
+  box-shadow: 0 0 12px rgba(121,199,255,0.26);
+  flex: 0 0 auto;
+}
+
+.live-intel-live-dot {
+  animation: softPulse 2.1s ease-in-out infinite;
+}
+
+.live-intel-source-pill.is-offline::before,
+.live-intel-map-status.is-error::before {
+  background: linear-gradient(135deg, var(--warning), var(--danger));
 }
 
 .live-intel-map-shell {
   position: relative;
-  min-height: 620px;
+  min-height: clamp(380px, 40vw, 520px);
   border-radius: 28px;
   overflow: hidden;
   border: 1px solid rgba(121,199,255,0.14);
@@ -621,6 +684,12 @@
 
 .live-intel-map {
   z-index: 0;
+}
+
+.live-intel-map svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .live-intel-map-atmosphere,
@@ -690,8 +759,6 @@
 }
 
 .live-intel-map-status,
-.live-intel-priority-strip,
-.live-intel-source-strip,
 .live-intel-map-legend {
   position: absolute;
   z-index: 5;
@@ -714,59 +781,13 @@
   font-size: 0.78rem;
 }
 
-.live-intel-priority-strip {
-  top: 1rem;
-  left: 1rem;
-  flex-wrap: wrap;
-  max-width: min(500px, calc(100% - 2rem));
-}
-
-.live-intel-source-strip {
-  top: 4.8rem;
-  left: 1rem;
-  flex-wrap: wrap;
-  max-width: min(420px, calc(100% - 2rem));
-}
-
 .live-intel-map-legend {
   left: 1rem;
-  right: 1rem;
   bottom: 1rem;
   justify-content: space-between;
   gap: 1rem;
   flex-wrap: wrap;
-}
-
-.live-intel-priority-pill,
-.live-intel-source-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.38rem;
-  padding: 0.42rem 0.68rem;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.03);
-  color: var(--text-soft);
-}
-
-.live-intel-priority-pill::before,
-.live-intel-source-pill::before,
-.live-intel-map-status::before,
-.live-intel-list-empty-dot,
-.live-intel-alert-location::before {
-  content: "";
-  width: 0.48rem;
-  height: 0.48rem;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--cyan), var(--blue));
-  box-shadow: 0 0 12px rgba(121,199,255,0.26);
-  flex: 0 0 auto;
-}
-
-.live-intel-source-pill.is-offline::before,
-.live-intel-map-status.is-error::before,
-.live-intel-alert-location.is-unmapped::before {
-  background: linear-gradient(135deg, var(--warning), var(--danger));
+  max-width: calc(100% - 2rem);
 }
 
 .live-intel-legend-scale {
@@ -796,6 +817,248 @@
 .live-intel-legend-item .risk-elevated { background: #8a7a5d; }
 .live-intel-legend-item .risk-high { background: #9f5d54; }
 .live-intel-legend-item .risk-severe { background: #7c3340; }
+
+.live-intel-telemetry {
+  position: relative;
+  display: grid;
+  gap: 0.85rem;
+  padding: 1rem;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.06);
+  background:
+    linear-gradient(180deg, rgba(7, 15, 26, 0.98), rgba(6, 12, 21, 0.98)),
+    radial-gradient(circle at 12% 20%, rgba(121,199,255,0.08), transparent 0 20%),
+    radial-gradient(circle at 84% 50%, rgba(157,231,234,0.06), transparent 0 18%);
+}
+
+.live-intel-telemetry::before,
+.live-intel-telemetry::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.live-intel-telemetry::before {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.018) 1px, transparent 1px);
+  background-size: 24px 24px;
+  opacity: 0.14;
+}
+
+.live-intel-telemetry::after {
+  background: linear-gradient(110deg, transparent 24%, rgba(121,199,255,0.08) 48%, transparent 72%);
+  transform: translateX(-100%);
+}
+
+.live-intel-telemetry.is-refreshing::after,
+.live-intel-feed-window.is-refreshing::before {
+  animation: telemetrySweep 1s ease;
+}
+
+.live-intel-telemetry-top,
+.live-intel-telemetry-sync,
+.live-intel-signal-top,
+.live-intel-sidebar-kicker-row,
+.live-intel-sidebar-meta,
+.live-intel-feed-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.live-intel-telemetry-title-block {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.live-intel-telemetry-label {
+  position: static;
+}
+
+.live-intel-telemetry-title-block strong {
+  color: var(--text);
+}
+
+.live-intel-telemetry-sync {
+  color: var(--text-muted);
+  font-size: 0.76rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.live-intel-telemetry-sync strong {
+  color: var(--text);
+}
+
+.live-intel-telemetry-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.live-intel-signal-card {
+  position: relative;
+  display: grid;
+  gap: 0.5rem;
+  min-height: 156px;
+  padding: 0.86rem;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+}
+
+.live-intel-signal-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(180deg, rgba(121,199,255,0.08), transparent 48%);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.live-intel-signal-card:hover::before {
+  opacity: 1;
+}
+
+.live-intel-signal-card.tone-warning { border-color: rgba(245,194,122,0.14); }
+.live-intel-signal-card.tone-critical { border-color: rgba(255,127,139,0.16); }
+
+.live-intel-signal-card.is-breathing {
+  animation: criticalBreath 2.8s ease-in-out infinite;
+}
+
+.live-intel-signal-top {
+  position: relative;
+  z-index: 1;
+  align-items: flex-start;
+}
+
+.live-intel-signal-label,
+.live-intel-signal-status,
+.live-intel-signal-meta,
+.live-intel-signal-extra,
+.live-intel-ticker-item,
+.live-intel-alert-interpretation {
+  color: var(--text-muted);
+  font-size: 0.74rem;
+}
+
+.live-intel-signal-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.live-intel-signal-status i {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--cyan), var(--blue));
+  animation: softPulse 2s ease-in-out infinite;
+}
+
+.live-intel-signal-value {
+  position: relative;
+  z-index: 1;
+  color: var(--text);
+  font-size: clamp(1.35rem, 1.8vw, 1.75rem);
+  line-height: 1;
+}
+
+.live-intel-signal-meta,
+.live-intel-signal-extra {
+  position: relative;
+  z-index: 1;
+  line-height: 1.55;
+}
+
+.live-intel-signal-extra {
+  color: var(--text-soft);
+}
+
+.live-intel-signal-visual {
+  position: relative;
+  z-index: 1;
+  margin-top: auto;
+}
+
+.live-intel-sparkline {
+  display: flex;
+  align-items: end;
+  gap: 0.22rem;
+  height: 2.3rem;
+}
+
+.live-intel-sparkline i {
+  flex: 1;
+  height: var(--spark-height);
+  border-radius: 999px 999px 0 0;
+  background: linear-gradient(180deg, rgba(157,231,234,0.92), rgba(121,199,255,0.28));
+  animation: signalBars 2.2s ease-in-out infinite;
+}
+
+.live-intel-distribution {
+  display: flex;
+  overflow: hidden;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.06);
+  min-height: 1.1rem;
+}
+
+.live-intel-distribution-segment {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: var(--segment-size);
+  min-width: 1.6rem;
+  color: rgba(255,255,255,0.88);
+  font-size: 0.58rem;
+}
+
+.live-intel-distribution-segment.risk-low { background: #274969; }
+.live-intel-distribution-segment.risk-guarded { background: #436b79; }
+.live-intel-distribution-segment.risk-elevated { background: #8a7a5d; }
+.live-intel-distribution-segment.risk-high { background: #9f5d54; }
+.live-intel-distribution-segment.risk-severe { background: #7c3340; }
+
+.live-intel-ticker {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.live-intel-ticker-track {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+  min-width: max-content;
+  white-space: nowrap;
+  animation: tickerDrift 28s linear infinite;
+}
+
+.live-intel-ticker-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.live-intel-ticker-item i {
+  width: 0.36rem;
+  height: 0.36rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--cyan), var(--blue));
+}
 
 .wrm-tooltip {
   position: fixed;
@@ -909,12 +1172,24 @@
 }
 
 .live-intel-sidebar {
+  position: relative;
   display: grid;
   gap: 0.9rem;
   min-height: 100%;
   background:
     linear-gradient(180deg, rgba(8, 16, 27, 0.96), rgba(6, 12, 21, 0.98)),
     radial-gradient(circle at 84% 14%, rgba(121,199,255,0.07), transparent 0 16%);
+  overflow: hidden;
+}
+
+.live-intel-sidebar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent, rgba(121,199,255,0.04), transparent 70%);
+  transform: translateY(-100%);
+  animation: alertPanelGlow 11s ease-in-out infinite;
+  pointer-events: none;
 }
 
 .live-intel-sidebar-actions {
@@ -924,10 +1199,27 @@
   min-width: 206px;
 }
 
-.live-intel-sidebar-meta {
-  display: flex;
+.live-intel-live-pill,
+.live-intel-sidebar-status {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
+  gap: 0.42rem;
+  padding: 0.34rem 0.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(121,199,255,0.16);
+  background: rgba(121,199,255,0.08);
+  color: var(--text);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.live-intel-sidebar-meta {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
   gap: 0.85rem;
   padding: 0.8rem 0.9rem;
   border-radius: 16px;
@@ -1003,11 +1295,21 @@
 .live-intel-list {
   position: relative;
   z-index: 1;
-  display: grid;
-  gap: 0.7rem;
+  display: block;
   max-height: 530px;
   overflow: auto;
   padding-right: 0.2rem;
+  mask-image: linear-gradient(180deg, transparent, #000 10%, #000 90%, transparent);
+}
+
+.live-intel-list-track,
+.live-intel-list-batch {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.live-intel-list.is-paused .live-intel-alert.is-newest {
+  box-shadow: 0 0 0 1px rgba(121,199,255,0.16), 0 0 24px rgba(121,199,255,0.12);
 }
 
 .live-intel-list::-webkit-scrollbar {
@@ -1038,7 +1340,7 @@
   cursor: pointer;
   grid-template-columns: 92px minmax(0, 1fr);
   align-items: start;
-  transition: transform var(--transition), border-color var(--transition), background var(--transition), box-shadow var(--transition);
+  transition: transform var(--transition), border-color var(--transition), background var(--transition), box-shadow var(--transition), opacity var(--transition);
 }
 
 .live-intel-alert:hover,
@@ -1051,6 +1353,10 @@
 
 .live-intel-alert.is-priority-region {
   background: linear-gradient(180deg, rgba(121,199,255,0.06), rgba(255,255,255,0.022));
+}
+
+.live-intel-alert.is-newest {
+  border-color: rgba(121,199,255,0.16);
 }
 
 .live-intel-alert-thumb {
@@ -1108,6 +1414,11 @@
   font-size: 0.84rem;
 }
 
+.live-intel-alert-interpretation {
+  color: var(--text-soft);
+  line-height: 1.55;
+}
+
 .live-intel-alert-view strong {
   color: var(--text);
 }
@@ -1131,6 +1442,16 @@
 .live-intel-alert-meta {
   justify-content: flex-start;
   flex-wrap: wrap;
+}
+
+.live-intel-alert-time.is-live::before {
+  content: "";
+  width: 0.44rem;
+  height: 0.44rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--cyan), var(--blue));
+  box-shadow: 0 0 10px rgba(121,199,255,0.3);
+  animation: softPulse 2s ease-in-out infinite;
 }
 
 .live-intel-map .maplibregl-canvas,
@@ -1279,6 +1600,11 @@
   97% { opacity: 0.16; }
 }
 
+@keyframes telemetrySweep {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(100%); }
+}
+
 @keyframes mapSweep {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
@@ -1287,6 +1613,23 @@
 @keyframes traceTravel {
   0%, 100% { opacity: 0.14; transform: translateX(-8%) scaleX(0.94); }
   50% { opacity: 0.74; transform: translateX(10%) scaleX(1.02); }
+}
+
+@keyframes tickerDrift {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes criticalBreath {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(255,127,139,0.08), 0 0 0 rgba(255,127,139,0); }
+  50% { box-shadow: 0 0 0 1px rgba(255,127,139,0.18), 0 0 28px rgba(255,127,139,0.08); }
+}
+
+@keyframes alertPanelGlow {
+  0%, 100% { transform: translateY(-100%); opacity: 0; }
+  15% { opacity: 0.18; }
+  35% { transform: translateY(0%); opacity: 0.12; }
+  55% { transform: translateY(110%); opacity: 0; }
 }
 
 .architecture-card p {
@@ -2268,8 +2611,8 @@
     grid-template-columns: 1fr;
   }
 
-  .live-intel-counters {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .live-intel-telemetry-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .home-process .process-step:not(:last-child)::after {
@@ -2348,23 +2691,38 @@
     align-items: flex-start;
   }
 
+  .live-intel-toolbar,
+  .live-intel-priority-strip,
+  .live-intel-source-strip,
+  .live-intel-telemetry-top,
+  .live-intel-telemetry-sync {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .live-intel-sidebar-meta {
+    grid-template-columns: 1fr;
+    justify-items: start;
+  }
+
   .live-intel-map-shell {
     min-height: 400px;
   }
 
-  .live-intel-map-status,
-  .live-intel-source-strip {
+  .live-intel-control-deck,
+  .live-intel-telemetry {
+    padding: 0.9rem;
+  }
+
+  .live-intel-map-status {
+    top: 0.75rem;
     left: 0.75rem;
     right: 0.75rem;
     max-width: none;
   }
 
-  .live-intel-map-status {
-    top: 0.75rem;
-  }
-
-  .live-intel-source-strip {
-    bottom: 0.75rem;
+  .live-intel-map-legend {
+    right: 0.75rem;
   }
 
   .live-intel-sidebar-cta {
@@ -2372,10 +2730,10 @@
   }
 
   .live-intel-list {
-    max-height: none;
+    max-height: 470px;
   }
 
-  .live-intel-counters {
+  .live-intel-telemetry-grid {
     grid-template-columns: 1fr;
   }
 

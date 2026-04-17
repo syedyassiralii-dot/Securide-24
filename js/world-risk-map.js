@@ -173,6 +173,10 @@ const RISK_BADGE = {
 const DEFAULT_FILL = RISK_COLORS.R6;
 let countryNodes = {};
 let countryNamesById = Object.assign({}, ISO_NAMES);
+const ALPHA2_TO_NUMERIC = Object.keys(ISO_N).reduce(function(accumulator, numericId) {
+  accumulator[ISO_N[numericId]] = Number(numericId);
+  return accumulator;
+}, {});
 
 // --- Tooltip -----------------------------------------------------------------
 let wrmTip = null;
@@ -351,6 +355,12 @@ function focusCountryById(numericId) {
   }, numericId);
 }
 
+function focusCountryByAlpha2(alpha2) {
+  var numericId = ALPHA2_TO_NUMERIC[alpha2];
+  if (!numericId) return;
+  focusCountryById(numericId);
+}
+
 // --- Map ---------------------------------------------------------------------
 function initWorldRiskMap() {
   var el = getMapRootElement();
@@ -366,7 +376,7 @@ function initWorldRiskMap() {
     .attr('viewBox', '0 0 ' + W + ' ' + H)
     .attr('preserveAspectRatio', 'xMidYMid meet')
     .style('width', '100%')
-    .style('height', 'auto')
+    .style('height', '100%')
     .style('display', 'block');
 
   // Ocean / sea background
@@ -593,3 +603,8 @@ if (document.readyState === 'loading') {
 } else {
   bootWorldRiskMap();
 }
+
+window.addEventListener('live-intel-map:focus-country', function(event) {
+  if (!event.detail || !event.detail.countryCode) return;
+  focusCountryByAlpha2(event.detail.countryCode);
+});
