@@ -1,0 +1,38 @@
+<svg width="1400" height="820" viewBox="0 0 1400 820" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1400" height="820" rx="32" fill="#0C1825"/>
+  <rect x="48" y="48" width="1304" height="724" rx="28" fill="url(#bg)"/>
+  <g opacity="0.18" stroke="#88A8C7">
+    <path d="M110 194H1290"/>
+    <path d="M110 380H1290"/>
+    <path d="M110 566H1290"/>
+    <path d="M352 110V706"/>
+    <path d="M700 110V706"/>
+    <path d="M1048 110V706"/>
+  </g>
+  <g>
+    <rect x="148" y="142" width="376" height="186" rx="26" fill="#132436"/>
+    <text x="188" y="196" fill="#E7EDF5" font-family="JetBrains Mono, monospace" font-size="16" letter-spacing="1.8">REQUEST ACCESS</text>
+    <text x="188" y="256" fill="#F6F8FB" font-family="Cormorant Garamond, serif" font-size="74">Operate with</text>
+    <text x="188" y="320" fill="#F6F8FB" font-family="Cormorant Garamond, serif" font-size="74">Intelligence</text>
+  </g>
+  <g>
+    <rect x="622" y="162" width="620" height="456" rx="28" fill="#102030" stroke="#24384A"/>
+    <path d="M690 500C772 424 844 384 928 342C1032 290 1100 238 1176 182" stroke="url(#signal)" stroke-width="6" stroke-dasharray="12 16" stroke-linecap="round"/>
+    <circle cx="928" cy="342" r="14" fill="#F25F5C"/>
+    <circle cx="1090" cy="244" r="12" fill="#6CB1F5"/>
+    <circle cx="812" cy="414" r="11" fill="#E4B84C"/>
+    <rect x="690" y="210" width="196" height="44" rx="22" fill="#173048"/>
+    <text x="726" y="238" fill="#E7EDF5" font-family="JetBrains Mono, monospace" font-size="15" letter-spacing="1.4">ADVISORY WINDOW</text>
+  </g>
+  <defs>
+    <linearGradient id="bg" x1="700" y1="48" x2="700" y2="772" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#132436"/>
+      <stop offset="1" stop-color="#0E1A28"/>
+    </linearGradient>
+    <linearGradient id="signal" x1="690" y1="500" x2="1176" y2="182" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6CB1F5" stop-opacity="0"/>
+      <stop offset="0.44" stop-color="#6CB1F5"/>
+      <stop offset="1" stop-color="#E4B84C" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+</svg>

@@ -1,651 +1,935 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SECURIDE 24 | Intelligence-Led Security &amp; Risk Consultancy</title>
-  <meta name="description" content="Strategic security and risk consultancy for executive movement, crisis planning, secure mobility, and complex operating environments." />
-  <meta name="robots" content="index,follow" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="SECURIDE 24 | Intelligence-Led Security &amp; Risk Consultancy" />
-  <meta property="og:description" content="Strategic security and risk consultancy for executive movement, crisis planning, secure mobility, and complex operating environments." />
-  <meta property="og:site_name" content="SECURIDE 24" />
-  <link rel="stylesheet" href="css/base.css" />
-  <link rel="stylesheet" href="css/layout.css" />
-  <link rel="stylesheet" href="css/components.css" />
-  <link rel="stylesheet" href="css/header.css" />
-  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" crossorigin="" />
-  <link rel="stylesheet" href="css/home.css" />
-  <link rel="stylesheet" href="css/pages.css" />
-</head><body data-root="" data-page="home">
-  <a class="skip-link" href="#main">Skip to content</a>
-  <div data-site-header></div>
-  <main id="main">
-    <section class="hero hero-slider" aria-label="SECURIDE 24 consultancy hero slider">
-      <div class="hero-slides" data-hero-slider>
-        <article class="hero-slide is-active" data-hero-slide data-title="Strategic Security and Risk Consultancy">
-          <div class="hero-media-layer" aria-hidden="true">
-            <video class="hero-slide-video media-video" muted loop playsinline preload="metadata" poster="assets/images/global-map.webp" data-desktop-src="assets/video/hero-slide-01.webm" data-mobile-src="assets/video/hero-mobile-slide-01.webm" disablepictureinpicture>
-              <source src="assets/video/hero-slide-01.webm" type="video/webm" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Securide24 — Intelligence-Led Risk Advisory</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<nav class="site-nav" data-nav-root>
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-mark"></div>
+    <span class="nav-logo-text">SECURIDE<span>24</span></span>
+  </a>
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-label="Toggle navigation" data-nav-toggle>
+    <span></span>
+    <span></span>
+  </button>
+  <div class="nav-panel" data-nav-panel>
+    <ul class="nav-links">
+      <li class="nav-item has-dropdown" data-nav-item>
+        <button class="nav-link nav-trigger" type="button" aria-expanded="false" data-nav-trigger>Risk Monitoring</button>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown-intro">
+            <div class="nav-dropdown-label">Live layer</div>
+            <p>Monitoring surfaces built for leadership visibility, movement impact, and rapid escalation.</p>
+          </div>
+          <div class="nav-dropdown-links">
+            <a href="#liveDesk"><strong>Live Desk</strong><span>Real-time alert environment</span></a>
+            <a href="platform/index.html"><strong>Global Risk Layer</strong><span>Live map and signal watch</span></a>
+            <a href="#intelligence"><strong>Alert Logic</strong><span>Structured monitoring inside the platform</span></a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item has-dropdown" data-nav-item>
+        <button class="nav-link nav-trigger" type="button" aria-expanded="false" data-nav-trigger>Solutions</button>
+        <div class="nav-dropdown nav-dropdown-wide">
+          <div class="nav-dropdown-links two-col">
+            <a href="services/risk-intelligence.html"><strong>Risk Intelligence &amp; Monitoring</strong><span>Structured signal monitoring</span></a>
+            <a href="services/executive-mobility.html"><strong>Executive Mobility &amp; Secure Travel</strong><span>Movement planning and travel posture</span></a>
+            <a href="services/executive-protection.html"><strong>Executive Protection Coordination</strong><span>Discreet protection coordination</span></a>
+            <a href="services/crisis-response.html"><strong>Crisis Response &amp; Incident Coordination</strong><span>Fast-turn advisory and coordination</span></a>
+            <a href="services/strategic-advisory.html"><strong>Strategic Risk Advisory</strong><span>Board and executive-facing advisory</span></a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item has-dropdown" data-nav-item>
+        <button class="nav-link nav-trigger" type="button" aria-expanded="false" data-nav-trigger>Intelligence</button>
+        <div class="nav-dropdown nav-dropdown-wide">
+          <div class="nav-dropdown-links two-col">
+            <a href="#intelligence"><strong>Executive Signals</strong><span>High-relevance live alerts</span></a>
+            <a href="platform/country-briefs.html"><strong>Country Risk Briefs</strong><span>Pre-travel and entry posture</span></a>
+            <a href="platform/briefings.html"><strong>Intelligence Briefings</strong><span>Leadership-grade briefing outputs</span></a>
+            <a href="platform/index.html#alerts"><strong>Active Alert Stream</strong><span>Live signal watch</span></a>
+            <a href="#intelligence"><strong>Crisis Flash Updates</strong><span>Fast-turn escalation framing</span></a>
+            <a href="contact/index.html"><strong>Platform Access</strong><span>Request monitoring access</span></a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item has-dropdown" data-nav-item>
+        <button class="nav-link nav-trigger" type="button" aria-expanded="false" data-nav-trigger>Reach</button>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown-links">
+            <a href="#reach"><strong>Pakistan &amp; Afghanistan</strong><span>Primary regional depth</span></a>
+            <a href="#reach"><strong>Middle East &amp; Gulf</strong><span>Travel and advisory exposure</span></a>
+            <a href="#reach"><strong>Central &amp; South Asia</strong><span>Corridor and entry logic</span></a>
+            <a href="#reach"><strong>United Kingdom</strong><span>Governed operating base</span></a>
+            <a href="#reach"><strong>Global Advisory</strong><span>94-country monitoring footprint</span></a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item has-dropdown" data-nav-item>
+        <button class="nav-link nav-trigger" type="button" aria-expanded="false" data-nav-trigger>Insights</button>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown-links">
+            <a href="#insights"><strong>Latest Briefings</strong><span>Current platform-facing analysis</span></a>
+            <a href="insights/index.html"><strong>Regional Notes</strong><span>Concise regional intelligence notes</span></a>
+            <a href="#insights"><strong>Platform Updates</strong><span>Monitoring and product developments</span></a>
+            <a href="#insights"><strong>Editorial Intelligence</strong><span>Executive-facing commentary</span></a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item has-dropdown" data-nav-item>
+        <button class="nav-link nav-trigger" type="button" aria-expanded="false" data-nav-trigger>Governance</button>
+        <div class="nav-dropdown">
+          <div class="nav-dropdown-links">
+            <a href="#governance"><strong>Standards</strong><span>Professional baseline and alignment</span></a>
+            <a href="#governance"><strong>Assurance</strong><span>UK-governed operating posture</span></a>
+            <a href="#governance"><strong>Conduct</strong><span>Discretion and confidentiality</span></a>
+            <a href="legal/confidentiality.html"><strong>Confidentiality</strong><span>Controlled handling of client information</span></a>
+          </div>
+        </div>
+      </li>
+      <li class="nav-item nav-item-direct"><a class="nav-link" href="#contact">Access</a></li>
+    </ul>
+    <div class="nav-actions">
+      <div class="nav-status">
+        <div class="nav-status-dot"></div>
+        SYSTEM LIVE
+      </div>
+      <a href="contact/index.html" class="btn-primary nav-access-btn">Request Access</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <section class="hero hero-home hero-slider-only">
+    <div class="page-width hero-slider-shell fade-up">
+      <div class="hero-cinematic hero-cinematic-full" id="heroSlider" data-autoplay="true">
+        <div class="hero-cinematic-top">
+          <div>
+            <div class="section-label hero-slider-label">Strategic Intelligence Surface</div>
+            <div class="hero-cinematic-kicker">Securide24 monitoring narratives</div>
+          </div>
+          <div class="hero-slider-controls">
+            <button class="hero-slider-arrow" type="button" data-hero-prev aria-label="Previous slide">‹</button>
+            <button class="hero-slider-arrow" type="button" data-hero-next aria-label="Next slide">›</button>
+          </div>
+        </div>
+        <div class="hero-slider-stage hero-slider-stage-full">
+          <article class="hero-slide is-active" data-hero-slide="0">
+            <video class="hero-slide-video" muted loop playsinline autoplay preload="metadata" poster="assets/sections/hero/clarity-before-exposure.svg">
+              <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" type="video/mp4">
             </video>
-            <div class="hero-slide-overlay hero-slide-overlay-map"></div>
-          </div>
-        </article>
-
-        <article class="hero-slide" data-hero-slide data-title="Executive Mobility in Complex Environments">
-          <div class="hero-media-layer" aria-hidden="true">
-            <video class="hero-slide-video media-video" muted loop playsinline preload="metadata" poster="assets/images/travel-bg.webp" data-desktop-src="assets/video/hero-slide-02.webm" data-mobile-src="assets/video/hero-mobile-slide-02.webm" disablepictureinpicture>
-              <source src="assets/video/hero-slide-02.webm" type="video/webm" />
+            <div class="hero-slide-shade"></div>
+            <div class="hero-slide-lead">
+              <div class="hero-slide-overline">Intelligence-Led Risk Advisory</div>
+              <h1 class="hero-slide-primary">Clarity Before Exposure</h1>
+              <div class="hero-ctas hero-ctas-inline">
+                <a href="contact/index.html" class="btn-primary">Request a Consultation ↗</a>
+                <a href="platform/index.html" class="btn-ghost">View Live Risk Map</a>
+              </div>
+            </div>
+          </article>
+          <article class="hero-slide" data-hero-slide="1">
+            <video class="hero-slide-video" muted loop playsinline preload="metadata" poster="assets/sections/hero/executive-movement-under-control.svg">
+              <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4" type="video/mp4">
             </video>
-            <div class="hero-slide-overlay hero-slide-overlay-mobility"></div>
-          </div>
-        </article>
-
-        <article class="hero-slide" data-hero-slide data-title="Intelligence That Sharpens Decisions">
-          <div class="hero-media-layer" aria-hidden="true">
-            <video class="hero-slide-video media-video" muted loop playsinline preload="metadata" poster="assets/images/intelligence-monitoring-bg.webp" data-desktop-src="assets/video/hero-slide-03.webm" data-mobile-src="assets/video/hero-mobile-slide-03.webm" disablepictureinpicture>
-              <source src="assets/video/hero-slide-03.webm" type="video/webm" />
+            <div class="hero-slide-shade"></div>
+            <h3 class="hero-slide-title">Executive Movement Under Control</h3>
+          </article>
+          <article class="hero-slide" data-hero-slide="2">
+            <video class="hero-slide-video" muted loop playsinline preload="metadata" poster="assets/sections/hero/signals-before-disruption.svg">
+              <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4" type="video/mp4">
             </video>
-            <div class="hero-slide-overlay hero-slide-overlay-signals"></div>
-          </div>
-        </article>
-
-        <article class="hero-slide" data-hero-slide data-title="Structured Response Under Pressure">
-          <div class="hero-media-layer" aria-hidden="true">
-            <video class="hero-slide-video media-video" muted loop playsinline preload="metadata" poster="assets/images/active-alert-hero-bg.webp" data-desktop-src="assets/video/hero-slide-04.webm" data-mobile-src="assets/video/hero-mobile-slide-04.webm" disablepictureinpicture>
-              <source src="assets/video/hero-slide-04.webm" type="video/webm" />
+            <div class="hero-slide-shade"></div>
+            <h3 class="hero-slide-title">Signals Before Disruption</h3>
+          </article>
+          <article class="hero-slide" data-hero-slide="3">
+            <video class="hero-slide-video" muted loop playsinline preload="metadata" poster="assets/sections/hero/travel-risk-interpreted.svg">
+              <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4" type="video/mp4">
             </video>
-            <div class="hero-slide-overlay hero-slide-overlay-response"></div>
-          </div>
-        </article>
-
-        <article class="hero-slide" data-hero-slide data-title="Secure Planning for Sensitive Operations">
-          <div class="hero-media-layer" aria-hidden="true">
-            <video class="hero-slide-video media-video" muted loop playsinline preload="metadata" poster="assets/images/capabilities-mobility-planning-detail.webp" data-desktop-src="assets/video/hero-slide-05.webm" data-mobile-src="assets/video/hero-mobile-slide-05.webm" disablepictureinpicture>
-              <source src="assets/video/hero-slide-05.webm" type="video/webm" />
+            <div class="hero-slide-shade"></div>
+            <h3 class="hero-slide-title">Travel Risk, Interpreted</h3>
+          </article>
+          <article class="hero-slide" data-hero-slide="4">
+            <video class="hero-slide-video" muted loop playsinline preload="metadata" poster="assets/sections/hero/structured-response-under-pressure.svg">
+              <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4" type="video/mp4">
             </video>
-            <div class="hero-slide-overlay hero-slide-overlay-planning"></div>
-          </div>
-        </article>
-
-        <article class="hero-slide" data-hero-slide data-title="Clarity Where Exposure Is Real">
-          <div class="hero-media-layer" aria-hidden="true">
-            <video class="hero-slide-video media-video" muted loop playsinline preload="metadata" poster="assets/images/slider-bg.webp" data-desktop-src="assets/video/hero-slide-06.webm" data-mobile-src="assets/video/hero-mobile-slide-06.webm" disablepictureinpicture>
-              <source src="assets/video/hero-slide-06.webm" type="video/webm" />
+            <div class="hero-slide-shade"></div>
+            <h3 class="hero-slide-title">Structured Response Under Pressure</h3>
+          </article>
+          <article class="hero-slide" data-hero-slide="5">
+            <video class="hero-slide-video" muted loop playsinline preload="metadata" poster="assets/sections/hero/advisory-clarity-in-motion.svg">
+              <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4" type="video/mp4">
             </video>
-            <div class="hero-slide-overlay hero-slide-overlay-abstract"></div>
-          </div>
-        </article>
-      </div>
-
-      <div class="hero-content-shell">
-        <div class="container hero-grid">
-          <div class="hero-copy hero-copy-slider">
-            <span class="eyebrow hero-eyebrow">Intelligence-Led Security &amp; Risk Consultancy</span>
-            <h1 class="hero-title" data-hero-title>Strategic Security and Risk Consultancy</h1>
-            <div class="btn-row hero-actions">
-              <a class="btn btn-primary" href="pages/contact/index.html">Request Consultation</a>
-            </div>
-            <div class="hero-meta-row">
-              <p class="hero-proof-line">London governance • Regional depth • Consulting-led delivery</p>
-              <div class="hero-slider-controls" aria-label="Hero slide navigation">
-                <div class="hero-slider-progress" role="tablist" aria-label="Hero slides">
-                  <button class="hero-slider-stop is-active" type="button" role="tab" aria-label="Show slide 1" aria-selected="true" data-hero-dot><span></span></button>
-                  <button class="hero-slider-stop" type="button" role="tab" aria-label="Show slide 2" aria-selected="false" data-hero-dot><span></span></button>
-                  <button class="hero-slider-stop" type="button" role="tab" aria-label="Show slide 3" aria-selected="false" data-hero-dot><span></span></button>
-                  <button class="hero-slider-stop" type="button" role="tab" aria-label="Show slide 4" aria-selected="false" data-hero-dot><span></span></button>
-                  <button class="hero-slider-stop" type="button" role="tab" aria-label="Show slide 5" aria-selected="false" data-hero-dot><span></span></button>
-                  <button class="hero-slider-stop" type="button" role="tab" aria-label="Show slide 6" aria-selected="false" data-hero-dot><span></span></button>
-                </div>
-                <div class="hero-slider-counter" aria-live="polite">
-                  <span data-hero-current>01</span>
-                  <span>/</span>
-                  <span data-hero-total>06</span>
-                </div>
-              </div>
-            </div>
+            <div class="hero-slide-shade"></div>
+            <h3 class="hero-slide-title">Advisory Clarity in Motion</h3>
+          </article>
+        </div>
+        <div class="hero-slider-footer">
+          <div class="hero-slider-progress"><span id="heroSliderProgress"></span></div>
+          <div class="hero-slider-dots" role="tablist" aria-label="Hero slides">
+            <button class="hero-slider-dot is-active" type="button" data-hero-dot="0" aria-label="Slide 1"></button>
+            <button class="hero-slider-dot" type="button" data-hero-dot="1" aria-label="Slide 2"></button>
+            <button class="hero-slider-dot" type="button" data-hero-dot="2" aria-label="Slide 3"></button>
+            <button class="hero-slider-dot" type="button" data-hero-dot="3" aria-label="Slide 4"></button>
+            <button class="hero-slider-dot" type="button" data-hero-dot="4" aria-label="Slide 5"></button>
+            <button class="hero-slider-dot" type="button" data-hero-dot="5" aria-label="Slide 6"></button>
           </div>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="proof-strip" id="proof-strip">
-      <div class="container proof-items">
-        <div class="proof-item hover-depth" data-depth-surface><span class="proof-track" aria-hidden="true"></span><span class="proof-icon icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v6c0 4.2 2.8 7.8 7 9 4.2-1.2 7-4.8 7-9V6l-7-3Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div class="proof-copy"><strong>London governance discipline</strong><span>Executive-facing oversight and structured reporting logic</span></div></div>
-        <div class="proof-item hover-depth" data-depth-surface><span class="proof-track" aria-hidden="true"></span><span class="proof-icon icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 18c3-6.7 13-6.7 16 0M6.5 14.5 12 9l5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div class="proof-copy"><strong>Pakistan and Afghanistan depth</strong><span>Ground-informed context for movement, access, and operating exposure</span></div></div>
-        <div class="proof-item hover-depth" data-depth-surface><span class="proof-track" aria-hidden="true"></span><span class="proof-icon icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h3l2-4 4 8 2-4h5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div class="proof-copy"><strong>24/7 monitoring rhythm</strong><span>Persistent watch and escalation awareness when timing matters</span></div></div>
-        <div class="proof-item hover-depth" data-depth-surface><span class="proof-track" aria-hidden="true"></span><span class="proof-icon icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 19h12M8 16V7m4 9V5m4 11v-7" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><div class="proof-copy"><strong>Leadership-first delivery</strong><span>Built for principals, chiefs of staff, and security directors</span></div></div>
-        <div class="proof-item hover-depth" data-depth-surface><span class="proof-track" aria-hidden="true"></span><span class="proof-icon icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5v14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path><circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="1.7"></circle></svg></span><div class="proof-copy"><strong>Discreet coordination network</strong><span>Partner-aligned support without an overt tactical feel</span></div></div>
-      </div>
-    </section>
-
-    <section class="section home-band home-pillars">
-      <div class="container">
-        <div class="section-heading">
-          <span class="eyebrow">Flagship advisory pillars</span>
-          <h2>A clearer service architecture than most risk providers.</h2>
-          <p>Pillars explain what clients buy. Products show what they receive. Capabilities explain how delivery happens.</p>
-        </div>
-        <div class="architecture-rail">
-          <article class="architecture-card"><span>01</span><strong>Advisory pillars</strong><p>The core leadership-facing offers clients remember and engage.</p></article>
-          <article class="architecture-card"><span>02</span><strong>Intelligence products</strong><p>Named briefings and alert outputs tied to real decision moments.</p></article>
-          <article class="architecture-card"><span>03</span><strong>Delivery capabilities</strong><p>The monitoring, planning, coordination, and escalation engines beneath delivery.</p></article>
-        </div>
-        <div class="card-grid pillars-grid">
-          <article class="service-card pillar-card tone-risk">
-            <div class="pillar-card-top">
-              <span class="pillar-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h4l2-5 4 10 2-5h4" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
-              <div class="card-kicker"><span class="badge badge-blue">Pillar 01</span></div>
-            </div>
-            <div class="pillar-visual media-panel hover-depth" data-depth-surface aria-hidden="true"><span class="pillar-visual-node"></span><span class="pillar-visual-node node-offset"></span><span class="pillar-visual-route"></span></div>
-            <h3>Risk Intelligence</h3>
-            <p>Monitoring, assessment, and executive briefings that convert fragmented signals into a usable risk picture.</p>
-            <div class="pillar-note"><strong>Best for</strong><span>Leaders who need earlier warning and sharper decision context.</span></div>
-            <a class="btn-link" href="pages/solutions/risk-intelligence-monitoring.html">View pillar &rarr;</a>
-          </article>
-          <article class="service-card pillar-card tone-mobility">
-            <div class="pillar-card-top">
-              <span class="pillar-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 17h14M7 14l5-7 5 7" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
-              <div class="card-kicker"><span class="badge badge-blue">Pillar 02</span></div>
-            </div>
-            <div class="pillar-visual media-panel hover-depth" data-depth-surface aria-hidden="true"><span class="pillar-visual-node"></span><span class="pillar-visual-node node-offset"></span><span class="pillar-visual-route"></span></div>
-            <h3>Executive Mobility</h3>
-            <p>Secure movement planning for leaders, visitors, delegations, and high-consequence travel programs.</p>
-            <div class="pillar-note"><strong>Key outcome</strong><span>More confident movement windows and better travel assurance.</span></div>
-            <a class="btn-link" href="pages/solutions/executive-mobility-secure-travel.html">View pillar &rarr;</a>
-          </article>
-          <article class="service-card pillar-card tone-protection">
-            <div class="pillar-card-top">
-              <span class="pillar-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 6 6v5c0 4 2.6 7.1 6 8 3.4-.9 6-4 6-8V6l-6-3Z" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
-              <div class="card-kicker"><span class="badge badge-blue">Pillar 03</span></div>
-            </div>
-            <div class="pillar-visual media-panel hover-depth" data-depth-surface aria-hidden="true"><span class="pillar-visual-node"></span><span class="pillar-visual-node node-offset"></span><span class="pillar-visual-route"></span></div>
-            <h3>Protective Coordination</h3>
-            <p>Protective planning and operational alignment for sensitive movements, events, and executive exposure.</p>
-            <div class="pillar-note"><strong>Best for</strong><span>Exposure-sensitive visits requiring discreet planning and partner alignment.</span></div>
-            <a class="btn-link" href="pages/solutions/executive-protection-coordination.html">View pillar &rarr;</a>
-          </article>
-          <article class="service-card pillar-card tone-crisis">
-            <div class="pillar-card-top">
-              <span class="pillar-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v7m0 4h.01M10 3h4l7 14H3L10 3Z" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
-              <div class="card-kicker"><span class="badge badge-blue">Pillar 04</span></div>
-            </div>
-            <div class="pillar-visual media-panel hover-depth" data-depth-surface aria-hidden="true"><span class="pillar-visual-node"></span><span class="pillar-visual-node node-offset"></span><span class="pillar-visual-route"></span></div>
-            <h3>Crisis Leadership Support</h3>
-            <p>Structured leadership updates, escalation support, and continuity coordination during fast-moving incidents.</p>
-            <div class="pillar-note"><strong>Key outcome</strong><span>Greater leadership control during disruption and accelerated decision rhythm.</span></div>
-            <a class="btn-link" href="pages/solutions/crisis-response-incident-coordination.html">View pillar &rarr;</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- Intelligence Products — premium live advisory interface -->
-    <section class="section section-tight home-band home-products">
-      <div class="container">
-        <div class="section-heading">
-          <span class="eyebrow">Intelligence products</span>
-          <h2>A productized briefing suite, not a generic list of updates.</h2>
-          <p>Each output is named, formatted, and tied to a decision moment so buyers understand exactly what they receive and why it matters.</p>
-        </div>
-        <div class="card-grid product-live-grid">
-          <!-- Featured product card -->
-          <article class="product-card product-card-featured live-product-card" data-live-surface="signals">
-            <div class="product-visual product-visual-featured">
-              <video class="product-loop-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-                <source src="assets/video/hero-slide-02.webm" type="video/webm" />
-              </video>
-              <div class="visual-reflection"></div>
-              <div class="visual-topbar">
-                <span class="live-dot"></span>
-                <span>Executive Signals / Live briefing board</span>
-              </div>
-              <div class="signal-screen">
-                <div class="signal-map">
-                  <span class="signal-node node-a"></span>
-                  <span class="signal-node node-b"></span>
-                  <span class="signal-node node-c"></span>
-                  <span class="signal-route route-a"></span>
-                  <span class="signal-route route-b"></span>
-                </div>
-                <div class="signal-wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-                <div class="signal-overlay-card">
-                  <strong>Leadership pulse</strong>
-                  <span>Travel relevance elevated across two upcoming executive movements.</span>
-                </div>
-              </div>
-              <div class="live-activity-strip" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
-            </div>
-            <div class="product-status-row"><span class="status-pill badge-cyan">Live intelligence</span><span class="product-status-text">Updated for leadership review</span></div>
-            <div class="card-kicker"><span class="badge badge-cyan">Flagship briefing suite</span><span class="badge">Leadership subscription</span></div>
-            <h3>Executive Signals</h3>
-            <p>A concise SECURIDE 24 leadership brief highlighting shifts relevant to exposure, travel timing, stakeholder sensitivity, and operating posture.</p>
-            <div class="product-signature"><strong>Why it stands out</strong><span>Built to convert fragmented reporting into a sharper executive readout within minutes.</span></div>
-            <div class="info-grid">
-              <div class="product-meta"><strong>Format</strong><span>1-page leadership brief</span></div>
-              <div class="product-meta"><strong>Delivery logic</strong><span>Weekly rhythm or event-driven issue</span></div>
-              <div class="product-meta"><strong>Audience</strong><span>Executives, chiefs of staff, security directors</span></div>
-              <div class="product-meta"><strong>Decision use</strong><span>Travel, exposure, meeting, and escalation readiness</span></div>
-            </div>
-          </article>
-
-          <!-- Standard live product cards -->
-          <article class="product-card live-product-card product-alert-card" data-live-surface="alerts">
-            <div class="product-visual">
-              <video class="product-loop-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true">
-                <source src="assets/video/hero-slide-04.webm" type="video/webm" />
-              </video>
-              <div class="visual-reflection"></div>
-              <div class="visual-topbar"><span class="live-dot live-dot-warning"></span><span>Movement corridor / active alert</span></div>
-              <div class="route-screen">
-                <span class="route-line"></span>
-                <span class="route-point point-1"></span>
-                <span class="route-point point-2"></span>
-                <span class="route-point point-3"></span>
-              </div>
-            </div>
-            <div class="product-status-row"><span class="status-pill status-high">Live alert</span><span class="product-status-text">Route advisory active</span></div>
-            <div class="card-kicker"><span class="badge status-high">Live alert</span><span class="badge">Operational update</span></div>
-            <h3>Active Alerts</h3>
-            <p>Rapid notification cards for route disruptions, escalation triggers, and movement-relevant developments.</p>
-            <div class="info-grid">
-              <div class="product-meta"><strong>Cadence</strong><span>As required</span></div>
-              <div class="product-meta"><strong>Use case</strong><span>Movement and site changes</span></div>
-            </div>
-          </article>
-
-          <article class="product-card live-product-card" data-live-surface="travel-pack">
-            <div class="product-visual">
-              <div class="visual-reflection"></div>
-              <div class="visual-topbar"><span class="live-dot"></span><span>Pre-travel dossier / route brief</span></div>
-              <div class="dossier-screen">
-                <div class="dossier-sheet"></div>
-                <div class="dossier-map"></div>
-              </div>
-            </div>
-            <div class="product-status-row"><span class="status-pill badge-blue">Prepared</span><span class="product-status-text">Briefing pack ready</span></div>
-            <div class="card-kicker"><span class="badge badge-blue">Travel pack</span><span class="badge">Pre-movement</span></div>
-            <h3>Pre-Travel Risk Pack</h3>
-            <p>Itinerary-focused exposure framing for visits, delegations, and sensitive executive movement.</p>
-            <div class="info-grid">
-              <div class="product-meta"><strong>Format</strong><span>Travel dossier</span></div>
-              <div class="product-meta"><strong>Audience</strong><span>Mobility and security leads</span></div>
-            </div>
-          </article>
-
-          <article class="product-card live-product-card" data-live-surface="country-snapshot">
-            <div class="product-visual">
-              <div class="visual-reflection"></div>
-              <div class="visual-topbar"><span class="live-dot"></span><span>Country risk snapshot / zone view</span></div>
-              <div class="country-screen">
-                <div class="country-map-shape"></div>
-                <div class="country-bars"><i></i><i></i><i></i><i></i></div>
-              </div>
-            </div>
-            <div class="product-status-row"><span class="status-pill badge-violet">Snapshot</span><span class="product-status-text">Exposure view condensed</span></div>
-            <div class="card-kicker"><span class="badge badge-violet">Country view</span><span class="badge">Market context</span></div>
-            <h3>Country Risk Snapshot</h3>
-            <p>A decision-ready overview of operating climate, travel friction, and current exposure drivers.</p>
-            <div class="info-grid">
-              <div class="product-meta"><strong>Format</strong><span>1-2 page snapshot</span></div>
-              <div class="product-meta"><strong>Use case</strong><span>Entry planning and visits</span></div>
-            </div>
-          </article>
-
-          <article class="product-card live-product-card" data-live-surface="briefing">
-            <div class="product-visual">
-              <div class="visual-reflection"></div>
-              <div class="visual-topbar"><span class="live-dot"></span><span>Executive note / briefing interface</span></div>
-              <div class="briefing-screen">
-                <span></span><span></span><span></span><span class="short"></span>
-              </div>
-            </div>
-            <div class="product-status-row"><span class="status-pill badge-cyan">Briefing</span><span class="product-status-text">Principal-facing summary</span></div>
-            <div class="card-kicker"><span class="badge badge-cyan">Executive brief</span><span class="badge">Principal-facing</span></div>
-            <h3>Executive Briefing</h3>
-            <p>A sharp leadership readout before travel, a market engagement, or a sensitive in-country movement window.</p>
-            <div class="info-grid">
-              <div class="product-meta"><strong>Cadence</strong><span>Pre-activity</span></div>
-              <div class="product-meta"><strong>Audience</strong><span>Principals and senior teams</span></div>
-            </div>
-          </article>
-
-          <article class="product-card live-product-card" data-live-surface="crisis-flash">
-            <div class="product-visual">
-              <div class="visual-reflection"></div>
-              <div class="visual-topbar"><span class="live-dot live-dot-warning"></span><span>Crisis flash / escalation panel</span></div>
-              <div class="crisis-screen">
-                <div class="crisis-timeline"><i></i><i></i><i></i></div>
-                <div class="crisis-priority">Priority update</div>
-              </div>
-            </div>
-            <div class="product-status-row"><span class="status-pill status-medium">Priority</span><span class="product-status-text">Escalation sequence live</span></div>
-            <div class="card-kicker"><span class="badge status-medium">Flash update</span><span class="badge">Escalation</span></div>
-            <h3>Crisis Flash Update</h3>
-            <p>Fast-turn guidance for dynamic events that require immediate decision framing and communication discipline.</p>
-            <div class="info-grid">
-              <div class="product-meta"><strong>Format</strong><span>Rapid advisory note</span></div>
-              <div class="product-meta"><strong>Audience</strong><span>Crisis and leadership teams</span></div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section home-band home-process">
-      <div class="container">
-        <div class="section-heading">
-          <span class="eyebrow">How we work</span>
-          <h2>From anticipation to response in six disciplined stages.</h2>
-        </div>
-        <div class="process-grid">
-          <article class="process-step hover-depth" data-depth-surface><div class="process-step-index">01</div><span class="process-icon icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12h14M12 5v14" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path><circle cx="12" cy="12" r="7" fill="none" stroke="currentColor" stroke-width="1.7"></circle></svg></span><h3>Anticipate</h3><p>Frame exposure before movement or engagement.</p></article>
-          <article class="process-step hover-depth" data-depth-surface><div class="process-step-index">02</div><span class="process-icon icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 12h4l2-4 4 8 2-4h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><h3>Monitor</h3><p>Track indicators across travel, local dynamics, and incident shifts.</p></article>
-          <article class="process-step hover-depth" data-depth-surface><div class="process-step-index">03</div><span class="process-icon icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 18h12M8 14l3-4 2 2 3-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><h3>Assess</h3><p>Convert raw signals into decision-relevant analysis.</p></article>
-          <article class="process-step hover-depth" data-depth-surface><div class="process-step-index">04</div><span class="process-icon icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 6v6l4 2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.7"></circle></svg></span><h3>Advise</h3><p>Provide calm, executive-facing recommendations.</p></article>
-          <article class="process-step hover-depth" data-depth-surface><div class="process-step-index">05</div><span class="process-icon icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 8h12M6 16h12M9 5l-3 3 3 3M15 13l3 3-3 3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><h3>Coordinate</h3><p>Align transport, liaison, and protective layers.</p></article>
-          <article class="process-step hover-depth" data-depth-surface><div class="process-step-index">06</div><span class="process-icon icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 5 7v5c0 4.1 2.6 7.7 7 9 4.4-1.3 7-4.9 7-9V7l-7-4Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><h3>Respond</h3><p>Support escalation, continuity, and leadership reporting.</p></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section home-band home-live-map" data-live-intel-map-section>
-      <div class="container">
-        <div class="section-heading live-intel-heading">
-          <span class="eyebrow">Live intelligence</span>
-          <h2>Real-Time Risk Monitoring</h2>
-          <p class="live-intel-subtitle">Track open-source alerts, location-based signals, and emerging disruption through the Securide24 intelligence layer.</p>
-          <p class="live-intel-support">A live operational view designed to support executive movement, travel exposure assessment, and faster interpretation of emerging disruption across monitored environments.</p>
-        </div>
-
-        <div class="live-intel-grid">
-          <article class="live-intel-stage media-panel" aria-label="Real-time risk monitoring map stage">
-            <div class="live-intel-stage-top">
-              <div class="live-intel-stage-heading">
-                <span class="media-label live-intel-map-label">Risk map</span>
-                <h3>Global open-source operating picture</h3>
-                <p>Country color shows current risk level. Overlay toggles isolate disruption types. Country interaction opens the latest status summary with Securide24 context.</p>
-              </div>
-              <div class="live-intel-stage-meta">
-                <span class="live-intel-refresh">Open-source monitoring</span>
-                <span class="live-intel-updated"><strong>Last Updated</strong><span data-live-intel-updated>Awaiting first sync</span></span>
-              </div>
-            </div>
-
-            <div class="live-intel-control-deck">
-              <div class="live-intel-toolbar" data-live-intel-toolbar aria-label="Map overlay filters">
-                <button class="live-intel-chip is-active" type="button" data-overlay-toggle="risk-level" aria-pressed="true">Risk Level</button>
-                <button class="live-intel-chip" type="button" data-overlay-toggle="route-disruption" aria-pressed="false">Route Disruption</button>
-                <button class="live-intel-chip" type="button" data-overlay-toggle="earthquake" aria-pressed="false">Earthquake</button>
-                <button class="live-intel-chip" type="button" data-overlay-toggle="travel" aria-pressed="false">Travel</button>
-                <button class="live-intel-chip" type="button" data-overlay-toggle="civil-unrest" aria-pressed="false">Civil Unrest</button>
-                <button class="live-intel-chip is-active" type="button" data-overlay-toggle="general-alerts" aria-pressed="true">General Alerts</button>
-              </div>
-
-              <div class="live-intel-secondary-rails">
-                <div class="live-intel-priority-strip" data-live-intel-priority-strip>
-                  <span class="live-intel-priority-pill">Priority Regions</span>
-                  <span class="live-intel-priority-pill">Pakistan</span>
-                  <span class="live-intel-priority-pill">Afghanistan</span>
-                  <span class="live-intel-priority-pill">Iran</span>
-                  <span class="live-intel-priority-pill">United Kingdom</span>
-                </div>
-                <div class="live-intel-source-strip" data-live-intel-sources></div>
-              </div>
-            </div>
-
-            <div class="live-intel-map-shell">
-              <div class="live-intel-map" id="worldRiskMap" data-live-intel-map aria-label="Interactive live intelligence map"></div>
-              <div class="live-intel-map-atmosphere" aria-hidden="true"></div>
-              <div class="live-intel-map-scan" aria-hidden="true"></div>
-              <div class="live-intel-map-trace live-intel-map-trace-a" aria-hidden="true"></div>
-              <div class="live-intel-map-trace live-intel-map-trace-b" aria-hidden="true"></div>
-              <div class="live-intel-map-overlay" aria-hidden="true"></div>
-              <div class="live-intel-map-grid" aria-hidden="true"></div>
-              <div class="live-intel-map-status" data-live-intel-status aria-live="polite">Initializing live feeds…</div>
-              <div class="live-intel-map-legend">
-                <div class="live-intel-legend-scale" aria-label="Country risk legend">
-                  <span class="live-intel-legend-item"><i class="risk-low"></i><span>Low</span></span>
-                  <span class="live-intel-legend-item"><i class="risk-guarded"></i><span>Guarded</span></span>
-                  <span class="live-intel-legend-item"><i class="risk-elevated"></i><span>Elevated</span></span>
-                  <span class="live-intel-legend-item"><i class="risk-high"></i><span>High</span></span>
-                  <span class="live-intel-legend-item"><i class="risk-severe"></i><span>Severe</span></span>
-                </div>
-                <div class="live-intel-legend-updated"><strong>Last Updated</strong><span data-live-intel-legend-updated>Awaiting first sync</span></div>
-              </div>
-            </div>
-
-            <div class="live-intel-telemetry" data-live-intel-telemetry>
-              <div class="live-intel-telemetry-top">
-                <div class="live-intel-telemetry-title-block">
-                  <span class="media-label live-intel-telemetry-label">Risk indicators</span>
-                  <strong>Operational telemetry layer</strong>
-                </div>
-                <div class="live-intel-telemetry-sync">
-                  <span class="live-intel-live-dot" aria-hidden="true"></span>
-                  <span>Last sync</span>
-                  <strong data-live-intel-telemetry-updated>Awaiting first sync</strong>
-                </div>
-              </div>
-
-              <div class="live-intel-telemetry-grid" data-live-intel-telemetry-grid></div>
-
-              <div class="live-intel-ticker" aria-label="Live intelligence ticker">
-                <div class="live-intel-ticker-track" data-live-intel-ticker></div>
-              </div>
-            </div>
-          </article>
-
-          <aside class="live-intel-sidebar surface-card" aria-label="Latest active alerts">
-            <div class="live-intel-sidebar-top">
-              <div class="live-intel-sidebar-title-block">
-                <div class="live-intel-sidebar-kicker-row">
-                  <span class="eyebrow live-intel-mini-eyebrow">Active Alerts</span>
-                  <span class="live-intel-live-pill"><span class="live-intel-live-dot" aria-hidden="true"></span>Live feed</span>
-                </div>
-                <h3>Active Alerts</h3>
-                <p>A structured live alert window showing newest open-source signals with Securide24 interpretation for executive movement and travel exposure.</p>
-              </div>
-              <div class="live-intel-sidebar-actions">
-                <a class="btn btn-secondary live-intel-sidebar-cta" href="pages/intelligence/active-alerts.html">Open Intelligence Platform</a>
-                <a class="btn btn-primary live-intel-sidebar-cta" href="pages/contact/index.html">Request Access</a>
-              </div>
-            </div>
-
-            <div class="live-intel-sidebar-meta">
-              <span class="live-intel-sidebar-status"><span class="live-intel-live-dot" aria-hidden="true"></span>Live</span>
-              <span>Last Updated</span>
-              <strong data-live-intel-sidebar-updated>Awaiting first sync</strong>
-            </div>
-
-            <div class="live-intel-feed-window" data-live-intel-feed-window>
-              <div class="live-intel-feed-head">
-                <span>Newest live signals</span>
-                <strong data-live-intel-feed-count>0 alerts</strong>
-              </div>
-
-              <div class="live-intel-list" data-live-intel-list>
-                <article class="live-intel-list-empty">
-                  <span class="live-intel-list-empty-dot"></span>
-                  <div>
-                    <strong>Standing by for live alerts</strong>
-                    <p>Open-source feeds are being requested, normalized, and weighted for executive movement relevance.</p>
-                  </div>
-                </article>
-              </div>
-            </div>
-          </aside>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-tight home-band home-reach">
-      <div class="container dual-panel">
+  <section class="live-desk-section section-shell" id="liveDesk">
+    <div class="page-width">
+      <div class="section-heading-composed fade-up live-desk-heading">
         <div>
-          <div class="section-heading">
-            <span class="eyebrow">Operational reach</span>
-            <h2>Regional depth with an international advisory posture.</h2>
-            <p>SECURIDE 24 combines discreet coordination in Pakistan and Afghanistan with structured advisory presentation suitable for global firms, embassies, family offices, and executive teams.</p>
+          <div class="section-label">Real-Time Monitoring</div>
+          <h2 class="section-title">Live Intelligence.<br>Structured for Decisions.</h2>
+        </div>
+        <p class="section-body">A live monitoring surface showing how Securide24 frames exposure, movement impact, and escalation without forcing leadership teams to read raw noise.</p>
+      </div>
+      <div class="live-desk-grid fade-up">
+        <div class="live-desk-feature">
+          <div class="live-desk-topline">
+            <span class="live-desk-indicator"><span class="live-dot"></span>LIVE DESK</span>
+            <span class="live-desk-updated">Last updated <span class="js-live-time">--:--:--</span></span>
           </div>
-          <div class="stack">
-            <div class="region-slab"><strong>Pakistan and Afghanistan depth</strong><p>Ground-informed context, partner liaison, movement planning, and practical operating insight.</p></div>
-            <div class="region-slab"><strong>Regional coordination capability</strong><p>Support for delegations, project teams, and executive travel across elevated-risk locations.</p></div>
-            <div class="region-slab"><strong>Global advisory network support</strong><p>International-facing reporting style, governance discipline, and discreet partner model.</p></div>
+          <div class="live-desk-incident">
+            <div class="live-incident-map">
+              <img src="assets/sections/alerts/live-incident-map-surface.svg" alt="Live monitoring map surface" class="live-incident-map-visual" loading="lazy">
+              <div class="live-incident-glow"></div>
+              <div class="live-incident-route live-route-a"></div>
+              <div class="live-incident-route live-route-b"></div>
+              <div class="live-incident-node live-node-critical"></div>
+              <div class="live-incident-node live-node-watch"></div>
+              <div class="live-incident-node live-node-advisory"></div>
+            </div>
+            <div class="live-incident-card">
+              <div class="live-incident-header">
+                <span class="feed-sev-tag sev-critical">Critical</span>
+                <span class="feed-time">04m</span>
+              </div>
+              <h3>Islamabad corridor movement affected by active civil unrest</h3>
+              <p>Primary route posture changed after protest escalation near the diplomatic corridor. Executive movement should shift to alternate access with buffer timing increased.</p>
+              <div class="live-incident-tags">
+                <span>Route Watch</span>
+                <span>Civil Unrest</span>
+                <span>Travel Impact</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="reach-map strategic-map operational-reach-media" aria-label="Operational reach visualization">
-          <video class="reach-loop-video media-video" muted loop playsinline preload="metadata" poster="assets/images/global-map.webp" aria-hidden="true">
-            <source src="assets/video/hero-slide-03.webm" type="video/webm" />
-          </video>
-          <img class="media-image media-image-map" src="assets/images/global-map.webp" alt="Strategic advisory reach map" loading="lazy" />
-          <div class="reach-media-overlay"></div>
-          <span class="reach-route route-europe" aria-hidden="true"></span>
-          <span class="reach-route route-regional" aria-hidden="true"></span>
-          <span class="reach-route route-network" aria-hidden="true"></span>
-          <div class="reach-orbit orbit-a"></div>
-          <div class="reach-orbit orbit-b"></div>
-          <div class="reach-hub">
-            <span class="badge badge-cyan">Advisory picture</span>
-            <strong>Integrated command view</strong>
-            <span>Governance, monitoring, coordination</span>
+        <div class="live-desk-stack">
+          <div class="live-stack-card live-stack-overview">
+            <div class="live-stack-label">Status stack</div>
+            <div class="live-stack-metrics">
+              <div><strong>47</strong><span>Active alerts</span></div>
+              <div><strong>3</strong><span>Priority regions</span></div>
+              <div><strong>12</strong><span>Routes affected</span></div>
+            </div>
           </div>
-          <div class="reach-node node-london"><strong>London</strong><span>Governance and client reporting discipline</span></div>
-          <div class="reach-node node-regional"><strong>Regional liaison</strong><span>Route logic and discreet coordination</span></div>
-          <div class="reach-node node-depth"><strong>Pakistan / Afghanistan</strong><span>Operational depth and local context</span></div>
-          <div class="reach-node node-network"><strong>Global interface</strong><span>Executive-facing advisory posture</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section home-band home-cases">
-      <div class="container">
-        <div class="section-heading">
-          <span class="eyebrow">Selected case studies</span>
-          <h2>Proof of outcome, not just activity.</h2>
-          <p>Each example is framed around the client challenge, the advisory response, and the leadership outcome achieved.</p>
-        </div>
-        <div class="card-grid">
-          <article class="case-card case-media-card">
-            <div class="card-media-wrapper case-study-media">
-              <img class="media-image" src="assets/images/use-case-travel-planning.webp" alt="Executive travel planning environment" loading="lazy" />
-              <div class="media-overlay-gradient"></div>
-              <div class="media-label">Mobility assurance</div>
+          <div class="live-stack-card">
+            <div class="live-stack-item">
+              <div>
+                <span class="feed-sev-tag sev-high">Elevated</span>
+                <strong>Lahore · PK</strong>
+              </div>
+              <span class="feed-time">21m</span>
             </div>
-            <header><h3>Executive delegation stabilization</h3><span class="badge badge-blue">Official visit</span></header>
-            <div class="case-meta-row"><span class="icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 4v16M4 12h16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path></svg></span><span>Challenge / Response / Outcome</span></div>
-            <div class="case-row"><strong>Challenge</strong><p>Rising public disruption threatened route timing, host confidence, and the visibility profile of a high-consequence visit.</p></div>
-            <div class="case-row"><strong>Response</strong><p>Movement windows were re-framed, advisories tightened, and support layers aligned around a more controlled operating picture.</p></div>
-            <div class="case-impact"><strong>Outcome</strong><span>The visit stayed on schedule with tighter exposure control and stronger confidence across the leadership team.</span></div>
-            <a class="btn-link" href="pages/intelligence/case-studies.html">Read case &rarr;</a>
-          </article>
-          <article class="case-card case-media-card">
-            <div class="card-media-wrapper case-study-media">
-              <img class="media-image" src="assets/images/use-case-team-coordination.webp" alt="Team coordination and advisory planning" loading="lazy" />
-              <div class="media-overlay-gradient"></div>
-              <div class="media-label">Continuity planning</div>
+            <p>Arterial route disruption likely within two hours.</p>
+          </div>
+          <div class="live-stack-card">
+            <div class="live-stack-item">
+              <div>
+                <span class="feed-sev-tag sev-medium">Advisory</span>
+                <strong>Dubai · UAE</strong>
+              </div>
+              <span class="feed-time">33m</span>
             </div>
-            <header><h3>Project continuity in localized unrest</h3><span class="badge badge-violet">Elevated-risk project</span></header>
-            <div class="case-meta-row"><span class="icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 12h10M12 7v10" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"></path><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.7"></circle></svg></span><span>Challenge / Response / Outcome</span></div>
-            <div class="case-row"><strong>Challenge</strong><p>Leadership needed clearer thresholds for movement, workforce rhythm, and escalation during an unstable operating period.</p></div>
-            <div class="case-row"><strong>Response</strong><p>Monitoring signals were organized into practical decision points for continuity, route logic, and internal reporting cadence.</p></div>
-            <div class="case-impact"><strong>Outcome</strong><span>Program oversight continued with fewer unnecessary movements and better leadership control.</span></div>
-            <a class="btn-link" href="pages/intelligence/case-studies.html">Read case &rarr;</a>
-          </article>
-          <article class="case-card case-media-card">
-            <div class="card-media-wrapper case-study-media">
-              <img class="media-image" src="assets/images/use-case-executive-protection.webp" alt="Executive advisory and secure movement setting" loading="lazy" />
-              <div class="media-overlay-gradient"></div>
-              <div class="media-label">Executive brief</div>
+            <p>Infrastructure watch active. No confirmed impact to executive travel posture.</p>
+          </div>
+          <div class="live-stack-card">
+            <div class="live-stack-item">
+              <div>
+                <span class="feed-sev-tag sev-high">Route Watch</span>
+                <strong>Baghdad · IQ</strong>
+              </div>
+              <span class="feed-time">1h 18m</span>
             </div>
-            <header><h3>Delegation risk picture refresh</h3><span class="badge badge-cyan">Leadership briefing</span></header>
-            <div class="case-meta-row"><span class="icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 18h12M8 14l3-4 2 2 3-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>Challenge / Response / Outcome</span></div>
-            <div class="case-row"><strong>Challenge</strong><p>A time-sensitive program required a sharper view of current exposure, movement friction, and likely decision triggers before arrival.</p></div>
-            <div class="case-row"><strong>Response</strong><p>Senior stakeholders received a concise advisory brief and clearer escalation logic well before movement began.</p></div>
-            <div class="case-impact"><strong>Outcome</strong><span>Visit readiness improved and the host team entered the program with a cleaner, more confident risk picture.</span></div>
-            <a class="btn-link" href="pages/intelligence/case-studies.html">Read case &rarr;</a>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-tight home-band home-leadership">
-      <div class="container">
-        <div class="section-heading">
-          <span class="eyebrow">Leadership and experts</span>
-          <h2>Authority-led profiles designed to build executive confidence.</h2>
-          <p>The team is presented around judgment, regional relevance, and the advisory value clients actually care about.</p>
-        </div>
-        <div class="grid-3">
-          <article class="expert-card leader-card leader-image-card">
-            <div class="card-media-wrapper leadership-media">
-              <img class="media-image" src="assets/images/team-muhammad-ahmad-malik.webp" alt="Portrait of Ahmad Malik" loading="lazy" />
-              <div class="media-overlay-gradient"></div>
-              <div class="leadership-status">Field coordination</div>
-            </div>
-            <div class="leader-card-top"><div class="expert-avatar">AM</div><div><h3>Ahmad Malik</h3><p class="authority-line">Director, Global Operations</p></div></div>
-            <div class="expert-meta"><span class="badge badge-blue">South Asia</span><span class="badge">Executive movement</span></div>
-            <p class="card-note"><strong>Authority</strong> Oversees field coordination, movement assurance, and continuity support for sensitive client activity.</p>
-            <div class="leader-focus"><strong>Advisory remit</strong><span>Principal movement, delegation support, field coordination.</span></div>
-          </article>
-          <article class="expert-card leader-card leader-image-card">
-            <div class="card-media-wrapper leadership-media">
-              <img class="media-image" src="assets/images/team-sayyed-yasir-shah.webp" alt="Portrait of Yasir Shah" loading="lazy" />
-              <div class="media-overlay-gradient"></div>
-              <div class="leadership-status">Signals analysis</div>
-            </div>
-            <div class="leader-card-top"><div class="expert-avatar">YS</div><div><h3>Yasir Shah</h3><p class="authority-line">Director, Risk Intelligence and Strategic Analysis</p></div></div>
-            <div class="expert-meta"><span class="badge badge-cyan">Risk analysis</span><span class="badge">Leadership briefings</span></div>
-            <p class="card-note"><strong>Authority</strong> Converts complex developments into sharper executive judgment and practical advisory framing.</p>
-            <div class="leader-focus"><strong>Advisory remit</strong><span>Signals interpretation, briefing design, escalation framing.</span></div>
-          </article>
-          <article class="expert-card leader-card leader-image-card">
-            <div class="card-media-wrapper leadership-media">
-              <img class="media-image" src="assets/images/team-tufail-khan.webp" alt="Portrait of Tufail Khan" loading="lazy" />
-              <div class="media-overlay-gradient"></div>
-              <div class="leadership-status">Governance remit</div>
-            </div>
-            <div class="leader-card-top"><div class="expert-avatar">TH</div><div><h3>Tufail Khan</h3><p class="authority-line">Director, Global Risk Management</p></div></div>
-            <div class="expert-meta"><span class="badge badge-violet">Governance</span><span class="badge">Continuity</span></div>
-            <p class="card-note"><strong>Authority</strong> Supports governance discipline, resilience planning, and more structured leadership escalation models.</p>
-            <div class="leader-focus"><strong>Advisory remit</strong><span>Governance, resilience, continuity and high-trust reporting.</span></div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-tight home-band home-signals">
-      <div class="container">
-        <div class="section-heading">
-          <span class="eyebrow">Insights and signals</span>
-          <h2>Editorial analysis and operational updates, kept clearly separate.</h2>
-        </div>
-        <div class="card-grid">
-          <article class="insight-card signal-editorial-card hover-depth" data-depth-surface><div class="signal-card-top"><span class="icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6 18h12M8 14l3-4 2 2 3-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span class="media-label">Editorial analysis</span></div><header><h3>Border friction and executive travel planning</h3><span class="badge badge-blue">Insight</span></header><p class="insight-summary">How mobility teams can manage schedule confidence when permit timing and local protests create uncertainty.</p><a class="btn-link" href="pages/intelligence/insights.html">Open insight &rarr;</a></article>
-          <article class="alert-card signal-live-card hover-depth" data-depth-surface><div class="signal-card-top"><span class="icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 5v7m0 4h.01M10 3h4l7 14H3L10 3Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span class="media-label">Live operational watch</span></div><header><h3>Active alert: route disruption watch</h3><span class="badge status-high">Operational</span></header><p class="alert-summary">Short-notice route constraints require pre-cleared alternatives for executive movement windows.</p><a class="btn-link" href="pages/intelligence/active-alerts.html">View alert feed &rarr;</a></article>
-          <article class="insight-card signal-editorial-card hover-depth" data-depth-surface><div class="signal-card-top"><span class="icon-badge" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 6v6l4 2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.7"></circle></svg></span><span class="media-label">Leadership briefing</span></div><header><h3>What leaders need during the first 60 minutes of a crisis</h3><span class="badge badge-cyan">Briefing</span></header><p class="insight-summary">A framework for calm escalation, accountability, and decision sequencing.</p><a class="btn-link" href="pages/intelligence/insights.html">Open insight &rarr;</a></article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section home-band home-cta">
-      <div class="container">
-        <div class="cta-band">
-          <div class="cta-ambient-glow" aria-hidden="true"></div>
-          <div class="cta-grid-haze" aria-hidden="true"></div>
-          <span class="eyebrow">Request a consultation</span>
-          <h2>Request an executive consultancy consultation.</h2>
-          <p>If you are planning a sensitive visit, leadership movement, or need structured response support, we can help define the risk picture and the next decision path.</p>
-          <div class="btn-row">
-            <a class="btn btn-primary" href="pages/contact/index.html">Speak with a Consultancy Director</a>
-            <a class="btn btn-secondary" href="pages/intelligence/index.html">Review Intelligence Products</a>
+            <p>Checkpoint activity intensified on northern approach corridor.</p>
           </div>
         </div>
       </div>
-    </section>
-  </main>
-  <div data-site-footer></div>
-  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js" crossorigin=""></script>
-  <script src="js/app.js"></script>
-  <script src="js/live-intelligence-map.js"></script>
+    </div>
+  </section>
+
+  <section id="solutions" class="services-premium section-shell">
+    <div class="page-width">
+      <div class="section-heading-composed fade-up">
+        <div>
+          <div class="section-label">Service Architecture</div>
+          <h2 class="section-title">What We<br>Deliver</h2>
+        </div>
+        <p class="section-body">Five capability pillars built for decision-quality outcomes, not generic advisory.</p>
+      </div>
+      <div class="deliver-grid fade-up">
+        <article class="deliver-card deliver-card-featured">
+          <img src="assets/sections/services/risk-intelligence-monitoring.svg" alt="Risk Intelligence and Monitoring" class="deliver-card-image">
+          <div class="deliver-card-body">
+            <div class="deliver-card-index">01</div>
+            <h3>Risk Intelligence &amp; Monitoring</h3>
+            <p>Continuous monitoring translated into calibrated alerts and country-level risk outputs executives can act on.</p>
+            <a href="services/risk-intelligence.html" class="solution-link">Explore capability</a>
+          </div>
+        </article>
+        <article class="deliver-card">
+          <img src="assets/sections/services/executive-mobility-secure-travel.svg" alt="Executive Mobility and Secure Travel" class="deliver-card-image">
+          <div class="deliver-card-body">
+            <div class="deliver-card-index">02</div>
+            <h3>Executive Mobility &amp; Secure Travel</h3>
+            <p>Route assessment, in-country monitoring, and live advisory for executive travel through elevated-risk environments.</p>
+            <a href="services/executive-mobility.html" class="solution-link">Explore capability</a>
+          </div>
+        </article>
+        <article class="deliver-card">
+          <img src="assets/sections/services/executive-protection-coordination.svg" alt="Executive Protection Coordination" class="deliver-card-image">
+          <div class="deliver-card-body">
+            <div class="deliver-card-index">03</div>
+            <h3>Executive Protection Coordination</h3>
+            <p>Discreet protection planning and vetted coordination across South Asia, Central Asia, and the Middle East.</p>
+            <a href="services/executive-protection.html" class="solution-link">Explore capability</a>
+          </div>
+        </article>
+        <article class="deliver-card">
+          <img src="assets/sections/services/crisis-response-incident-coordination.svg" alt="Crisis Response and Incident Coordination" class="deliver-card-image">
+          <div class="deliver-card-body">
+            <div class="deliver-card-index">04</div>
+            <h3>Crisis Response &amp; Incident Coordination</h3>
+            <p>Structured crisis coordination, extraction support, and real-time advisory when incidents escalate.</p>
+            <a href="services/crisis-response.html" class="solution-link">Explore capability</a>
+          </div>
+        </article>
+        <article class="deliver-card">
+          <img src="assets/sections/services/strategic-risk-advisory.svg" alt="Strategic Risk Advisory" class="deliver-card-image">
+          <div class="deliver-card-body">
+            <div class="deliver-card-index">05</div>
+            <h3>Strategic Risk Advisory</h3>
+            <p>Board and executive advisory covering country entry, threat posture, and sustained exposure in complex environments.</p>
+            <a href="services/strategic-advisory.html" class="solution-link">Explore capability</a>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="gov-premium section-shell" id="governance">
+    <div class="page-width gov-premium-grid fade-up">
+      <div>
+        <div class="section-label">Governance &amp; Standards</div>
+        <h2 class="section-title">Assurance.<br>Standards.<br>Conduct.</h2>
+        <p class="section-body">UK-governed conduct, aligned standards, and strict discretion form the trust framework behind every advisory engagement.</p>
+      </div>
+      <div>
+        <div class="gov-visual">
+          <img src="assets/sections/governance/governance-assurance-surface.svg" alt="Governance assurance visual" loading="lazy">
+        </div>
+        <div class="gov-standards gov-standards-premium">
+          <div class="gov-badge"><div class="gov-badge-code">UK GOV</div><div class="gov-badge-name">UK-Registered Platform</div></div>
+          <div class="gov-badge"><div class="gov-badge-code">ASIS Int.</div><div class="gov-badge-name">Security Standards Aligned</div></div>
+          <div class="gov-badge"><div class="gov-badge-code">ISO 27001</div><div class="gov-badge-name">Information Security</div></div>
+          <div class="gov-badge"><div class="gov-badge-code">GDPR</div><div class="gov-badge-name">Data Protection Compliant</div></div>
+          <div class="gov-badge"><div class="gov-badge-code">SIA</div><div class="gov-badge-name">Security Industry Standards</div></div>
+          <div class="gov-badge"><div class="gov-badge-code">AUS Int.</div><div class="gov-badge-name">Advisory Standards</div></div>
+        </div>
+        <div class="gov-confidence-note">All operations conducted under strict NDA. Client identity and operational detail held in absolute confidence.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="intelligence" class="platform-premium section-shell">
+    <div class="page-width">
+      <div class="platform-top fade-up">
+        <div>
+          <div class="section-label">Intelligence Products</div>
+          <h2 class="section-title">The Securide24<br>Intelligence Platform</h2>
+          <p class="section-body">A productised intelligence environment combining live signals, structured briefings, and country posture for organisations that need more than occasional consultation.</p>
+        </div>
+        <div class="platform-intro-panel">
+          <div class="platform-intro-label">Platform overview</div>
+          <p>Live monitoring, alert logic, country analysis, and executive briefings working as one intelligence-led operating system.</p>
+          <div class="platform-intro-visual">
+            <img src="assets/sections/intelligence-platform/platform-monitoring-surface.svg" alt="Intelligence platform monitoring surface" loading="lazy">
+          </div>
+        </div>
+      </div>
+
+      <div class="platform-grid fade-up">
+        <div class="platform-module-stack">
+          <button class="platform-module is-active" type="button" data-module="signals">
+            <span class="platform-module-icon">◎</span>
+            <span>
+              <strong>Executive Signals</strong>
+              <small>High-relevance alerts for principal exposure.</small>
+            </span>
+          </button>
+          <button class="platform-module" type="button" data-module="briefs">
+            <span class="platform-module-icon">◈</span>
+            <span>
+              <strong>Country Risk Briefs</strong>
+              <small>Structured travel and threat posture assessments.</small>
+            </span>
+          </button>
+          <button class="platform-module" type="button" data-module="briefings">
+            <span class="platform-module-icon">▣</span>
+            <span>
+              <strong>Intelligence Briefings</strong>
+              <small>Strategic intelligence for executive and board audiences.</small>
+            </span>
+          </button>
+          <button class="platform-module" type="button" data-module="alerts">
+            <span class="platform-module-icon">◇</span>
+            <span>
+              <strong>Active Alert Stream</strong>
+              <small>Filtered live feed of priority signals.</small>
+            </span>
+          </button>
+          <button class="platform-module" type="button" data-module="flash">
+            <span class="platform-module-icon">⬡</span>
+            <span>
+              <strong>Crisis Flash Updates</strong>
+              <small>Fast-turn updates for leadership control during disruption.</small>
+            </span>
+          </button>
+        </div>
+        <div class="platform-feature-card" id="platformFeatureCard">
+          <div class="intel-briefing-header">
+            <span class="intel-briefing-title" id="platformFeatureLabel">Intelligence Brief — Sample Extract</span>
+            <span class="intel-briefing-date">18 APR 2026</span>
+          </div>
+          <div class="intel-briefing-body">
+            <div class="intel-briefing-region" id="platformFeatureTitle">Pakistan — Regional Security Assessment</div>
+            <span class="intel-briefing-classification">SECURIDE24 · ADVISORY GRADE</span>
+            <p class="intel-briefing-para" id="platformFeatureText">Pakistan's major urban centres remain elevated following sustained political mobilisation. Executive movement in and around Islamabad requires advance route intelligence for the current operating cycle.</p>
+            <div class="intel-briefing-signals" id="platformFeatureList">
+              <div class="intel-signal">Protest movements active in Rawalpindi, Lahore, and Karachi</div>
+              <div class="intel-signal">Security forces maintaining elevated posture at key junctions</div>
+              <div class="intel-signal">Airport operations nominally normal — recommend +2h arrival buffers</div>
+              <div class="intel-signal">Diplomatic zone perimeter monitoring in effect — no closure confirmed</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="platform-workspace fade-up" id="alerts">
+        <div class="platform-workspace-top">
+          <div>
+            <div class="platform-workspace-label">Live monitoring layer</div>
+            <h3>Real-time monitoring integrated into the platform experience.</h3>
+          </div>
+          <div class="risk-filter-bar">
+            <button class="risk-filter-btn active" type="button" onclick="setFilter(this,'all')">All Signals</button>
+            <button class="risk-filter-btn" type="button" onclick="setFilter(this,'unrest')">Civil Unrest</button>
+            <button class="risk-filter-btn" type="button" onclick="setFilter(this,'travel')">Travel</button>
+            <button class="risk-filter-btn" type="button" onclick="setFilter(this,'seismic')">Seismic</button>
+            <button class="risk-filter-btn" type="button" onclick="setFilter(this,'route')">Route Disruption</button>
+            <button class="risk-filter-btn" type="button" onclick="setFilter(this,'general')">General Alerts</button>
+          </div>
+        </div>
+        <div class="risk-main">
+          <div class="risk-map-area">
+            <div class="risk-map-header">
+              <span class="risk-map-title">Global Risk Layer — Live</span>
+              <div class="risk-legend">
+                <div class="risk-legend-item"><div class="risk-legend-dot" style="background:var(--risk-critical)"></div>Critical</div>
+                <div class="risk-legend-item"><div class="risk-legend-dot" style="background:var(--risk-high)"></div>High</div>
+                <div class="risk-legend-item"><div class="risk-legend-dot" style="background:var(--risk-medium)"></div>Medium</div>
+                <div class="risk-legend-item"><div class="risk-legend-dot" style="background:var(--risk-low)"></div>Monitor</div>
+              </div>
+            </div>
+            <div id="leaflet-risk-map"></div>
+          </div>
+          <div class="risk-feed">
+            <div class="risk-feed-header">
+              <span class="risk-feed-title">Alert Stream</span>
+              <span class="risk-feed-live"><span class="live-dot"></span>LIVE</span>
+            </div>
+            <div class="risk-feed-scroll">
+              <div class="risk-feed-inner" id="alertFeed">
+                <div class="feed-item" data-category="unrest route">
+                  <div class="feed-item-top"><span class="feed-sev-tag sev-critical">Critical</span><span class="feed-time">04m</span></div>
+                  <div class="feed-location">ISLAMABAD · PK</div>
+                  <div class="feed-desc">Protest activity near diplomatic corridor — executive route review advised immediately</div>
+                </div>
+                <div class="feed-item" data-category="travel general">
+                  <div class="feed-item-top"><span class="feed-sev-tag sev-critical">Critical</span><span class="feed-time">09m</span></div>
+                  <div class="feed-location">KABUL · AF</div>
+                  <div class="feed-desc">Airport security posture raised. Departures subject to extended screening</div>
+                </div>
+                <div class="feed-item" data-category="general">
+                  <div class="feed-item-top"><span class="feed-sev-tag sev-high">High</span><span class="feed-time">14m</span></div>
+                  <div class="feed-location">TEHRAN · IR</div>
+                  <div class="feed-desc">Internal security activity elevated. External comms interference reported</div>
+                </div>
+                <div class="feed-item" data-category="unrest route travel">
+                  <div class="feed-item-top"><span class="feed-sev-tag sev-high">High</span><span class="feed-time">21m</span></div>
+                  <div class="feed-location">LAHORE · PK</div>
+                  <div class="feed-desc">Civil assembly forming on arterial routes — route disruption likely within 2 hours</div>
+                </div>
+                <div class="feed-item" data-category="travel general">
+                  <div class="feed-item-top"><span class="feed-sev-tag sev-medium">Medium</span><span class="feed-time">33m</span></div>
+                  <div class="feed-location">DUBAI · UAE</div>
+                  <div class="feed-desc">Infrastructure watch update — no confirmed impact to travel posture</div>
+                </div>
+                <div class="feed-item" data-category="seismic general">
+                  <div class="feed-item-top"><span class="feed-sev-tag sev-medium">Medium</span><span class="feed-time">47m</span></div>
+                  <div class="feed-location">NAIROBI · KE</div>
+                  <div class="feed-desc">Minor seismic event 4.1M east of city — no infrastructure damage confirmed</div>
+                </div>
+                <div class="feed-item" data-category="general">
+                  <div class="feed-item-top"><span class="feed-sev-tag sev-low">Monitor</span><span class="feed-time">1h 02m</span></div>
+                  <div class="feed-location">LONDON · UK</div>
+                  <div class="feed-desc">UK national threat level remains Substantial — no specific disruption to executive movement</div>
+                </div>
+                <div class="feed-item" data-category="route general">
+                  <div class="feed-item-top"><span class="feed-sev-tag sev-high">High</span><span class="feed-time">1h 18m</span></div>
+                  <div class="feed-location">BAGHDAD · IQ</div>
+                  <div class="feed-desc">Checkpoint activity intensified on northern approach corridor</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="telemetry-strip">
+          <div class="telemetry-cell">
+            <div class="telemetry-cell-label">Active Alerts</div>
+            <div class="telemetry-cell-value" style="color:var(--risk-high)">47</div>
+            <div class="telemetry-cell-sub">↑ 3 from 1h ago</div>
+            <div class="telemetry-cell-indicator" style="background:var(--risk-high)"></div>
+          </div>
+          <div class="telemetry-cell">
+            <div class="telemetry-cell-label">Priority Regions</div>
+            <div class="telemetry-cell-value">PK · AF · IR</div>
+            <div class="telemetry-cell-sub">3 under watch</div>
+            <div class="telemetry-cell-indicator" style="background:var(--risk-critical)"></div>
+          </div>
+          <div class="telemetry-cell">
+            <div class="telemetry-cell-label">Travel Disruption</div>
+            <div class="telemetry-cell-value" style="color:var(--risk-medium)">12</div>
+            <div class="telemetry-cell-sub">Active routes affected</div>
+          </div>
+          <div class="telemetry-cell">
+            <div class="telemetry-cell-label">Seismic Feed</div>
+            <div class="telemetry-cell-value" style="font-size:1rem;">4.1M EAF</div>
+            <div class="telemetry-cell-sub">Nairobi region</div>
+          </div>
+          <div class="telemetry-cell">
+            <div class="telemetry-cell-label">Unrest Watch</div>
+            <div class="telemetry-cell-value" style="color:var(--risk-high)">8</div>
+            <div class="telemetry-cell-sub">Events monitored</div>
+            <div class="telemetry-cell-indicator" style="background:var(--risk-high)"></div>
+          </div>
+          <div class="telemetry-cell">
+            <div class="telemetry-cell-label">Last Refresh</div>
+            <div class="telemetry-cell-value" style="font-size:1rem;font-family:'JetBrains Mono',monospace" id="refreshTime">--:--</div>
+            <div class="telemetry-cell-sub">Auto-updates</div>
+            <div class="telemetry-cell-indicator" style="background:var(--risk-low)"></div>
+          </div>
+          <div class="telemetry-cell">
+            <div class="telemetry-cell-label">Highest Risk</div>
+            <div class="telemetry-cell-value" style="color:var(--risk-critical);font-size:1.1rem;">Afghanistan</div>
+            <div class="telemetry-cell-sub">Critical rating</div>
+          </div>
+          <div class="telemetry-cell">
+            <div class="telemetry-cell-label">Monitored</div>
+            <div class="telemetry-cell-value">94</div>
+            <div class="telemetry-cell-sub">Countries active</div>
+            <div class="telemetry-cell-indicator" style="background:var(--risk-low)"></div>
+          </div>
+        </div>
+        <div class="platform-ecosystem">
+          <article class="platform-ecosystem-card">
+            <div class="platform-ecosystem-label">Live</div>
+            <h3>Executive Signals</h3>
+            <p>High-relevance alerts for principals and leadership teams managing exposure in motion.</p>
+          </article>
+          <article class="platform-ecosystem-card">
+            <div class="platform-ecosystem-label">Watch</div>
+            <h3>Active Alerts</h3>
+            <p>Open-source and location-based watch logic separated from noise and framed for action.</p>
+          </article>
+          <article class="platform-ecosystem-card">
+            <div class="platform-ecosystem-label">Country</div>
+            <h3>Country Risk Briefs</h3>
+            <p>Country posture briefs for pre-travel review, market engagement, or principal movement.</p>
+          </article>
+          <article class="platform-ecosystem-card">
+            <div class="platform-ecosystem-label">Crisis</div>
+            <h3>Crisis Flash Updates</h3>
+            <p>Fast-turn leadership updates explaining what changed and what decisions follow.</p>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="process-premium section-shell">
+    <div class="page-width">
+      <div class="process-header fade-up">
+        <div class="section-label">Operating Model</div>
+        <h2 class="section-title">How Securide24<br>Works</h2>
+      </div>
+      <div class="process-rail fade-up">
+        <article class="process-rail-step"><span>01</span><h3>Anticipate</h3><p>Monitor emerging signals before they become incidents.</p></article>
+        <article class="process-rail-step"><span>02</span><h3>Monitor</h3><p>Maintain live watch across priority regions.</p></article>
+        <article class="process-rail-step"><span>03</span><h3>Assess</h3><p>Convert signals into structured risk judgment.</p></article>
+        <article class="process-rail-step"><span>04</span><h3>Advise</h3><p>Deliver clear guidance to principals and security leads.</p></article>
+        <article class="process-rail-step"><span>05</span><h3>Secure</h3><p>Activate route, protection, and pre-deployment support.</p></article>
+        <article class="process-rail-step"><span>06</span><h3>Respond</h3><p>Coordinate incidents as situations evolve rapidly.</p></article>
+        <article class="process-rail-step"><span>07</span><h3>Recover</h3><p>Reset posture and update the next operating baseline.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="reach" class="reach-premium section-shell">
+    <div class="page-width">
+      <div class="section-heading-composed fade-up">
+        <div>
+          <div class="section-label">Geographic Capability</div>
+          <h2 class="section-title">Operational<br>Reach</h2>
+        </div>
+        <p class="section-body">Explore where Securide24 holds regional depth and how each footprint is framed for executive use.</p>
+      </div>
+      <div class="reach-interface fade-up">
+        <div class="reach-tabs" id="reachTabs">
+          <button class="reach-tab is-active" type="button" data-region="pak-af">Pakistan &amp; Afghanistan</button>
+          <button class="reach-tab" type="button" data-region="gulf">Middle East &amp; Gulf</button>
+          <button class="reach-tab" type="button" data-region="south-asia">Central &amp; South Asia</button>
+          <button class="reach-tab" type="button" data-region="uk">United Kingdom</button>
+          <button class="reach-tab" type="button" data-region="global">Global Advisory</button>
+        </div>
+        <div class="reach-panel">
+          <div class="reach-panel-map">
+            <img src="assets/sections/operational-reach/operational-reach-network.svg" alt="Operational reach network map" class="reach-map-visual" loading="lazy">
+            <svg viewBox="0 0 760 480" class="reach-map-svg" xmlns="http://www.w3.org/2000/svg">
+              <path d="M70 160h620" stroke="rgba(74,158,255,0.08)"/>
+              <path d="M70 250h620" stroke="rgba(74,158,255,0.08)"/>
+              <path d="M70 340h620" stroke="rgba(74,158,255,0.08)"/>
+              <circle class="reach-map-node is-active" data-region-node="pak-af" cx="450" cy="210" r="18"/>
+              <circle class="reach-map-node" data-region-node="gulf" cx="500" cy="230" r="15"/>
+              <circle class="reach-map-node" data-region-node="south-asia" cx="510" cy="180" r="14"/>
+              <circle class="reach-map-node" data-region-node="uk" cx="330" cy="120" r="14"/>
+              <circle class="reach-map-node" data-region-node="global" cx="220" cy="260" r="16"/>
+              <path d="M330 120 450 210 500 230" stroke="rgba(74,158,255,0.32)" stroke-width="2" fill="none" stroke-dasharray="8 10"/>
+            </svg>
+          </div>
+          <div class="reach-panel-copy">
+            <div class="reach-panel-topline" id="reachTopline">Primary Depth</div>
+            <h3 id="reachTitle">Pakistan &amp; Afghanistan</h3>
+            <p id="reachBody">Deep operational network. Senior regional advisory. Active monitoring.</p>
+            <div class="reach-panel-note" id="reachNote">Securide24's Pakistan and Afghanistan capability is built from direct experience, not distance or database subscriptions.</div>
+            <ul class="reach-panel-list" id="reachList">
+              <li>Ground-informed context for movement and exposure.</li>
+              <li>Active watch logic around Islamabad and Lahore corridors.</li>
+              <li>Leadership-grade advisory presentation for complex visits.</li>
+            </ul>
+            <div class="reach-stats">
+              <div><div class="reach-stat-val" id="reachStatOne">94</div><div class="reach-stat-label">Countries Monitored</div></div>
+              <div><div class="reach-stat-val" id="reachStatTwo">24/7</div><div class="reach-stat-label">Operational Coverage</div></div>
+              <div><div class="reach-stat-val" id="reachStatThree">UK</div><div class="reach-stat-label">Platform Governed</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="proof-premium section-shell">
+    <div class="page-width">
+      <div class="section-heading-composed fade-up proof-header">
+        <div>
+          <div class="section-label">Outcomes &amp; Proof</div>
+          <h2 class="section-title">Decisions Made.<br>Risks Mitigated.</h2>
+        </div>
+        <p class="section-body">Executive-facing outcomes showing what changed, how the response was structured, and what decision quality was delivered.</p>
+      </div>
+      <div class="proof-grid fade-up">
+        <article class="proof-case-card">
+          <div class="proof-case-type">Executive Mobility</div>
+          <h3>Route Intelligence Prevented Exposure During Active Civil Unrest</h3>
+          <p>A principal movement through Islamabad was rerouted before protest escalation closed primary arterials.</p>
+          <div class="proof-case-result">Zero-incident executive movement completed</div>
+        </article>
+        <article class="proof-case-card">
+          <div class="proof-case-type">Crisis Coordination</div>
+          <h3>Structured Evacuation Advisory During Rapidly Evolving Situation</h3>
+          <p>When a client's team was stranded during a security deterioration, Securide24 coordinated a structured extraction window.</p>
+          <div class="proof-case-result">Team safely extracted. Client debriefed within 4 hours.</div>
+        </article>
+        <article class="proof-case-card">
+          <div class="proof-case-type">Strategic Advisory</div>
+          <h3>Country Entry Assessment Reshaped Investment Exposure Decision</h3>
+          <p>A pre-entry risk assessment materially changed a board's exposure decision before operational resources were committed.</p>
+          <div class="proof-case-result">Exposure decision revised. Significant risk avoided.</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="leadership-premium section-shell">
+    <div class="page-width">
+      <div class="section-heading-composed fade-up">
+        <div>
+          <div class="section-label">Authority &amp; Leadership</div>
+          <h2 class="section-title">Practitioner-Grade<br>Leadership</h2>
+        </div>
+        <p class="section-body">Leadership presented with calm authority and delivery credibility clear at a glance.</p>
+      </div>
+      <div class="leadership-grid leadership-grid-premium fade-up">
+        <div class="leader-card leader-card-premium">
+          <div class="leader-photo">
+            <img src="assets/sections/leadership/senior-advisory-director.svg" alt="Senior Advisory Director" loading="lazy">
+            <div class="leader-photo-overlay"></div>
+          </div>
+          <div class="leader-info">
+            <div class="leader-name">Senior Advisory Director</div>
+            <div class="leader-title">Risk Intelligence · Regional Operations</div>
+            <div class="leader-bio">Former intelligence and security practitioner with two decades of regional operational advisory experience.</div>
+          </div>
+        </div>
+        <div class="leader-card leader-card-premium">
+          <div class="leader-photo">
+            <img src="assets/sections/leadership/head-of-executive-protection.svg" alt="Head of Executive Protection" loading="lazy">
+            <div class="leader-photo-overlay"></div>
+          </div>
+          <div class="leader-info">
+            <div class="leader-name">Head of Executive Protection</div>
+            <div class="leader-title">Principal Protection · Mobility Security</div>
+            <div class="leader-bio">Specialist in executive movement planning and close protection coordination across high-risk environments.</div>
+          </div>
+        </div>
+        <div class="leader-card leader-card-premium">
+          <div class="leader-photo">
+            <img src="assets/sections/leadership/crisis-incident-director.svg" alt="Crisis and Incident Director" loading="lazy">
+            <div class="leader-photo-overlay"></div>
+          </div>
+          <div class="leader-info">
+            <div class="leader-name">Crisis &amp; Incident Director</div>
+            <div class="leader-title">Crisis Response · Incident Coordination</div>
+            <div class="leader-bio">Crisis management specialist focused on structured response and principal safety under pressure.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="insights" class="insights-premium section-shell">
+    <div class="page-width">
+      <div class="section-heading-composed fade-up">
+        <div>
+          <div class="section-label">Intelligence Insights</div>
+          <h2 class="section-title">Latest from<br>the Platform</h2>
+        </div>
+        <p class="section-body">Open-source analysis, regional risk commentary, and operational guidance presented more like briefing output than a standard blog grid.</p>
+      </div>
+      <div class="insights-grid insights-grid-premium fade-up">
+        <article class="insight-card insight-card-featured">
+          <div class="insight-image insight-image-map"><div class="insight-image-overlay"></div></div>
+          <div class="insight-body">
+            <div class="insight-category">Regional Assessment</div>
+            <div class="insight-title">Pakistan Security Environment — Q2 2026 Outlook</div>
+            <div class="insight-excerpt">A concise assessment of political dynamics, unrest patterns, and executive movement implications across Pakistan's major urban centres.</div>
+            <div class="insight-meta"><span class="insight-date">16 APR 2026</span><span class="insight-read">Read Brief →</span></div>
+          </div>
+        </article>
+        <article class="insight-card insight-card-premium-mini">
+          <div class="insight-image insight-image-travel"><div class="insight-image-overlay"></div></div>
+          <div class="insight-body">
+            <div class="insight-category">Travel Advisory</div>
+            <div class="insight-title">Executive Travel to the Gulf — Updated Posture</div>
+            <div class="insight-excerpt">Current travel assessment for UAE, Saudi Arabia, and Qatar covering executive movement and route security.</div>
+            <div class="insight-meta"><span class="insight-date">12 APR 2026</span><span class="insight-read">Read Brief →</span></div>
+          </div>
+        </article>
+        <article class="insight-card insight-card-premium-mini">
+          <div class="insight-image insight-image-crisis"><div class="insight-image-overlay"></div></div>
+          <div class="insight-body">
+            <div class="insight-category">Crisis Intelligence</div>
+            <div class="insight-title">Understanding Rapid Escalation in Complex Environments</div>
+            <div class="insight-excerpt">A practical framework for recognising pre-incident indicators and making faster decisions under pressure.</div>
+            <div class="insight-meta"><span class="insight-date">08 APR 2026</span><span class="insight-read">Read Brief →</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="cta-section cta-section-premium">
+    <div class="cta-bg"></div>
+    <div class="cta-inner fade-up">
+      <div class="section-label" style="justify-content:center;">Request Access</div>
+      <h2 class="cta-headline">Operate With<br>Intelligence.</h2>
+      <p class="cta-sub">Whether you require monitoring access, a pre-deployment assessment, or a strategic advisory engagement, the team will respond within one operational day.</p>
+      <div class="cta-buttons">
+        <button class="btn-primary" onclick="openModal()">Request a Consultation ↗</button>
+        <a href="#intelligence" class="btn-ghost">View Intelligence Platform</a>
+      </div>
+      <p class="cta-disclaimer">All enquiries are strictly confidential — UK governed — discreet response guaranteed</p>
+    </div>
+  </section>
+</main>
+
+<div class="modal-overlay" id="consultModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal-card">
+    <div class="modal-header">
+      <div class="modal-header-left">
+        <div class="modal-eyebrow">Securide24 · Confidential Enquiry</div>
+        <h2 class="modal-title" id="modalTitle">Request a<br>Consultation</h2>
+      </div>
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+    </div>
+    <div class="modal-body" id="modalFormBody">
+      <form id="consultForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="f-name">Full Name <span>*</span></label>
+            <input class="form-input" type="text" id="f-name" name="name" placeholder="Your full name" required autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-org">Organisation <span>*</span></label>
+            <input class="form-input" type="text" id="f-org" name="organisation" placeholder="Organisation or company" required autocomplete="organization">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="f-email">Email Address <span>*</span></label>
+            <input class="form-input" type="email" id="f-email" name="email" placeholder="your@organisation.com" required autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-phone">Phone / WhatsApp</label>
+            <input class="form-input" type="tel" id="f-phone" name="phone" placeholder="+44 or international" autocomplete="tel">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-service">Primary Requirement <span>*</span></label>
+          <select class="form-select" id="f-service" name="service" required>
+            <option value="" disabled selected>Select the nature of your enquiry</option>
+            <option value="risk-monitoring">Risk Intelligence &amp; Monitoring Access</option>
+            <option value="exec-travel">Executive Mobility &amp; Secure Travel</option>
+            <option value="exec-protection">Executive Protection Coordination</option>
+            <option value="crisis">Crisis Response &amp; Incident Coordination</option>
+            <option value="advisory">Strategic Risk Advisory</option>
+            <option value="country-brief">Country Brief / Pre-Deployment Assessment</option>
+            <option value="other">Other — I will explain below</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-region">Region of Concern</label>
+          <select class="form-select" id="f-region" name="region">
+            <option value="" disabled selected>Select primary region (if applicable)</option>
+            <option value="pk-af">Pakistan / Afghanistan</option>
+            <option value="me">Middle East / Gulf</option>
+            <option value="central-asia">Central Asia</option>
+            <option value="south-asia">South Asia (India, Bangladesh)</option>
+            <option value="africa">Africa</option>
+            <option value="europe">Europe</option>
+            <option value="global">Global / Multiple Regions</option>
+            <option value="uk">United Kingdom</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="f-message">Operational Context <span>*</span></label>
+          <textarea class="form-textarea" id="f-message" name="message" placeholder="Please describe your situation, timeline, or specific requirements. All information is held in strict confidence." required></textarea>
+        </div>
+        <label class="form-check">
+          <input type="checkbox" id="f-nda" name="nda" required>
+          <span class="form-check-label">I understand this enquiry is handled under strict confidentiality by the Securide24 advisory team. My details will not be shared with third parties.</span>
+        </label>
+        <button type="submit" class="form-submit" id="formSubmitBtn">Submit Confidential Enquiry</button>
+        <p class="form-note">🔒 &nbsp;Encrypted submission · Reviewed within 1 operational day · UK governed</p>
+      </form>
+    </div>
+    <div class="form-success" id="formSuccess">
+      <div class="form-success-icon">✓</div>
+      <div class="form-success-title">Enquiry Received</div>
+      <p class="form-success-body">
+        Your consultation request has been submitted securely to the Securide24 advisory team.<br><br>
+        A member of the team will respond within <strong style="color:var(--text-primary)">one operational day</strong> via the contact details you provided.<br><br>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-muted);letter-spacing:0.08em;">All enquiries are held in strict confidence.</span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">SECURIDE<span>24</span></div>
+        <p class="footer-brand-desc">Intelligence-led risk advisory and discreet protection platform. Serving executives, organisations, and principals operating in complex environments worldwide.</p>
+        <div class="footer-uk" style="margin-bottom:10px;">
+          <span>🇬🇧</span> UK GOVERNED PLATFORM · REGISTERED IN ENGLAND &amp; WALES
+        </div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-muted);letter-spacing:0.07em;line-height:1.8;">
+          Securide24 Ltd<br>
+          Company No. [XXXXXXXX]<br>
+          [Registered Address Line 1]<br>
+          [City, Postcode]<br>
+          England &amp; Wales<br>
+          <a href="mailto:advisory@securide24.com" style="color:var(--accent);text-decoration:none;margin-top:4px;display:inline-block;">advisory@securide24.com</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="services/risk-intelligence.html">Risk Intelligence</a></li>
+          <li><a href="services/executive-mobility.html">Executive Mobility</a></li>
+          <li><a href="services/executive-protection.html">Executive Protection</a></li>
+          <li><a href="services/crisis-response.html">Crisis Response</a></li>
+          <li><a href="services/strategic-advisory.html">Strategic Advisory</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Platform</div>
+        <ul class="footer-links">
+          <li><a href="platform/index.html">Live Risk Map</a></li>
+          <li><a href="platform/country-briefs.html">Country Briefs</a></li>
+          <li><a href="platform/index.html#alerts">Alert Stream</a></li>
+          <li><a href="platform/briefings.html">Intelligence Briefings</a></li>
+          <li><a href="contact/index.html">Request Access</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Company</div>
+        <ul class="footer-links">
+          <li><a href="about/index.html">About Securide24</a></li>
+          <li><a href="about/leadership.html">Leadership</a></li>
+          <li><a href="about/governance.html">Governance</a></li>
+          <li><a href="insights/index.html">Insights</a></li>
+          <li><a href="contact/index.html">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>
+        <div class="footer-copy">© 2026 SECURIDE24 LTD · COMPANY NO. [XXXXXXXX] · REGISTERED IN ENGLAND &amp; WALES</div>
+        <div class="footer-copy" style="margin-top:4px;color:var(--text-muted);opacity:0.6;">Securide24 Ltd is registered in England &amp; Wales. All advisory services are subject to applicable UK law and our standard terms of engagement.</div>
+      </div>
+      <div class="footer-legal">
+        <a href="legal/privacy.html">Privacy Policy</a>
+        <a href="legal/terms.html">Terms of Use</a>
+        <a href="legal/confidentiality.html">Confidentiality</a>
+        <a href="legal/cookies.html">Cookie Policy</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="js/app.js"></script>
 </body>
 </html>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Senior Advisory Director portrait illustration</title>
+  <desc id="desc">Abstract portrait illustration in Securide24 brand colors.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0e2040"/>
+      <stop offset="100%" stop-color="#091628"/>
+    </linearGradient>
+    <linearGradient id="coat" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#112846"/>
+      <stop offset="100%" stop-color="#081522"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <circle cx="620" cy="170" r="180" fill="rgba(74,158,255,0.12)"/>
+  <circle cx="150" cy="860" r="220" fill="rgba(200,169,110,0.08)"/>
+  <rect x="0" y="780" width="800" height="220" fill="#08121f"/>
+  <path d="M205 860c42-138 118-231 195-231 76 0 153 93 195 231" fill="url(#coat)"/>
+  <ellipse cx="400" cy="370" rx="116" ry="146" fill="#c6a07e"/>
+  <path d="M284 354c10-112 76-180 136-180 62 0 131 73 124 196-52-17-104-31-156-31-35 0-70 6-104 15z" fill="#101621"/>
+  <path d="M321 565l80 86 85-86-28-70h-108z" fill="#b78e6b"/>
+  <path d="M327 620l74 66 72-66 48 240H279z" fill="#f2f4f7"/>
+  <path d="M334 605c16 25 41 44 67 44s49-18 66-43l-11-41H344z" fill="#a87d59" opacity="0.45"/>
+  <path d="M291 341c17 48 64 88 103 88 60 0 120-57 137-121-41-6-99-6-149 5-40 9-67 19-91 28z" fill="#c6a07e"/>
+  <rect x="262" y="804" width="276" height="1" fill="#4a9eff" opacity="0.35"/>
+</svg>

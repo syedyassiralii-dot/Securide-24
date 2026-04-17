@@ -1,0 +1,24 @@
+<svg width="1200" height="780" viewBox="0 0 1200 780" xmlns="http://www.w3.org/2000/svg">
+  <image href="../../images/insight-crisis-editorial.svg" width="1200" height="780" preserveAspectRatio="xMidYMid slice"/>
+</svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#101a29"/>
+      <stop offset="100%" stop-color="#233a54"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="760" fill="url(#bg)"/>
+  <circle cx="192" cy="100" r="154" fill="rgba(240,144,98,0.14)"/>
+  <circle cx="1034" cy="670" r="210" fill="rgba(74,158,255,0.14)"/>
+  <rect x="118" y="136" width="964" height="500" rx="28" fill="rgba(7,17,29,0.54)" stroke="rgba(126,183,255,0.12)"/>
+  <rect x="188" y="200" width="242" height="130" rx="24" fill="rgba(240,144,98,0.16)" stroke="rgba(240,144,98,0.28)"/>
+  <rect x="480" y="200" width="242" height="130" rx="24" fill="rgba(215,179,122,0.16)" stroke="rgba(215,179,122,0.28)"/>
+  <rect x="772" y="200" width="242" height="130" rx="24" fill="rgba(126,183,255,0.14)" stroke="rgba(126,183,255,0.26)"/>
+  <path d="M234 484l176 0 80 64 126-98 126 76 184-132" stroke="#7eb7ff" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="410" cy="484" r="12" fill="#f09062"/>
+  <circle cx="616" cy="450" r="12" fill="#d7b37a"/>
+  <circle cx="742" cy="526" r="12" fill="#7eb7ff"/>
+  <circle cx="926" cy="394" r="12" fill="#7eb7ff"/>
+  <rect x="214" y="566" width="190" height="12" rx="6" fill="rgba(255,255,255,0.66)"/>
+  <rect x="214" y="600" width="302" height="9" rx="4.5" fill="rgba(255,255,255,0.24)"/>
+</svg>

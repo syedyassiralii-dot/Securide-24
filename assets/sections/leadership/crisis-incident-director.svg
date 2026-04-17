@@ -1,0 +1,26 @@
+<svg width="900" height="1100" viewBox="0 0 900 1100" xmlns="http://www.w3.org/2000/svg">
+  <image href="../../images/leader-crisis-director.svg" width="900" height="1100" preserveAspectRatio="xMidYMid slice"/>
+</svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Crisis and Incident Director portrait illustration</title>
+  <desc id="desc">Abstract portrait illustration in Securide24 brand colors.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1e36"/>
+      <stop offset="100%" stop-color="#050d1a"/>
+    </linearGradient>
+    <linearGradient id="blazer" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1a3554"/>
+      <stop offset="100%" stop-color="#081421"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#bg)"/>
+  <circle cx="630" cy="760" r="240" fill="rgba(74,158,255,0.07)"/>
+  <circle cx="140" cy="130" r="150" fill="rgba(200,169,110,0.08)"/>
+  <path d="M220 880c35-145 107-240 182-240s152 95 182 240" fill="url(#blazer)"/>
+  <ellipse cx="400" cy="360" rx="112" ry="145" fill="#d5b090"/>
+  <path d="M295 360c8-109 79-187 148-187 52 0 118 46 120 165-27-17-53-23-81-23-54 0-88 18-187 45z" fill="#23242e"/>
+  <path d="M315 600c28 33 52 46 82 46 31 0 56-16 82-47l-15-49H332z" fill="#c39a78"/>
+  <path d="M322 626l77 74 78-74 54 254H269z" fill="#eff2f6"/>
+  <path d="M289 400c34 33 70 47 111 47 68 0 109-34 150-82-6 90-64 140-149 140-53 0-102-39-112-105z" fill="#d5b090"/>
+  <path d="M282 846h236" stroke="#4a9eff" stroke-opacity="0.45"/>
+</svg>

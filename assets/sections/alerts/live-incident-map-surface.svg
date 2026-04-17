@@ -1,0 +1,64 @@
+<svg width="1600" height="1100" viewBox="0 0 1600 1100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="1100" rx="36" fill="#102030"/>
+  <rect x="58" y="58" width="1484" height="984" rx="28" fill="url(#bg)"/>
+  <g opacity="0.16" stroke="#93B7DA">
+    <path d="M120 240H1480"/>
+    <path d="M120 430H1480"/>
+    <path d="M120 620H1480"/>
+    <path d="M120 810H1480"/>
+    <path d="M320 120V980"/>
+    <path d="M620 120V980"/>
+    <path d="M920 120V980"/>
+    <path d="M1220 120V980"/>
+  </g>
+  <g opacity="0.6">
+    <path d="M286 748C432 664 494 612 636 546C734 500 806 470 916 406C1036 336 1130 290 1326 226" stroke="url(#routeA)" stroke-width="7" stroke-linecap="round" stroke-dasharray="12 18"/>
+    <path d="M298 804C434 784 552 750 708 700C870 648 1034 574 1224 468" stroke="url(#routeB)" stroke-width="5" stroke-linecap="round" stroke-dasharray="8 14"/>
+  </g>
+  <g filter="url(#glowRed)">
+    <circle cx="770" cy="486" r="18" fill="#F25F5C"/>
+    <circle cx="770" cy="486" r="46" fill="#F25F5C" fill-opacity="0.2"/>
+  </g>
+  <g filter="url(#glowAmber)">
+    <circle cx="512" cy="658" r="14" fill="#E4B84C"/>
+    <circle cx="512" cy="658" r="36" fill="#E4B84C" fill-opacity="0.18"/>
+  </g>
+  <g filter="url(#glowBlue)">
+    <circle cx="1126" cy="314" r="14" fill="#6CB1F5"/>
+    <circle cx="1126" cy="314" r="32" fill="#6CB1F5" fill-opacity="0.18"/>
+  </g>
+  <g opacity="0.22" fill="#DDE8F4">
+    <path d="M230 300L314 244L420 254L498 210L636 242L718 202L794 230L930 196L1018 226L1100 212L1240 274L1328 330L1294 410L1172 408L1072 434L972 424L876 456L774 452L666 472L566 454L470 486L352 460L250 404L230 300Z"/>
+    <path d="M508 552L560 540L620 562L696 550L772 580L840 576L930 620L1038 606L1132 638L1184 702L1136 740L1030 738L956 780L850 772L764 806L664 780L610 728L544 704L492 626L508 552Z"/>
+  </g>
+  <g opacity="0.9">
+    <rect x="112" y="100" width="186" height="46" rx="23" fill="#132A3B" stroke="#294A60"/>
+    <circle cx="142" cy="123" r="7" fill="#67D390"/>
+    <text x="162" y="129" fill="#E8EEF5" font-family="JetBrains Mono, monospace" font-size="18" letter-spacing="1.8">LIVE DESK</text>
+  </g>
+  <defs>
+    <linearGradient id="bg" x1="800" y1="58" x2="800" y2="1042" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#15283C"/>
+      <stop offset="1" stop-color="#112235"/>
+    </linearGradient>
+    <linearGradient id="routeA" x1="286" y1="748" x2="1326" y2="226" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6CB1F5" stop-opacity="0"/>
+      <stop offset="0.42" stop-color="#6CB1F5"/>
+      <stop offset="1" stop-color="#6CB1F5" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="routeB" x1="298" y1="804" x2="1224" y2="468" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E4B84C" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#E4B84C"/>
+      <stop offset="1" stop-color="#E4B84C" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="glowRed" x="684" y="400" width="172" height="172" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="20"/>
+    </filter>
+    <filter id="glowAmber" x="436" y="582" width="152" height="152" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="18"/>
+    </filter>
+    <filter id="glowBlue" x="1060" y="248" width="132" height="132" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="16"/>
+    </filter>
+  </defs>
+</svg>

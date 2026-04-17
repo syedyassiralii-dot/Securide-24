@@ -1,498 +1,742 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const body = document.body;
-  const root = body.dataset.root || "";
-  const page = body.dataset.page || "";
+const COUNTRIES = [
+  { name: 'Afghanistan', lat: 33.93, lng: 67.71, risk: 'Critical', col: '#e83a3a', alert: 'Complex threat environment. Multiple armed actor activity. Air corridor remains primary access route.', time: '15m ago', signals: '42 active', view: 'All executive movement requires full advance threat assessment, counter-surveillance protocols, and dedicated protective support.' },
+  { name: 'Pakistan', lat: 30.38, lng: 69.35, risk: 'High', col: '#e87a3a', alert: 'Civil unrest elevated in KP and Punjab. Political protest movements active in multiple urban centres.', time: '8m ago', signals: '31 active', view: 'Priority Region. Islamabad and Lahore corridors under active monitoring. Avoid protest assembly areas. Advance route intelligence mandatory.' },
+  { name: 'Iran', lat: 32.43, lng: 53.69, risk: 'Critical', col: '#e83a3a', alert: 'Active regional tension. Internal security apparatus activity in major urban centres.', time: '20m ago', signals: '24 active', view: 'Securide24 advises against non-essential executive travel to Iran. All monitored routes carry elevated risk assessment.' },
+  { name: 'Iraq', lat: 33.22, lng: 43.68, risk: 'High', col: '#e87a3a', alert: 'Checkpoint activity intensified on northern approach corridor.', time: '1h 18m ago', signals: '18 active', view: 'Executive movement requires advance route intelligence. Securide24 advises dedicated protective support for all in-country movements.' },
+  { name: 'Yemen', lat: 15.55, lng: 48.52, risk: 'Critical', col: '#e83a3a', alert: 'Active conflict environment. No executive travel advised.', time: '2h ago', signals: '38 active', view: 'Securide24 does not advise executive travel to Yemen under current threat conditions. Remote advisory only.' },
+  { name: 'Syria', lat: 34.80, lng: 38.10, risk: 'Critical', col: '#e83a3a', alert: 'Conflict-affected environment. No routine executive travel possible.', time: '3h ago', signals: '29 active', view: 'No executive travel advisory issued for Syria. Monitoring continues for potential future access assessment.' },
+  { name: 'Libya', lat: 26.34, lng: 17.23, risk: 'High', col: '#e87a3a', alert: 'Fragmented security environment. Armed group activity in interior regions.', time: '2h ago', signals: '14 active', view: 'Executive travel limited to secured zones with advance assessment. Securide24 advises dedicated ground coordination.' },
+  { name: 'Sudan', lat: 12.86, lng: 30.22, risk: 'Critical', col: '#e83a3a', alert: 'Active conflict. Humanitarian situation deteriorating in multiple regions.', time: '4h ago', signals: '22 active', view: 'No executive travel recommended. Monitoring active for regional spillover.' },
+  { name: 'Somalia', lat: 5.15, lng: 46.20, risk: 'Critical', col: '#e83a3a', alert: 'Ongoing security threats from armed groups. Maritime threat elevated.', time: '5h ago', signals: '16 active', view: 'Executive operations not feasible without full protective support and advance coordination through Securide24.' },
+  { name: 'Nigeria', lat: 9.08, lng: 8.68, risk: 'High', col: '#e87a3a', alert: 'Kidnap-for-ransom threat elevated. Northern states under additional restrictions.', time: '3h ago', signals: '12 active', view: 'Pre-deployment assessment mandatory. Securide24 advises vetted local coordination and secure accommodation protocols.' },
+  { name: 'Ethiopia', lat: 9.14, lng: 40.49, risk: 'High', col: '#e87a3a', alert: 'Ongoing regional instability in Tigray. Addis Ababa remains accessible.', time: '4h ago', signals: '9 active', view: 'Executive travel to Addis Ababa feasible with standard precautions. Avoid travel to northern regions.' },
+  { name: 'Mali', lat: 17.57, lng: -3.99, risk: 'Critical', col: '#e83a3a', alert: 'Sahel instability. Jihadist threat elevated across multiple regions.', time: '6h ago', signals: '17 active', view: 'No executive travel outside secured compounds without full protective coordination.' },
+  { name: 'Democratic Republic of Congo', lat: -4.04, lng: 21.76, risk: 'High', col: '#e87a3a', alert: 'Eastern provinces remain conflict-affected. Kinshasa stable.', time: '5h ago', signals: '11 active', view: 'Executive operations in eastern DRC require full protective support. Kinshasa accessible with standard precautions.' },
+  { name: 'Ukraine', lat: 48.38, lng: 31.17, risk: 'Critical', col: '#e83a3a', alert: 'Active conflict zone. No executive travel advised outside western regions.', time: '1h ago', signals: '33 active', view: 'Executive travel limited to Lviv and western Ukraine only. Full risk assessment and protective coordination required.' },
+  { name: 'Russia', lat: 61.52, lng: 105.32, risk: 'High', col: '#e87a3a', alert: 'Elevated detention risk for foreign nationals. Travel heavily restricted.', time: '2h ago', signals: '15 active', view: 'Securide24 advises against executive travel to Russia. Significant legal and personal safety risk to foreign principals.' },
+  { name: 'Venezuela', lat: 6.42, lng: -66.59, risk: 'High', col: '#e87a3a', alert: 'Crime and kidnap threat elevated. Political instability ongoing.', time: '3h ago', signals: '10 active', view: 'Pre-deployment assessment required. Securide24 advises vetted ground coordination and avoidance of night movement.' },
+  { name: 'Myanmar', lat: 21.91, lng: 95.96, risk: 'Critical', col: '#e83a3a', alert: 'Military governance. Armed resistance active in multiple states.', time: '5h ago', signals: '20 active', view: 'No executive travel recommended without full operational support package and extraction planning.' },
+  { name: 'Mexico', lat: 23.63, lng: -102.55, risk: 'Medium', col: '#e8c43a', alert: 'Cartel activity elevated in northern states. Major cities accessible.', time: '2h ago', signals: '8 active', view: 'Executive travel to Mexico City and Guadalajara with standard precautions. Assess northern border regions carefully.' },
+  { name: 'Colombia', lat: 4.57, lng: -74.30, risk: 'Medium', col: '#e8c43a', alert: 'Dissidents active in border regions. Bogotá and Medellín accessible.', time: '3h ago', signals: '7 active', view: 'Executive travel to major cities with vetted ground transport. Avoid coca-producing regions without specific assessment.' },
+  { name: 'Egypt', lat: 26.82, lng: 30.80, risk: 'Medium', col: '#e8c43a', alert: 'Sinai security concerns persist. Cairo and resort areas stable.', time: '2h ago', signals: '6 active', view: 'Executive travel to Cairo and Sharm El Sheikh with standard precautions. Avoid Sinai Peninsula.' },
+  { name: 'Jordan', lat: 30.59, lng: 36.24, risk: 'Low', col: '#3ae88a', alert: 'Stable environment. Regional tensions monitored closely.', time: '4h ago', signals: '3 active', view: 'Executive travel to Amman assessed as low-risk. Recommended as regional coordination hub for Middle East operations.' },
+  { name: 'UAE', lat: 23.42, lng: 53.85, risk: 'Low', col: '#3ae88a', alert: 'Stable operating environment. Travel posture normal with elevated vigilance.', time: '33m ago', signals: '4 active', view: 'Dubai and Abu Dhabi remain accessible and well-suited for regional executive operations. Standard precautions apply.' },
+  { name: 'Saudi Arabia', lat: 23.89, lng: 45.08, risk: 'Low', col: '#3ae88a', alert: 'Stable in major cities. Yemen border areas monitored.', time: '2h ago', signals: '5 active', view: 'Riyadh and Jeddah accessible. Executive travel with standard corporate precautions and awareness of cultural protocols.' },
+  { name: 'India', lat: 20.59, lng: 78.96, risk: 'Low', col: '#3ae88a', alert: 'Stable operating environment. Border state tensions monitored.', time: '3h ago', signals: '8 active', view: 'No specific advisory for executive travel to India. Standard due diligence applies for travel to border states.' },
+  { name: 'China', lat: 35.86, lng: 104.20, risk: 'Medium', col: '#e8c43a', alert: 'Information restrictions apply. Digital security monitoring elevated.', time: '2h ago', signals: '10 active', view: 'All executive travel should include digital security assessment. Devices screened before entry. Operational security precautions throughout.' },
+  { name: 'United Kingdom', lat: 55.38, lng: -3.44, risk: 'Low', col: '#4a9eff', alert: 'National threat level remains at Substantial. No specific threats to executive movement.', time: '30m ago', signals: '5 active', view: 'UK operations governed from London HQ. Threat posture monitored continuously. Executive movement within mainland UK assessed as routine.' },
+  { name: 'United States', lat: 37.09, lng: -95.71, risk: 'Medium', col: '#e8c43a', alert: 'Large-scale civil demonstrations in major cities. Federal agency movements monitored.', time: '2h ago', signals: '12 active', view: 'Assess any gatherings in metropolitan areas before executive ground movement. No flight disruptions currently reported.' },
+  { name: 'Kenya', lat: -0.02, lng: 37.91, risk: 'Medium', col: '#e8c43a', alert: 'Minor seismic event 4.1M east of city. Nairobi stable.', time: '47m ago', signals: '5 active', view: 'Executive travel to Nairobi with standard precautions. Al-Shabaab threat in northern counties requires specific assessment.' },
+  { name: 'Kazakhstan', lat: 48.02, lng: 66.92, risk: 'Low', col: '#3ae88a', alert: 'Stable environment. Energy sector operations well-established.', time: '6h ago', signals: '2 active', view: 'Nur-Sultan and Almaty accessible for executive operations. Standard corporate precautions apply.' },
+  { name: 'Turkey', lat: 38.96, lng: 35.24, risk: 'Medium', col: '#e8c43a', alert: 'Regional tensions elevated. Istanbul and Ankara stable for executive operations.', time: '1h ago', signals: '7 active', view: 'Major cities accessible. Executive operations in southeast Turkey require advance assessment due to proximity to conflict zones.' },
+];
 
-  const navGroups = {
-    pillars: [
-      { href: `${root}pages/solutions/index.html`, label: "Overview", meta: "Four flagship advisory pillars" },
-      { href: `${root}pages/solutions/risk-intelligence-monitoring.html`, label: "Risk Intelligence", meta: "Monitoring, assessment, executive briefings" },
-      { href: `${root}pages/solutions/executive-mobility-secure-travel.html`, label: "Executive Mobility", meta: "Travel assurance and secure movement" },
-      { href: `${root}pages/solutions/executive-protection-coordination.html`, label: "Protective Coordination", meta: "Discreet protective planning and liaison" },
-      { href: `${root}pages/solutions/crisis-response-incident-coordination.html`, label: "Crisis Leadership Support", meta: "Structured escalation and continuity guidance" }
+const PLATFORM_FEATURES = {
+  signals: {
+    label: 'Executive Signals — Live Layer',
+    title: 'High-relevance alerts calibrated for principal exposure',
+    text: 'Executive Signals condenses complex operating conditions into a concise readout shaped around movement impact, proximity, and decision urgency.',
+    items: [
+      'Signals ranked by exposure, timing, and route relevance',
+      'Secure delivery format for leadership and protective teams',
+      'Built for decision speed during movement and access changes',
+      'Escalation logic aligned to executive travel posture',
     ],
-    intelligence: [
-      { href: `${root}pages/intelligence/index.html`, label: "Intelligence Products", meta: "Structured client deliverables" },
-      { href: `${root}pages/intelligence/insights.html`, label: "Insights", meta: "Editorial analysis and briefings" },
-      { href: `${root}pages/intelligence/active-alerts.html`, label: "Active Alerts", meta: "Operational watch updates" },
-      { href: `${root}pages/intelligence/case-studies.html`, label: "Case Studies", meta: "Outcome-led assignments and results" }
+  },
+  briefs: {
+    label: 'Country Risk Brief — Advisory Grade',
+    title: 'Structured country posture before travel or market entry',
+    text: 'Country Risk Briefs convert fragmented political, security, and travel reporting into one structured posture read for boards, principals, and travelling teams.',
+    items: [
+      'Threat environment, travel posture, and access constraints',
+      'Executive movement implications and protective considerations',
+      'Decision-quality summaries for leadership consumption',
+      'Useful for pre-deployment, market entry, and board review',
     ],
-    about: [
-      { href: `${root}pages/about/index.html`, label: "About", meta: "Positioning and operating philosophy" },
-      { href: `${root}pages/about/leadership.html`, label: "Leadership", meta: "Expert profiles and authority" },
-      { href: `${root}pages/about/methodology.html`, label: "Methodology", meta: "From signal to continuity" },
-      { href: `${root}pages/about/governance.html`, label: "Governance", meta: "Oversight, discretion, and protocol" }
-    ]
+  },
+  briefings: {
+    label: 'Intelligence Brief — Sample Extract',
+    title: 'Pakistan — Regional Security Assessment',
+    text: 'Pakistan\'s major urban centres remain elevated following sustained political mobilisation. Executive movement in and around Islamabad requires advance route intelligence for the current operating cycle.',
+    items: [
+      'Protest movements active in Rawalpindi, Lahore, and Karachi',
+      'Security forces maintaining elevated posture at key junctions',
+      'Airport operations nominally normal — recommend +2h arrival buffers',
+      'Diplomatic zone perimeter monitoring in effect — no closure confirmed',
+    ],
+  },
+  alerts: {
+    label: 'Active Alert Stream — Monitoring Layer',
+    title: 'Live signal watch separated from noise and interpreted for action',
+    text: 'The alert stream is built as a decision aid, not a news feed. Signals are filtered, categorised, and contextualised for faster movement from awareness to response.',
+    items: [
+      'Civil unrest, travel, route, and seismic categories',
+      'Rapid triage on impact to movement and access',
+      'Integrated with country context and executive briefings',
+      'Intended for continuous watch and rapid escalation support',
+    ],
+  },
+  flash: {
+    label: 'Crisis Flash Update — Leadership Use',
+    title: 'Fast-turn leadership guidance when situations deteriorate quickly',
+    text: 'Crisis Flash Updates provide immediate clarity on what changed, the likely exposure implications, and the decisions that now warrant executive attention.',
+    items: [
+      'Fast-turn synthesis for crisis and incident windows',
+      'Decision framing for leadership, security leads, and operations',
+      'Built to support structured communications and next actions',
+      'Complements real-time monitoring and field coordination',
+    ],
+  },
+};
+
+const REACH_REGIONS = {
+  'pak-af': {
+    topline: 'Primary Depth',
+    title: 'Pakistan & Afghanistan',
+    body: 'Deep operational network. Senior regional advisory. Active monitoring.',
+    note: 'Securide24\'s Pakistan and Afghanistan capability is built from direct experience, not distance or database subscriptions.',
+    list: [
+      'Ground-informed context for movement and exposure.',
+      'Active watch logic around Islamabad and Lahore corridors.',
+      'Leadership-grade advisory presentation for complex visits.',
+    ],
+    stats: ['94', '24/7', 'UK'],
+  },
+  gulf: {
+    topline: 'Extended Reach',
+    title: 'Middle East & Gulf',
+    body: 'UAE, Saudi, Iraq, and Iran monitoring. Travel and protection coordination.',
+    note: 'Regional work across the Gulf and wider Middle East demands disciplined interpretation of spillover, access restrictions, and escalation risk.',
+    list: [
+      'Travel posture guidance across Gulf commercial hubs.',
+      'Protection coordination when exposure increases beyond routine.',
+      'Regional tension translated into executive movement decisions.',
+    ],
+    stats: ['4', 'Live', 'Regional'],
+  },
+  'south-asia': {
+    topline: 'Regional Reach',
+    title: 'Central & South Asia',
+    body: 'India, Central Asian states, and corridor monitoring across adjacent markets.',
+    note: 'This region demands differentiated posture, with corridor exposure, state-level variation, and travel logic framed into a disciplined advisory picture.',
+    list: [
+      'Country-by-country posture rather than broad regional generalisation.',
+      'Useful for multi-stop executive itineraries and investor travel.',
+      'Supports pre-entry review and movement planning across adjacent markets.',
+    ],
+    stats: ['3', 'Briefing', 'Corridor'],
+  },
+  uk: {
+    topline: 'HQ Governed',
+    title: 'United Kingdom',
+    body: 'Platform governed and headquartered. UK advisory operations base.',
+    note: 'From a UK-governed platform, Securide24 maintains the standards and professional conduct expected by executive clients and multinational organisations.',
+    list: [
+      'Governance, discretion, and professional conduct baseline.',
+      'London-based operating posture for international coordination.',
+      'Suitable hub for advisory continuity and executive escalation handling.',
+    ],
+    stats: ['UK', 'HQ', 'Governed'],
+  },
+  global: {
+    topline: 'Global Monitoring',
+    title: 'Global Advisory',
+    body: '94 countries monitored. International advisory networks activated on request.',
+    note: 'Global coverage is built around monitoring reach and decision support, with deeper concentration where Securide24 holds stronger practitioner access.',
+    list: [
+      'Monitoring footprint across 94 countries.',
+      'International advisory support available on request.',
+      'Depth varies by region and is communicated directly, not exaggerated.',
+    ],
+    stats: ['94', 'Global', 'On Request'],
+  },
+};
+
+function riskBg(color) {
+  const colorMap = {
+    '#e83a3a': 'rgba(232,58,58,0.18)',
+    '#e87a3a': 'rgba(232,122,58,0.15)',
+    '#e8c43a': 'rgba(232,196,58,0.12)',
+    '#3ae88a': 'rgba(58,232,138,0.10)',
+    '#4a9eff': 'rgba(74,158,255,0.12)',
   };
 
-  const activeMap = {
-    home: "home",
-    pillars: "pillars",
-    "risk-intelligence": "pillars",
-    "executive-mobility": "pillars",
-    "protective-coordination": "pillars",
-    "crisis-leadership": "pillars",
-    products: "products",
-    capabilities: "capabilities",
-    industries: "industries",
-    insights: "intelligence",
-    alerts: "intelligence",
-    "case-studies": "intelligence",
-    about: "about",
-    leadership: "about",
-    methodology: "about",
-    governance: "about",
-    contact: "contact"
-  };
+  return colorMap[color] || 'rgba(74,158,255,0.1)';
+}
 
-  const headerTarget = document.querySelector("[data-site-header]");
-  const footerTarget = document.querySelector("[data-site-footer]");
+function buildPopupHTML(country) {
+  return `<div class="lf-popup">
+    <div class="lf-popup-country">${country.name}</div>
+    <div class="lf-popup-risk" style="background:${riskBg(country.col)};color:${country.col};border:1px solid ${country.col}44;">
+      <span style="width:6px;height:6px;border-radius:50%;background:${country.col};display:inline-block;"></span>
+      ${country.risk} Risk
+    </div>
+    <div class="lf-popup-grid">
+      <div class="lf-popup-field">
+        <div class="lf-popup-label">Updated</div>
+        <div class="lf-popup-value">${country.time}</div>
+      </div>
+      <div class="lf-popup-field">
+        <div class="lf-popup-label">Active Signals</div>
+        <div class="lf-popup-value">${country.signals}</div>
+      </div>
+    </div>
+    <div class="lf-popup-field" style="margin-bottom:10px;">
+      <div class="lf-popup-label">Latest Alert</div>
+      <div class="lf-popup-value">${country.alert}</div>
+    </div>
+    <div class="lf-popup-view">${country.view}</div>
+    <button class="lf-popup-cta" onclick="openModal()">Request Country Brief →</button>
+  </div>`;
+}
 
-  const renderPanelLinks = (items) => items.map((item) => `
-    <a href="${item.href}">
-      <strong>${item.label}</strong>
-      <span>${item.meta}</span>
-    </a>`).join("");
-
-  if (headerTarget) {
-    headerTarget.innerHTML = `
-      <header class="site-header">
-        <div class="container">
-          <a class="brand" href="${root}index.html" aria-label="SECURIDE 24 home">
-            <span class="brand-mark">S24</span>
-            <span class="brand-copy">
-              <span>SECURIDE 24</span>
-              <small class="brand-context">Security &amp; risk consultancy</small>
-            </span>
-          </a>
-          <nav class="site-nav" aria-label="Primary">
-            <ul class="nav-list">
-              <li class="nav-item" data-nav="home"><a href="${root}index.html">Home</a></li>
-              <li class="nav-item" data-nav="pillars">
-                <a href="${root}pages/solutions/index.html">Advisory Pillars</a>
-                <div class="nav-panel">${renderPanelLinks(navGroups.pillars)}</div>
-              </li>
-              <li class="nav-item" data-nav="products"><a href="${root}pages/intelligence/index.html">Intelligence Products</a></li>
-              <li class="nav-item" data-nav="capabilities"><a href="${root}pages/capabilities/index.html">Capabilities</a></li>
-              <li class="nav-item" data-nav="industries"><a href="${root}pages/industries/index.html">Industries</a></li>
-              <li class="nav-item" data-nav="intelligence">
-                <a href="${root}pages/intelligence/insights.html">Intelligence</a>
-                <div class="nav-panel">${renderPanelLinks(navGroups.intelligence)}</div>
-              </li>
-              <li class="nav-item" data-nav="about">
-                <a href="${root}pages/about/index.html">About</a>
-                <div class="nav-panel">${renderPanelLinks(navGroups.about)}</div>
-              </li>
-              <li class="nav-item" data-nav="contact"><a href="${root}pages/contact/index.html">Contact</a></li>
-            </ul>
-          </nav>
-          <div class="nav-cta">
-            <a class="btn btn-primary" href="${root}pages/contact/index.html">Request Consultation</a>
-            <button class="mobile-toggle" type="button" aria-expanded="false" aria-controls="mobilePanel">
-              <span class="sr-only">Open menu</span>
-              <span class="mobile-toggle-lines" aria-hidden="true"><i></i><i></i><i></i></span>
-              <span class="mobile-toggle-text">Menu</span>
-            </button>
-          </div>
-        </div>
-        <div class="mobile-panel" id="mobilePanel">
-          <div class="container">
-            <div class="mobile-links">
-              <a href="${root}index.html">Home</a>
-              <a href="${root}pages/solutions/index.html">Advisory Pillars</a>
-              <a href="${root}pages/intelligence/index.html">Intelligence Products</a>
-              <a href="${root}pages/capabilities/index.html">Capabilities</a>
-              <a href="${root}pages/industries/index.html">Industries</a>
-              <a href="${root}pages/intelligence/insights.html">Intelligence</a>
-              <a href="${root}pages/about/index.html">About</a>
-              <a href="${root}pages/contact/index.html">Contact</a>
-            </div>
-          </div>
-        </div>
-      </header>`;
-
-    const header = headerTarget.querySelector(".site-header");
-    const activeKey = activeMap[page] || page;
-    const activeItem = headerTarget.querySelector(`[data-nav="${activeKey}"]`);
-    if (activeItem) activeItem.classList.add("is-active");
-
-    const syncHeaderState = () => {
-      header?.classList.toggle("is-scrolled", window.scrollY > 10);
-    };
-
-    syncHeaderState();
-    window.addEventListener("scroll", syncHeaderState, { passive: true });
-
-    const menuButton = headerTarget.querySelector(".mobile-toggle");
-    const mobilePanel = headerTarget.querySelector(".mobile-panel");
-    if (menuButton && mobilePanel) {
-      menuButton.addEventListener("click", () => {
-        const isOpen = mobilePanel.classList.toggle("is-open");
-        menuButton.setAttribute("aria-expanded", String(isOpen));
-        body.classList.toggle("menu-open", isOpen);
-      });
-
-      mobilePanel.querySelectorAll("a").forEach((link) => {
-        link.addEventListener("click", () => {
-          mobilePanel.classList.remove("is-open");
-          menuButton.setAttribute("aria-expanded", "false");
-          body.classList.remove("menu-open");
-        });
-      });
-    }
+function initLeafletMap() {
+  const mapElement = document.getElementById('leaflet-risk-map');
+  if (!mapElement || !window.L) {
+    return;
   }
 
-  if (footerTarget) {
-    const year = new Date().getFullYear();
-    footerTarget.innerHTML = `
-      <footer class="site-footer">
-        <div class="container">
-          <div class="footer-grid">
-            <section>
-              <h3>SECURIDE 24</h3>
-              <div class="footer-brand-block">
-                <p>Intelligence-led security and risk consultancy for executive movement, secure mobility planning, crisis readiness, and sensitive operating contexts.</p>
-                <div class="footer-signal-row"><span class="footer-signal"></span><span>London governance hub. Regional coordination depth in Pakistan and Afghanistan.</span></div>
-              </div>
-            </section>
-            <section>
-              <h4>Advisory</h4>
-              <ul class="footer-link-list">
-                <li><a href="${root}pages/solutions/risk-intelligence-monitoring.html">Risk Intelligence</a></li>
-                <li><a href="${root}pages/solutions/executive-mobility-secure-travel.html">Executive Mobility</a></li>
-                <li><a href="${root}pages/solutions/executive-protection-coordination.html">Protective Coordination</a></li>
-                <li><a href="${root}pages/solutions/crisis-response-incident-coordination.html">Crisis Leadership Support</a></li>
-              </ul>
-            </section>
-            <section>
-              <h4>Platform</h4>
-              <ul class="footer-link-list">
-                <li><a href="${root}pages/intelligence/index.html">Intelligence Products</a></li>
-                <li><a href="${root}pages/capabilities/index.html">Capabilities</a></li>
-                <li><a href="${root}pages/industries/index.html">Industries</a></li>
-                <li><a href="${root}pages/about/governance.html">Governance</a></li>
-              </ul>
-            </section>
-            <section>
-              <h4>Contact</h4>
-              <ul class="footer-link-list footer-contact-list">
-                <li><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 7h16v10H4z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"></path><path d="m5 8 7 5 7-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><a href="mailto:social@securide24.com">social@securide24.com</a></li>
-                <li><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M7 5h3l1.2 3.1-1.6 1.6a14 14 0 0 0 4.7 4.7l1.6-1.6L19 14v3c0 .6-.4 1-1 1A14 14 0 0 1 6 6c0-.6.4-1 1-1Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><a href="tel:+19145206519">+1 (914) 520-6519</a></li>
-                <li><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 6v6l4 2" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.7"></circle></svg></span><span>Response rhythm: within one business day</span></li>
-                <li><span class="footer-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 5 7v5c0 4.1 2.6 7.7 7 9 4.4-1.3 7-4.9 7-9V7l-7-4Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"></path></svg></span><span>Urgent requests prioritized for consultancy review</span></li>
-              </ul>
-            </section>
-          </div>
-          <div class="footer-bottom">
-            <span>&copy; <span id="footerYear">${year}</span> SECURIDE 24. All rights reserved.</span>
-            <span>Strategic consultancy. Discreet coordination. Clear escalation paths.</span>
-          </div>
-        </div>
-      </footer>`;
-  }
+  const map = L.map('leaflet-risk-map', {
+    center: [25, 45],
+    zoom: 3,
+    minZoom: 2,
+    maxZoom: 7,
+    zoomControl: true,
+    scrollWheelZoom: false,
+    attributionControl: false,
+  });
 
-  document.querySelectorAll(".faq-trigger").forEach((button) => {
-    button.addEventListener("click", () => {
-      const item = button.closest(".faq-item");
-      item?.classList.toggle("is-open");
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+    subdomains: 'abcd',
+    maxZoom: 19,
+  }).addTo(map);
+
+  COUNTRIES.forEach((country) => {
+    const icon = L.divIcon({
+      className: '',
+      html: `<div class="risk-marker-pulse" style="background:${country.col};color:${country.col};box-shadow:0 0 10px ${country.col}66;"></div>`,
+      iconSize: [14, 14],
+      iconAnchor: [7, 7],
+    });
+
+    const marker = L.marker([country.lat, country.lng], { icon }).addTo(map);
+    marker.bindPopup(buildPopupHTML(country), {
+      maxWidth: 280,
+      minWidth: 260,
+      closeButton: true,
+      autoPanPaddingTopLeft: [20, 80],
+      autoPanPaddingBottomRight: [20, 20],
+    });
+
+    marker.on('click', () => {
+      map.closePopup();
+      marker.openPopup();
     });
   });
 
-  document.querySelectorAll("[data-filter-group]").forEach((group) => {
-    const buttons = group.querySelectorAll(".filter-button");
-    const target = document.querySelector(group.dataset.filterGroup);
-    if (!target) return;
+  const routeCoordinates = [
+    [51.5, -0.12],
+    [41.0, 28.9],
+    [35.0, 48.0],
+    [33.7, 73.1],
+  ];
 
-    const cards = target.querySelectorAll(".filter-card");
-    buttons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const value = button.dataset.filterTarget;
-        buttons.forEach((btn) => btn.classList.remove("is-active"));
-        button.classList.add("is-active");
-        cards.forEach((card) => {
-          const matches = value === "all" || (card.dataset.category || "").includes(value);
-          card.classList.toggle("is-hidden", !matches);
-        });
-      });
-    });
-  });
+  L.polyline(routeCoordinates, {
+    color: '#4a9eff',
+    weight: 1,
+    opacity: 0.35,
+    dashArray: '6, 6',
+  }).addTo(map);
 
-  const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const mobileHeroVideoQuery = window.matchMedia("(max-width: 720px)");
-  const prefersReducedMotion = reducedMotionQuery.matches;
+  map.on('focus', () => map.scrollWheelZoom.enable());
+  map.on('blur', () => map.scrollWheelZoom.disable());
+}
 
-  const syncMediaQueryListener = (mediaQuery, callback) => {
-    if (typeof mediaQuery.addEventListener === "function") {
-      mediaQuery.addEventListener("change", callback);
-    } else if (typeof mediaQuery.addListener === "function") {
-      mediaQuery.addListener(callback);
-    }
-  };
+function resetModalState() {
+  const form = document.getElementById('consultForm');
+  const formBody = document.getElementById('modalFormBody');
+  const success = document.getElementById('formSuccess');
+  const submitButton = document.getElementById('formSubmitBtn');
 
-  const playLoopVideo = (video) => {
-    if (!video) return;
-
-    const playPromise = video.play();
-    if (playPromise && typeof playPromise.catch === "function") {
-      playPromise.catch(() => {
-        video.classList.add("is-fallback");
-      });
-    }
-  };
-
-  const heroSlides = Array.from(document.querySelectorAll("[data-hero-slide]"));
-  const heroDots = Array.from(document.querySelectorAll("[data-hero-dot]"));
-  const heroVideos = heroSlides.map((slide) => slide.querySelector(".hero-slide-video")).filter(Boolean);
-  const heroTitle = document.querySelector("[data-hero-title]");
-  const heroCurrent = document.querySelector("[data-hero-current]");
-  const heroTotal = document.querySelector("[data-hero-total]");
-  const heroSliderTimingMs = 7600;
-
-  if (heroSlides.length && heroDots.length === heroSlides.length) {
-    let activeHeroIndex = 0;
-    let heroSliderIntervalId = null;
-
-    if (heroTotal) {
-      heroTotal.textContent = String(heroSlides.length).padStart(2, "0");
-    }
-
-    const syncHeroVideoSource = (video) => {
-      const heroSource = video?.querySelector("source");
-      if (!video || !heroSource) return;
-
-      const desktopSource = video.dataset.desktopSrc || heroSource.getAttribute("src") || "";
-      const mobileSource = video.dataset.mobileSrc || desktopSource;
-      const nextSource = mobileHeroVideoQuery.matches ? mobileSource : desktopSource;
-
-      if (!nextSource || heroSource.getAttribute("src") === nextSource) {
-        return;
-      }
-
-      heroSource.setAttribute("src", nextSource);
-      video.load();
-    };
-
-    const syncHeroVideos = () => {
-      heroVideos.forEach((video, index) => {
-        syncHeroVideoSource(video);
-
-        if (reducedMotionQuery.matches || index !== activeHeroIndex) {
-          video.pause();
-          if (index !== activeHeroIndex) {
-            video.currentTime = 0;
-          }
-          return;
-        }
-
-        playLoopVideo(video);
-      });
-    };
-
-    const showHeroSlide = (index) => {
-      activeHeroIndex = (index + heroSlides.length) % heroSlides.length;
-      const activeSlide = heroSlides[activeHeroIndex];
-
-      heroSlides.forEach((slide, slideIndex) => {
-        slide.classList.toggle("is-active", slideIndex === activeHeroIndex);
-      });
-
-      heroDots.forEach((dot, dotIndex) => {
-        const isActive = dotIndex === activeHeroIndex;
-        dot.classList.toggle("is-active", isActive);
-        dot.setAttribute("aria-selected", String(isActive));
-      });
-
-      if (heroTitle) {
-        heroTitle.textContent = activeSlide?.dataset.title || "";
-      }
-
-      if (heroCurrent) {
-        heroCurrent.textContent = String(activeHeroIndex + 1).padStart(2, "0");
-      }
-
-      syncHeroVideos();
-    };
-
-    const restartHeroAutoplay = () => {
-      if (heroSliderIntervalId) {
-        window.clearInterval(heroSliderIntervalId);
-      }
-
-      if (reducedMotionQuery.matches) {
-        return;
-      }
-
-      heroSliderIntervalId = window.setInterval(() => {
-        showHeroSlide(activeHeroIndex + 1);
-      }, heroSliderTimingMs);
-    };
-
-    heroDots.forEach((dot, index) => {
-      dot.addEventListener("click", () => {
-        showHeroSlide(index);
-        restartHeroAutoplay();
-      });
-    });
-
-    showHeroSlide(0);
-    restartHeroAutoplay();
-
-    syncMediaQueryListener(mobileHeroVideoQuery, () => {
-      syncHeroVideos();
-    });
-
-    syncMediaQueryListener(reducedMotionQuery, () => {
-      syncHeroVideos();
-      restartHeroAutoplay();
-    });
-
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden) {
-        heroVideos.forEach((video) => video.pause());
-        return;
-      }
-
-      syncHeroVideos();
-      restartHeroAutoplay();
-    });
+  if (form) {
+    form.reset();
   }
 
-  const productVideos = Array.from(document.querySelectorAll(".product-loop-video, .reach-loop-video"));
-  const syncProductVideoState = (shouldPlay) => {
-    productVideos.forEach((video) => {
-      if (!shouldPlay) {
-        video.pause();
-        return;
-      }
+  if (formBody) {
+    formBody.style.display = 'block';
+  }
 
-      playLoopVideo(video);
-    });
-  };
+  if (success) {
+    success.classList.remove('show');
+  }
 
-  syncMediaQueryListener(reducedMotionQuery, (event) => {
-    syncProductVideoState(!event.matches);
+  if (submitButton) {
+    submitButton.disabled = false;
+    submitButton.textContent = 'Submit Confidential Enquiry';
+  }
+}
+
+function openModal() {
+  const modal = document.getElementById('consultModal');
+  if (!modal) {
+    return;
+  }
+
+  resetModalState();
+  modal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  const modal = document.getElementById('consultModal');
+  if (!modal) {
+    return;
+  }
+
+  modal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function showSuccess() {
+  const formBody = document.getElementById('modalFormBody');
+  const success = document.getElementById('formSuccess');
+
+  if (formBody) {
+    formBody.style.display = 'none';
+  }
+
+  if (success) {
+    success.classList.add('show');
+  }
+}
+
+function setFilter(button, category) {
+  document.querySelectorAll('.risk-filter-btn').forEach((filterButton) => {
+    filterButton.classList.remove('active');
   });
+  button.classList.add('active');
 
-  if (!prefersReducedMotion && "IntersectionObserver" in window) {
-    const motionTargets = document.querySelectorAll(".section-heading, .architecture-card, .proof-item, .service-card, .product-card, .case-card, .expert-card, .process-step, .reach-node, .operational-reach-media, .cta-band, .value-card, .surface-card");
-    const observer = new IntersectionObserver((entries, obs) => {
+  const feedItems = document.querySelectorAll('.feed-item');
+  feedItems.forEach((feedItem) => {
+    const categories = (feedItem.dataset.category || '').split(' ').filter(Boolean);
+    const shouldShow = category === 'all' || categories.includes(category);
+    feedItem.style.display = shouldShow ? '' : 'none';
+  });
+}
+
+function updateTime() {
+  const now = new Date();
+  const timeText = [
+    String(now.getHours()).padStart(2, '0'),
+    String(now.getMinutes()).padStart(2, '0'),
+    String(now.getSeconds()).padStart(2, '0'),
+  ].join(':');
+
+  const timeNodes = document.querySelectorAll('#refreshTime, .js-live-time');
+  if (!timeNodes.length) {
+    return;
+  }
+
+  timeNodes.forEach((timeNode) => {
+    timeNode.textContent = timeText;
+  });
+}
+
+function initAnimations() {
+  const animatedNodes = document.querySelectorAll('.fade-up');
+  if (!animatedNodes.length) {
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
       entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("is-visible");
-        obs.unobserve(entry.target);
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
       });
-    }, { threshold: 0.14, rootMargin: "0px 0px -40px 0px" });
+    },
+    { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+  );
 
-    motionTargets.forEach((element, index) => {
-      element.classList.add("motion-ready");
-      element.style.transitionDelay = `${Math.min(index % 4, 3) * 70}ms`;
-      observer.observe(element);
-    });
+  animatedNodes.forEach((node) => observer.observe(node));
+}
+
+function initFeedInteractions() {
+  const feedInner = document.getElementById('alertFeed');
+  if (!feedInner || !feedInner.parentElement) {
+    return;
   }
 
-  if (!prefersReducedMotion && window.matchMedia("(pointer: fine)").matches) {
-    const tiltTargets = document.querySelectorAll(".pillar-card, .product-card, .case-card, .leader-card, .proof-item");
-    tiltTargets.forEach((card) => {
-      let frame = null;
+  feedInner.parentElement.addEventListener('mouseenter', () => {
+    feedInner.style.animationPlayState = 'paused';
+  });
 
-      card.addEventListener("mousemove", (event) => {
-        const bounds = card.getBoundingClientRect();
-        const x = (event.clientX - bounds.left) / bounds.width;
-        const y = (event.clientY - bounds.top) / bounds.height;
-        const rotateY = (x - 0.5) * 5;
-        const rotateX = (0.5 - y) * 4;
+  feedInner.parentElement.addEventListener('mouseleave', () => {
+    feedInner.style.animationPlayState = 'running';
+  });
 
-        if (frame) cancelAnimationFrame(frame);
-        frame = requestAnimationFrame(() => {
-          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-4px)`;
-        });
-      });
+  feedInner.addEventListener('click', () => {
+    const isPaused = feedInner.style.animationPlayState === 'paused';
+    feedInner.style.animationPlayState = isPaused ? 'running' : 'paused';
+  });
+}
 
-      card.addEventListener("mouseleave", () => {
-        if (frame) cancelAnimationFrame(frame);
-        card.style.transform = "";
-      });
-    });
+function initHeroSlider() {
+  const slider = document.getElementById('heroSlider');
+  if (!slider) {
+    return;
   }
 
-  if (!prefersReducedMotion && window.matchMedia("(pointer: fine)").matches) {
-    const depthSurfaces = document.querySelectorAll("[data-depth-surface]:not(.proof-item), .operational-reach-media");
-    depthSurfaces.forEach((surface) => {
-      let frame = null;
+  const slides = Array.from(slider.querySelectorAll('[data-hero-slide]'));
+  const dots = Array.from(slider.querySelectorAll('[data-hero-dot]'));
+  const progressBar = document.getElementById('heroSliderProgress');
+  const prevButton = slider.querySelector('[data-hero-prev]');
+  const nextButton = slider.querySelector('[data-hero-next]');
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let activeIndex = 0;
+  let autoplayHandle = null;
 
-      surface.addEventListener("mousemove", (event) => {
-        const bounds = surface.getBoundingClientRect();
-        const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 8;
-        const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 6;
+  const syncVideos = () => {
+    slides.forEach((slide, index) => {
+      const video = slide.querySelector('video');
+      if (!video) {
+        return;
+      }
 
-        if (frame) cancelAnimationFrame(frame);
-        frame = requestAnimationFrame(() => {
-          surface.style.transform = `translate3d(${x * 0.18}px, ${y * 0.18}px, 0)`;
-        });
-      });
-
-      surface.addEventListener("mouseleave", () => {
-        if (frame) cancelAnimationFrame(frame);
-        surface.style.transform = "";
-      });
+      if (index === activeIndex) {
+        const playPromise = video.play();
+        if (playPromise && typeof playPromise.catch === 'function') {
+          playPromise.catch(() => {});
+        }
+      } else {
+        video.pause();
+        video.currentTime = 0;
+      }
     });
-  }
+  };
 
-  if (!prefersReducedMotion) {
-    // Intelligence Products — subtle live status animation logic
-    const liveCards = Array.from(document.querySelectorAll("[data-live-surface]"));
-
-    liveCards.forEach((card, index) => {
-      card.style.animationDelay = `${index * 0.35}s`;
+  const renderActiveSlide = (index) => {
+    activeIndex = (index + slides.length) % slides.length;
+    slides.forEach((slide, slideIndex) => {
+      slide.classList.toggle('is-active', slideIndex === activeIndex);
     });
+    dots.forEach((dot, dotIndex) => {
+      dot.classList.toggle('is-active', dotIndex === activeIndex);
+    });
+    if (progressBar) {
+      progressBar.style.transform = `translateX(${activeIndex * 100}%)`;
+    }
+    syncVideos();
+  };
 
-    syncProductVideoState(true);
+  const stopAutoplay = () => {
+    if (autoplayHandle) {
+      window.clearInterval(autoplayHandle);
+      autoplayHandle = null;
+    }
+  };
 
-    if (liveCards.length > 1) {
-      let activeIndex = 0;
-      liveCards[0].classList.add("is-live-focus");
-
-      window.setInterval(() => {
-        liveCards[activeIndex]?.classList.remove("is-live-focus");
-        activeIndex = (activeIndex + 1) % liveCards.length;
-        liveCards[activeIndex]?.classList.add("is-live-focus");
-      }, 3200);
+  const startAutoplay = () => {
+    if (prefersReducedMotion) {
+      return;
     }
 
-    if (window.matchMedia("(pointer: fine)").matches) {
-      liveCards.forEach((card) => {
-        const visual = card.querySelector(".product-visual");
-        if (!visual) return;
+    stopAutoplay();
+    autoplayHandle = window.setInterval(() => {
+      renderActiveSlide(activeIndex + 1);
+    }, 5200);
+  };
 
-        let frame = null;
-        card.addEventListener("mousemove", (event) => {
-          const bounds = card.getBoundingClientRect();
-          const x = ((event.clientX - bounds.left) / bounds.width - 0.5) * 10;
-          const y = ((event.clientY - bounds.top) / bounds.height - 0.5) * 8;
+  prevButton?.addEventListener('click', () => {
+    renderActiveSlide(activeIndex - 1);
+    startAutoplay();
+  });
 
-          if (frame) cancelAnimationFrame(frame);
-          frame = requestAnimationFrame(() => {
-            visual.style.transform = `translate3d(${x * 0.4}px, ${y * 0.35}px, 0)`;
-          });
-        });
+  nextButton?.addEventListener('click', () => {
+    renderActiveSlide(activeIndex + 1);
+    startAutoplay();
+  });
 
-        card.addEventListener("mouseleave", () => {
-          if (frame) cancelAnimationFrame(frame);
-          visual.style.transform = "";
-        });
-      });
-    }
-  } else {
-    syncProductVideoState(false);
-  }
-
-  const contactForm = document.querySelector("#consultationForm");
-  const successMessage = document.querySelector("#formSuccess");
-  if (contactForm && successMessage) {
-    contactForm.addEventListener("submit", (event) => {
-      event.preventDefault();
-      successMessage.classList.add("is-visible");
-      contactForm.reset();
+  dots.forEach((dot) => {
+    dot.addEventListener('click', () => {
+      renderActiveSlide(Number(dot.dataset.heroDot));
+      startAutoplay();
     });
+  });
+
+  slider.addEventListener('mouseenter', stopAutoplay);
+  slider.addEventListener('mouseleave', startAutoplay);
+
+  renderActiveSlide(0);
+  startAutoplay();
+}
+
+function initPlatformModules() {
+  const buttons = Array.from(document.querySelectorAll('.platform-module'));
+  const label = document.getElementById('platformFeatureLabel');
+  const title = document.getElementById('platformFeatureTitle');
+  const text = document.getElementById('platformFeatureText');
+  const list = document.getElementById('platformFeatureList');
+
+  if (!buttons.length || !label || !title || !text || !list) {
+    return;
   }
+
+  const renderFeature = (featureKey) => {
+    const feature = PLATFORM_FEATURES[featureKey];
+    if (!feature) {
+      return;
+    }
+
+    buttons.forEach((button) => {
+      button.classList.toggle('is-active', button.dataset.module === featureKey);
+    });
+
+    label.textContent = feature.label;
+    title.textContent = feature.title;
+    text.textContent = feature.text;
+    list.innerHTML = feature.items.map((item) => `<div class="intel-signal">${item}</div>`).join('');
+  };
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => renderFeature(button.dataset.module));
+  });
+
+  renderFeature('briefings');
+}
+
+function initReachInterface() {
+  const buttons = Array.from(document.querySelectorAll('.reach-tab'));
+  const nodes = Array.from(document.querySelectorAll('[data-region-node]'));
+  const topline = document.getElementById('reachTopline');
+  const title = document.getElementById('reachTitle');
+  const body = document.getElementById('reachBody');
+  const note = document.getElementById('reachNote');
+  const list = document.getElementById('reachList');
+  const statOne = document.getElementById('reachStatOne');
+  const statTwo = document.getElementById('reachStatTwo');
+  const statThree = document.getElementById('reachStatThree');
+
+  if (!buttons.length || !topline || !title || !body || !note || !list || !statOne || !statTwo || !statThree) {
+    return;
+  }
+
+  const renderRegion = (regionKey) => {
+    const region = REACH_REGIONS[regionKey];
+    if (!region) {
+      return;
+    }
+
+    buttons.forEach((button) => {
+      button.classList.toggle('is-active', button.dataset.region === regionKey);
+    });
+    nodes.forEach((node) => {
+      node.classList.toggle('is-active', node.dataset.regionNode === regionKey);
+    });
+
+    topline.textContent = region.topline;
+    title.textContent = region.title;
+    body.textContent = region.body;
+    note.textContent = region.note;
+    list.innerHTML = region.list.map((item) => `<li>${item}</li>`).join('');
+    [statOne.textContent, statTwo.textContent, statThree.textContent] = region.stats;
+  };
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => renderRegion(button.dataset.region));
+  });
+
+  renderRegion('pak-af');
+}
+
+function initNavigationMenus() {
+  const navRoot = document.querySelector('[data-nav-root]');
+  const navToggle = document.querySelector('[data-nav-toggle]');
+  const navPanel = document.querySelector('[data-nav-panel]');
+  const navItems = Array.from(document.querySelectorAll('[data-nav-item]'));
+  const navTriggers = Array.from(document.querySelectorAll('[data-nav-trigger]'));
+
+  if (!navRoot || !navToggle || !navPanel || !navItems.length) {
+    return;
+  }
+
+  const mobileQuery = window.matchMedia('(max-width: 820px)');
+
+  const closeAllDropdowns = () => {
+    navItems.forEach((navItem) => {
+      navItem.classList.remove('is-open');
+      const trigger = navItem.querySelector('[data-nav-trigger]');
+      if (trigger) {
+        trigger.setAttribute('aria-expanded', 'false');
+      }
+    });
+  };
+
+  const closeNavPanel = () => {
+    navRoot.classList.remove('is-open');
+    navToggle.setAttribute('aria-expanded', 'false');
+    closeAllDropdowns();
+  };
+
+  navToggle.addEventListener('click', () => {
+    const nextState = !navRoot.classList.contains('is-open');
+    navRoot.classList.toggle('is-open', nextState);
+    navToggle.setAttribute('aria-expanded', String(nextState));
+    if (!nextState) {
+      closeAllDropdowns();
+    }
+  });
+
+  navTriggers.forEach((navTrigger) => {
+    navTrigger.addEventListener('click', () => {
+      if (!mobileQuery.matches) {
+        return;
+      }
+
+      const parentItem = navTrigger.closest('[data-nav-item]');
+      if (!parentItem) {
+        return;
+      }
+
+      const nextState = !parentItem.classList.contains('is-open');
+      closeAllDropdowns();
+      parentItem.classList.toggle('is-open', nextState);
+      navTrigger.setAttribute('aria-expanded', String(nextState));
+    });
+  });
+
+  navPanel.querySelectorAll('a').forEach((navLink) => {
+    navLink.addEventListener('click', () => {
+      if (mobileQuery.matches) {
+        closeNavPanel();
+      }
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!navRoot.contains(event.target)) {
+      closeAllDropdowns();
+      if (mobileQuery.matches) {
+        navRoot.classList.remove('is-open');
+        navToggle.setAttribute('aria-expanded', 'false');
+      }
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (!mobileQuery.matches) {
+      navRoot.classList.remove('is-open');
+      navToggle.setAttribute('aria-expanded', 'false');
+      closeAllDropdowns();
+    }
+  });
+}
+
+function initModalInteractions() {
+  const overlay = document.getElementById('consultModal');
+  if (!overlay) {
+    return;
+  }
+
+  overlay.addEventListener('click', (event) => {
+    if (event.target === overlay) {
+      closeModal();
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeModal();
+    }
+  });
+}
+
+function initFormSubmission() {
+  const form = document.getElementById('consultForm');
+  if (!form) {
+    return;
+  }
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const submitButton = document.getElementById('formSubmitBtn');
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = 'Submitting…';
+    }
+
+    const FORM_ENDPOINT = 'https://formspree.io/f/YOUR_FORM_ID';
+    const formData = new FormData(form);
+    const payload = Object.fromEntries(formData.entries());
+
+    try {
+      if (FORM_ENDPOINT.includes('YOUR_FORM_ID')) {
+        await new Promise((resolve) => setTimeout(resolve, 900));
+        showSuccess();
+        return;
+      }
+
+      const response = await fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error('Submission failed');
+      }
+
+      showSuccess();
+    } catch (error) {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = 'Submit Confidential Enquiry';
+      }
+      alert('There was a problem submitting your enquiry. Please email advisory@securide24.com directly.');
+    }
+  });
+}
+
+function initNavScrollEffect() {
+  const nav = document.querySelector('nav');
+  if (!nav) {
+    return;
+  }
+
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 40 ? 'rgba(5,13,26,0.98)' : 'rgba(5,13,26,0.92)';
+  });
+}
+
+function initClock() {
+  updateTime();
+  window.setInterval(updateTime, 1000);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initLeafletMap();
+  initAnimations();
+  initFeedInteractions();
+  initHeroSlider();
+  initPlatformModules();
+  initReachInterface();
+  initNavigationMenus();
+  initModalInteractions();
+  initFormSubmission();
+  initNavScrollEffect();
+  initClock();
 });
+
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.setFilter = setFilter;

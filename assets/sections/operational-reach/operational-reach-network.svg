@@ -1,0 +1,33 @@
+<svg width="1400" height="920" viewBox="0 0 1400 920" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1400" height="920" rx="32" fill="#F3F5F1"/>
+  <rect x="52" y="52" width="1296" height="816" rx="28" fill="#FFFFFF" stroke="#D8DED8"/>
+  <g opacity="0.2" stroke="#94A9B8">
+    <path d="M138 226H1262"/>
+    <path d="M138 420H1262"/>
+    <path d="M138 614H1262"/>
+    <path d="M320 118V790"/>
+    <path d="M596 118V790"/>
+    <path d="M872 118V790"/>
+    <path d="M1148 118V790"/>
+  </g>
+  <g opacity="0.18" fill="#193149">
+    <path d="M222 352L318 286L402 294L470 254L560 260L650 236L746 250L844 232L944 252L1048 298L1118 364L1088 438L986 434L910 454L844 452L782 480L724 488L642 474L570 492L492 474L420 486L338 448L262 420L222 352Z"/>
+    <path d="M678 574L742 550L806 562L892 534L968 550L1040 600L1044 652L984 676L918 680L850 720L792 722L730 690L678 626L678 574Z"/>
+  </g>
+  <path d="M470 246L734 470L922 324L1112 612" stroke="#6CB1F5" stroke-width="5" stroke-dasharray="11 16" stroke-linecap="round"/>
+  <path d="M316 176L470 246L734 470L922 324" stroke="#E4B84C" stroke-width="3" stroke-dasharray="8 14" stroke-linecap="round"/>
+  <g>
+    <circle cx="470" cy="246" r="18" fill="#F25F5C"/>
+    <circle cx="734" cy="470" r="15" fill="#6CB1F5"/>
+    <circle cx="922" cy="324" r="14" fill="#193149"/>
+    <circle cx="1112" cy="612" r="14" fill="#67D390"/>
+    <circle cx="316" cy="176" r="12" fill="#E4B84C"/>
+  </g>
+  <g fill="#193149" font-family="Cormorant Garamond, serif" font-size="34">
+    <text x="430" y="220">Pakistan &amp; Afghanistan</text>
+    <text x="670" y="446">Middle East &amp; Gulf</text>
+    <text x="864" y="298">Central &amp; South Asia</text>
+    <text x="1060" y="660">Global Advisory</text>
+    <text x="256" y="146">United Kingdom</text>
+  </g>
+</svg>

@@ -1,0 +1,37 @@
+<svg width="1400" height="1000" viewBox="0 0 1400 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1400" height="1000" rx="34" fill="#0D1825"/>
+  <rect x="52" y="52" width="1296" height="896" rx="28" fill="#101E2C" stroke="#23384A"/>
+  <rect x="94" y="94" width="1212" height="70" rx="18" fill="#132436"/>
+  <circle cx="134" cy="129" r="7" fill="#67D390"/>
+  <text x="160" y="135" fill="#E7EDF5" font-family="JetBrains Mono, monospace" font-size="18" letter-spacing="1.6">INTELLIGENCE PLATFORM</text>
+  <g>
+    <rect x="94" y="202" width="322" height="654" rx="24" fill="#132436"/>
+    <rect x="126" y="246" width="258" height="90" rx="18" fill="#183047"/>
+    <rect x="126" y="356" width="258" height="90" rx="18" fill="#132B40"/>
+    <rect x="126" y="466" width="258" height="90" rx="18" fill="#132B40"/>
+    <rect x="126" y="576" width="258" height="90" rx="18" fill="#132B40"/>
+    <rect x="126" y="686" width="258" height="90" rx="18" fill="#132B40"/>
+  </g>
+  <g>
+    <rect x="452" y="202" width="854" height="392" rx="24" fill="#132436"/>
+    <path d="M500 506C590 446 682 424 764 384C830 352 894 316 980 268C1044 232 1126 232 1238 228" stroke="url(#trace)" stroke-width="6" stroke-linecap="round" stroke-dasharray="10 14"/>
+    <circle cx="764" cy="384" r="14" fill="#F25F5C"/>
+    <circle cx="980" cy="268" r="12" fill="#6CB1F5"/>
+    <circle cx="622" cy="438" r="10" fill="#E4B84C"/>
+    <rect x="500" y="240" width="164" height="42" rx="21" fill="#1B344A"/>
+    <text x="530" y="266" fill="#E7EDF5" font-family="JetBrains Mono, monospace" font-size="15" letter-spacing="1.4">LIVE LAYER</text>
+  </g>
+  <g>
+    <rect x="452" y="624" width="854" height="232" rx="24" fill="#132436"/>
+    <rect x="490" y="668" width="230" height="146" rx="18" fill="#183047"/>
+    <rect x="748" y="668" width="230" height="146" rx="18" fill="#183047"/>
+    <rect x="1006" y="668" width="262" height="146" rx="18" fill="#183047"/>
+  </g>
+  <defs>
+    <linearGradient id="trace" x1="500" y1="506" x2="1238" y2="228" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6CB1F5" stop-opacity="0"/>
+      <stop offset="0.48" stop-color="#6CB1F5"/>
+      <stop offset="1" stop-color="#E4B84C" stop-opacity="0.85"/>
+    </linearGradient>
+  </defs>
+</svg>
