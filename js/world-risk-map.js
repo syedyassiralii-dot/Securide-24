@@ -307,6 +307,10 @@ function hideTooltip() {
   getTooltip().style.display = 'none';
 }
 
+function getMapRootElement() {
+  return document.querySelector('[data-live-intel-map]') || document.getElementById('worldRiskMap');
+}
+
 function getCountryFill(numericId) {
   var a2 = ISO_N[numericId];
   return (a2 && COUNTRY_DATA[a2]) ? COUNTRY_DATA[a2].color : DEFAULT_FILL;
@@ -349,12 +353,15 @@ function focusCountryById(numericId) {
 
 // --- Map ---------------------------------------------------------------------
 function initWorldRiskMap() {
-  var el = document.getElementById('worldRiskMap');
+  var el = getMapRootElement();
   if (!el || typeof d3 === 'undefined' || typeof topojson === 'undefined') return;
+
+  el.innerHTML = '';
+  countryNodes = {};
 
   var W = 960, H = 500;
 
-  var svg = d3.select('#worldRiskMap')
+  var svg = d3.select(el)
     .append('svg')
     .attr('viewBox', '0 0 ' + W + ' ' + H)
     .attr('preserveAspectRatio', 'xMidYMid meet')
@@ -490,8 +497,22 @@ function initWorldRiskMap() {
             hideTooltip();
           });
       }
+
+      window.dispatchEvent(new CustomEvent('live-intel-map:ready', {
+        detail: {
+          countryCount: features.length,
+          renderedAt: Date.now()
+        }
+      }));
     })
-    .catch(function(err) { console.warn('World map failed to load:', err); });
+    .catch(function(err) {
+      console.warn('World map failed to load:', err);
+      window.dispatchEvent(new CustomEvent('live-intel-map:error', {
+        detail: {
+          message: err && err.message ? err.message : 'World map failed to load.'
+        }
+      }));
+    });
 }
 
 // --- Search ------------------------------------------------------------------
@@ -561,7 +582,7 @@ function initCountrySearch() {
 
 // --- Boot --------------------------------------------------------------------
 function bootWorldRiskMap() {
-  if (document.getElementById('worldRiskMap')) {
+  if (getMapRootElement()) {
     initWorldRiskMap();
     initCountrySearch();
   }
