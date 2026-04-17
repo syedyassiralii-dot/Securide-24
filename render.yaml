@@ -1,0 +1,52 @@
+services:
+  - type: web
+    name: securide24-clone
+    env: static
+    plan: free
+    buildCommand: ""
+    staticPublishPath: .
+    pullRequestPreviewsEnabled: false
+    routes:
+      - type: rewrite
+        source: /about
+        destination: /about/index.html
+      - type: rewrite
+        source: /contact
+        destination: /contact/index.html
+      - type: rewrite
+        source: /insights
+        destination: /insights/index.html
+      - type: rewrite
+        source: /platform
+        destination: /platform/index.html
+      - type: rewrite
+        source: /services
+        destination: /services/index.html
+      - type: rewrite
+        source: /about/*
+        destination: /about/:splat
+      - type: rewrite
+        source: /contact/*
+        destination: /contact/:splat
+      - type: rewrite
+        source: /insights/*
+        destination: /insights/:splat
+      - type: rewrite
+        source: /platform/*
+        destination: /platform/:splat
+      - type: rewrite
+        source: /services/*
+        destination: /services/:splat
+    headers:
+      - path: /**/*.html
+        name: Cache-Control
+        value: no-cache
+      - path: /assets/**
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /css/**
+        name: Cache-Control
+        value: public, max-age=604800
+      - path: /js/**
+        name: Cache-Control
+        value: public, max-age=604800
