@@ -1,5 +1,7 @@
 'use strict';
 
+require('dotenv').config();
+
 const express = require('express');
 const path = require('path');
 
@@ -239,12 +241,8 @@ app.get('/api/risk-alerts', async (req, res) => {
     return res.status(500).json({ error: 'NEWSDATA_API_KEY environment variable is not set.' });
   }
 
-  // Focused query: geo-priority regions AND security/disruption keywords
-  const query = [
-    '(Pakistan OR Afghanistan OR Iraq OR Iran OR UAE OR "Saudi Arabia" OR Doha OR Kabul OR Islamabad OR Lahore OR Karachi)',
-    'AND',
-    '(protest OR attack OR explosion OR terrorism OR unrest OR riot OR flood OR earthquake OR checkpoint OR border OR military OR evacuation OR kidnapping OR "road closure" OR "airport" OR "security warning")',
-  ].join(' ');
+  // Keep the free-tier NewsData query below the 100-character limit.
+  const query = '(Pakistan OR Afghanistan OR Iraq OR Iran OR UAE) AND (attack OR protest OR unrest OR border)';
 
   const url = new URL('https://newsdata.io/api/1/latest');
   url.searchParams.set('apikey', apiKey);
