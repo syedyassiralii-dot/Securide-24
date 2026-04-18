@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node --check /c/Data/VSC/Securide24Clone/js/app.js)"
+    ]
+  }
+}

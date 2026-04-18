@@ -250,6 +250,277 @@ function initLeafletMap() {
 
   map.on('focus', () => map.scrollWheelZoom.enable());
   map.on('blur', () => map.scrollWheelZoom.disable());
+
+  // Expose map globally so live alert markers can be added after fetch
+  window.riskMap = map;
+}
+
+// ---------------------------------------------------------------------------
+// Live Alerts — fetch, render, and refresh
+// ---------------------------------------------------------------------------
+
+let _liveAlertMarkers = [];
+let _currentAlertFilter = 'all';
+
+const SEV_CLASS  = { critical: 'sev-critical', high: 'sev-high', medium: 'sev-medium', monitor: 'sev-low' };
+const SEV_LABEL  = { critical: 'Critical',     high: 'High',     medium: 'Medium',     monitor: 'Monitor' };
+const SEV_COLOR  = { critical: '#e83a3a',       high: '#e87a3a',  medium: '#e8c43a',    monitor: '#4a9eff' };
+
+const TAG_CATEGORY = {
+  'Civil Unrest':      'unrest',
+  'Travel Impact':     'travel route',
+  'Security Incident': 'route unrest',
+  'Environmental':     'seismic',
+  'General Alert':     'general',
+};
+
+function tagsToCategory(tags) {
+  const cats = new Set(['general']);
+  tags.forEach((tag) => {
+    (TAG_CATEGORY[tag] || 'general').split(' ').forEach((c) => cats.add(c));
+  });
+  return [...cats].join(' ');
+}
+
+function locationLabel(alert) {
+  if (alert.geo && alert.countryCode) return `${alert.geo.place.toUpperCase()} · ${alert.countryCode}`;
+  if (alert.geo)                       return alert.geo.place.toUpperCase();
+  if (alert.countryCode)               return alert.countryCode;
+  return '—';
+}
+
+function truncate(str, max) {
+  return str && str.length > max ? str.slice(0, max - 1) + '…' : (str || '');
+}
+
+// Render the featured incident card (Live Desk section)
+function renderFeaturedAlert(alert) {
+  const card = document.getElementById('liveIncidentCard');
+  if (!card || !alert) return;
+  const sc = SEV_CLASS[alert.severity] || 'sev-low';
+  const sl = SEV_LABEL[alert.severity] || 'Monitor';
+  card.innerHTML = `
+    <div class="live-incident-header">
+      <span class="feed-sev-tag ${sc}">${sl}</span>
+      <span class="feed-time">${alert.relativeTime}</span>
+    </div>
+    <h3>${truncate(alert.title, 130)}</h3>
+    <p>${truncate(alert.summary, 200)}</p>
+    <div class="live-incident-tags">
+      ${alert.tags.map((t) => `<span>${t}</span>`).join('')}
+    </div>`;
+}
+
+// Render the three secondary stack cards (Live Desk sidebar)
+function renderStackCards(alerts) {
+  const container = document.getElementById('liveStackBody');
+  if (!container) return;
+  const items = alerts.slice(1, 4);
+  if (!items.length) return;
+  container.innerHTML = items.map((alert) => {
+    const sc = SEV_CLASS[alert.severity] || 'sev-low';
+    const sl = SEV_LABEL[alert.severity] || 'Monitor';
+    return `
+    <div class="live-stack-card">
+      <div class="live-stack-item">
+        <div>
+          <span class="feed-sev-tag ${sc}">${sl}</span>
+          <strong>${locationLabel(alert)}</strong>
+        </div>
+        <span class="feed-time">${alert.relativeTime}</span>
+      </div>
+      <p>${truncate(alert.summary, 100)}</p>
+    </div>`;
+  }).join('');
+}
+
+// Render the scrolling alert feed (Risk Map section)
+function renderAlertFeed(alerts) {
+  const feed = document.getElementById('alertFeed');
+  if (!feed) return;
+
+  const items = alerts.slice(0, 10);
+  if (!items.length) {
+    feed.innerHTML = '<div class="feed-item"><div class="feed-desc">No alerts — monitoring active.</div></div>';
+    return;
+  }
+
+  // Duplicate items for the seamless CSS scroll loop (translateY -50%)
+  const html = items.map((alert) => {
+    const sc  = SEV_CLASS[alert.severity] || 'sev-low';
+    const sl  = SEV_LABEL[alert.severity] || 'Monitor';
+    const cat = tagsToCategory(alert.tags);
+    return `
+    <div class="feed-item" data-category="${cat}">
+      <div class="feed-item-top">
+        <span class="feed-sev-tag ${sc}">${sl}</span>
+        <span class="feed-time">${alert.relativeTime}</span>
+      </div>
+      <div class="feed-location">${locationLabel(alert)}</div>
+      <div class="feed-desc">${truncate(alert.title, 110)}</div>
+    </div>`;
+  }).join('');
+  feed.innerHTML = html + html; // doubled for seamless scroll
+
+  // Re-apply any active category filter
+  const activeBtn = document.querySelector('.risk-filter-btn.active');
+  if (activeBtn && _currentAlertFilter !== 'all') {
+    feed.querySelectorAll('.feed-item').forEach((item) => {
+      const cats = (item.dataset.category || '').split(' ').filter(Boolean);
+      item.style.display = cats.includes(_currentAlertFilter) ? '' : 'none';
+    });
+  }
+}
+
+// Update telemetry strip and live desk metrics
+function updateTelemetry(data) {
+  const { alerts, fetchedAt } = data;
+
+  const critHighAlerts = alerts.filter((a) => a.severity === 'critical' || a.severity === 'high');
+  const travelCount    = alerts.filter((a) => a.tags.includes('Travel Impact')).length;
+  const uniqueCodes    = [...new Set(critHighAlerts.filter((a) => a.countryCode).map((a) => a.countryCode))].slice(0, 4);
+  const regionCount    = uniqueCodes.length;
+
+  // Telemetry strip
+  const el = (id) => document.getElementById(id);
+  if (el('telActiveAlerts'))     el('telActiveAlerts').textContent     = alerts.length;
+  if (el('telActiveAlertsSub'))  el('telActiveAlertsSub').textContent  = `↑ updated live`;
+  if (el('telPriorityRegions'))  el('telPriorityRegions').textContent  = uniqueCodes.join(' · ') || 'Global';
+  if (el('telPriorityRegionsSub')) el('telPriorityRegionsSub').textContent = `${regionCount} under watch`;
+  if (el('telTravelDisruption')) el('telTravelDisruption').textContent = travelCount;
+
+  // Last refresh time
+  if (el('refreshTime') && fetchedAt) {
+    const d = new Date(fetchedAt);
+    el('refreshTime').textContent = [
+      String(d.getHours()).padStart(2, '0'),
+      String(d.getMinutes()).padStart(2, '0'),
+    ].join(':');
+  }
+
+  // Live Desk metrics block
+  if (el('liveMetricAlerts'))  el('liveMetricAlerts').textContent  = alerts.length;
+  if (el('liveMetricRegions')) el('liveMetricRegions').textContent = regionCount || '—';
+  if (el('liveMetricRoutes'))  el('liveMetricRoutes').textContent  = travelCount;
+}
+
+// Add live alert markers on the Leaflet map for alerts with geo coordinates
+function placeLiveMapMarkers(alerts) {
+  if (!window.riskMap || !window.L) return;
+
+  // Clear previous live markers
+  _liveAlertMarkers.forEach((m) => window.riskMap.removeLayer(m));
+  _liveAlertMarkers = [];
+
+  alerts.filter((a) => a.geo).forEach((alert) => {
+    const col  = SEV_COLOR[alert.severity] || '#4a9eff';
+    const icon = L.divIcon({
+      className: '',
+      html: `<div class="risk-marker-pulse" style="background:${col};box-shadow:0 0 8px ${col}88;width:10px;height:10px;border-radius:50%;"></div>`,
+      iconSize:   [10, 10],
+      iconAnchor: [5, 5],
+    });
+
+    const marker = L.marker([alert.geo.lat, alert.geo.lng], { icon }).addTo(window.riskMap);
+
+    const sl = SEV_LABEL[alert.severity] || 'Monitor';
+    marker.bindPopup(`
+      <div class="lf-popup">
+        <div class="lf-popup-country">${alert.geo.place}</div>
+        <div class="lf-popup-risk" style="background:rgba(232,58,58,0.12);color:${col};border:1px solid ${col}44;">
+          <span style="width:6px;height:6px;border-radius:50%;background:${col};display:inline-block;margin-right:5px;"></span>${sl}
+        </div>
+        <div class="lf-popup-field" style="margin:8px 0 6px;">
+          <div class="lf-popup-label">Live Alert</div>
+          <div class="lf-popup-value">${truncate(alert.title, 140)}</div>
+        </div>
+        <div class="lf-popup-grid">
+          <div class="lf-popup-field">
+            <div class="lf-popup-label">Source</div>
+            <div class="lf-popup-value">${alert.source}</div>
+          </div>
+          <div class="lf-popup-field">
+            <div class="lf-popup-label">Time</div>
+            <div class="lf-popup-value">${alert.relativeTime} ago</div>
+          </div>
+        </div>
+      </div>`, { maxWidth: 280, minWidth: 260, closeButton: true });
+
+    marker.on('click', () => {
+      window.riskMap.closePopup();
+      marker.openPopup();
+    });
+
+    _liveAlertMarkers.push(marker);
+  });
+}
+
+// Show inline loading skeleton inside the feed
+function showFeedLoading() {
+  const feed = document.getElementById('alertFeed');
+  if (!feed) return;
+  feed.innerHTML = `
+    <div class="feed-item">
+      <div class="feed-item-top">
+        <span class="feed-sev-tag sev-low" style="opacity:0.5;">Syncing</span>
+        <span class="feed-time">—</span>
+      </div>
+      <div class="feed-location" style="opacity:0.4;">Fetching live intelligence…</div>
+      <div class="feed-desc" style="opacity:0.3;">Signal stream connecting</div>
+    </div>
+    <div class="feed-item" style="opacity:0.25;">
+      <div class="feed-item-top"><span class="feed-sev-tag sev-low">—</span></div>
+      <div class="feed-desc">—</div>
+    </div>
+    <div class="feed-item" style="opacity:0.12;">
+      <div class="feed-item-top"><span class="feed-sev-tag sev-low">—</span></div>
+      <div class="feed-desc">—</div>
+    </div>`;
+}
+
+// Show graceful error state inside the feed
+function showFeedError() {
+  const feed = document.getElementById('alertFeed');
+  if (!feed) return;
+  feed.innerHTML = `
+    <div class="feed-item">
+      <div class="feed-item-top">
+        <span class="feed-sev-tag sev-medium">Offline</span>
+        <span class="feed-time">—</span>
+      </div>
+      <div class="feed-location">SIGNAL FEED</div>
+      <div class="feed-desc" style="color:var(--risk-medium);">Feed temporarily unavailable — reconnecting automatically.</div>
+    </div>`;
+}
+
+// Primary fetch-and-render cycle
+async function fetchAndRenderAlerts() {
+  showFeedLoading();
+  try {
+    const res = await fetch('/api/risk-alerts');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+
+    if (!data.alerts || !data.alerts.length) {
+      showFeedError();
+      return;
+    }
+
+    renderFeaturedAlert(data.alerts[0]);
+    renderStackCards(data.alerts);
+    renderAlertFeed(data.alerts);
+    updateTelemetry(data);
+    placeLiveMapMarkers(data.alerts);
+  } catch (err) {
+    console.warn('[Securide24] Alert feed error:', err.message);
+    showFeedError();
+  }
+}
+
+// Initialise live alerts and schedule auto-refresh every 15 minutes
+function initLiveAlerts() {
+  fetchAndRenderAlerts();
+  setInterval(fetchAndRenderAlerts, 15 * 60 * 1000);
 }
 
 function resetModalState() {
@@ -311,6 +582,7 @@ function showSuccess() {
 }
 
 function setFilter(button, category) {
+  _currentAlertFilter = category;
   document.querySelectorAll('.risk-filter-btn').forEach((filterButton) => {
     filterButton.classList.remove('active');
   });
@@ -735,6 +1007,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFormSubmission();
   initNavScrollEffect();
   initClock();
+  initLiveAlerts();
 });
 
 window.openModal = openModal;

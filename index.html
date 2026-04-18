@@ -209,7 +209,7 @@
               <div class="live-incident-node live-node-watch"></div>
               <div class="live-incident-node live-node-advisory"></div>
             </div>
-            <div class="live-incident-card">
+            <div class="live-incident-card" id="liveIncidentCard">
               <div class="live-incident-header">
                 <span class="feed-sev-tag sev-critical">Critical</span>
                 <span class="feed-time">04m</span>
@@ -228,11 +228,12 @@
           <div class="live-stack-card live-stack-overview">
             <div class="live-stack-label">Status stack</div>
             <div class="live-stack-metrics">
-              <div><strong>47</strong><span>Active alerts</span></div>
-              <div><strong>3</strong><span>Priority regions</span></div>
-              <div><strong>12</strong><span>Routes affected</span></div>
+              <div><strong id="liveMetricAlerts">47</strong><span>Active alerts</span></div>
+              <div><strong id="liveMetricRegions">3</strong><span>Priority regions</span></div>
+              <div><strong id="liveMetricRoutes">12</strong><span>Routes affected</span></div>
             </div>
           </div>
+          <div id="liveStackBody">
           <div class="live-stack-card">
             <div class="live-stack-item">
               <div>
@@ -262,6 +263,7 @@
               <span class="feed-time">1h 18m</span>
             </div>
             <p>Checkpoint activity intensified on northern approach corridor.</p>
+          </div>
           </div>
         </div>
       </div>
@@ -507,19 +509,19 @@
         <div class="telemetry-strip">
           <div class="telemetry-cell">
             <div class="telemetry-cell-label">Active Alerts</div>
-            <div class="telemetry-cell-value" style="color:var(--risk-high)">47</div>
-            <div class="telemetry-cell-sub">↑ 3 from 1h ago</div>
+            <div class="telemetry-cell-value" id="telActiveAlerts" style="color:var(--risk-high)">47</div>
+            <div class="telemetry-cell-sub" id="telActiveAlertsSub">↑ 3 from 1h ago</div>
             <div class="telemetry-cell-indicator" style="background:var(--risk-high)"></div>
           </div>
           <div class="telemetry-cell">
             <div class="telemetry-cell-label">Priority Regions</div>
-            <div class="telemetry-cell-value">PK · AF · IR</div>
-            <div class="telemetry-cell-sub">3 under watch</div>
+            <div class="telemetry-cell-value" id="telPriorityRegions">PK · AF · IR</div>
+            <div class="telemetry-cell-sub" id="telPriorityRegionsSub">3 under watch</div>
             <div class="telemetry-cell-indicator" style="background:var(--risk-critical)"></div>
           </div>
           <div class="telemetry-cell">
             <div class="telemetry-cell-label">Travel Disruption</div>
-            <div class="telemetry-cell-value" style="color:var(--risk-medium)">12</div>
+            <div class="telemetry-cell-value" id="telTravelDisruption" style="color:var(--risk-medium)">12</div>
             <div class="telemetry-cell-sub">Active routes affected</div>
           </div>
           <div class="telemetry-cell">
